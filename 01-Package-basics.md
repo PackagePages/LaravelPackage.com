@@ -1,10 +1,3 @@
-# How packages work
-Packages or “libraries” provide an easy way to add additional functionality to existing applications, and are mostly focused on a single feature.
-
-Packages are downloaded and installed using **Composer** - PHP’s package management system - which manages dependencies within a project.
-
-To install a package in your existing Laravel project, the `composer require <vendor>/<package>` command will download all necessary files into the `/vendor` directory of your project where all your third party packages live, separated by vendor name. As a consequence, the content from these packages is separated from your application code which means this piece of code is maintained by someone else, most often by creator of that package. Whenever the package needs an update, run `composer update` to get the latest (compatible) version of your packages.
-
 # The concept of autoloading
 After each installation or update, composer will generate an `autoload.php` file in the `/vendor` directory. By including this single file, you’ll be able to access all classes provided by your installed libraries.
 
