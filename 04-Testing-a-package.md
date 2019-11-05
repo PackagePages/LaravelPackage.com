@@ -49,6 +49,85 @@ Then, copy the following template to use an in-memory sqlite database and enable
 ```
 
 # Tests directory structure
-To accommodate for feature and unit tests, create a tests/ directory with a `Unit` and `Feature` subdirectory.
+To accommodate for feature and unit tests, create a tests/ directory with a `Unit` and `Feature` subdirectory and a base `TestCase.php` file. The structure looks as follows:
 
-[...]
+```json
+- tests
+  - Feature
+  - Unit
+  TestCase.php
+```
+
+The `TestCase.php` contains tasks related to setting up our “world” before each test is executed. In the `TestCase` class we will implement three important set-up methods: 
+
+* `getPackageProviders()` 
+* `getEnvironmentSetUp()`
+* `setUp()`
+
+Let’s look at these methods one by one. 
+
+`setUp()`
+
+You might have already used this method in your own tests. Often it is used when you need a certain model in all following tests. The instantiation of that model can therefore be extracted to a setUp() method which is called before each test. Within the tests, the desired model can be retrieved from the Test class instance variable. When using this method, don’t forget to call the parent setUp() method (and make sure to return void).
+
+---
+`getEnvironmentSetUp()`
+
+As suggested by Orchestra Testbench: “If you need to add something early in the application bootstrapping process, you could use the getEnvironmentSetUp() method”. Therefore, I suggest it is called before the setUp() method(s).
+
+---
+`getPackageProviders()` 
+
+As the name suggest, we can load our service provider(s) within the getPackageProviders() method. We’ll do that by returning an array containing all providers. For now, we’ll just include the package specific package provider, but imagine that if the package uses an EventServiceProvider, we would also register it here. 
+
+---
+
+In a package, `TestCase` will inherit from the Orchestra Testbench TestCase: 
+
+```php
+// 'tests/TestCase.php'
+<?php
+
+namespace JohnDoe\BlogPackage\Tests;
+
+use JohnDoe\BlogPackage\BlogPackageServiceProvider;
+
+class TestCase extends \Orchestra\Testbench\TestCase
+{
+  public function setUp(): void
+  {
+    parent::setUp();
+    // additional setup
+  }
+
+  protected function getPackageProviders($app)
+  {
+    return [
+      BlogPackageServiceProvider::class,
+    ];
+  }
+
+  protected function getEnvironmentSetUp($app)
+  {
+    // perform environment setup
+  }
+}
+```
+
+Before we can run the PHPUnit test suite, we first need to map our testing namespace to the appropriate folder in the composer.json file under an “autoload-dev” (psr-4) key:
+
+```json
+{
+  ...,
+
+  "autoload": {},
+
+  "autoload-dev": {
+      "psr-4": {
+          "JohnDoe\\BlogPackage\\Tests\\": "tests"
+      }
+  }
+}
+```
+
+Finally, re-render the autoload file by running `composer dump-autoload`.
