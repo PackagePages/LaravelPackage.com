@@ -5,11 +5,15 @@ A facade in Laravel is a class which redirects **static** method calls to the **
 
 An example of a fluent API using a facade:
 ```php
-MessageFactory::sentBy($user)->withTopic('Example message')->withMessage($body)->withReply($replyByFrank)->withReply($replyByJoe)->create();
+MessageFactory::sentBy($user)
+    ->withTopic('Example message')
+    ->withMessage($body)
+    ->withReply($replyByFrank)
+    ->create();
 ```
 
 # How a facade works
-[...]
+To learn more about facades and how they work, refer to the excellent [Laravel documentation](https://laravel.com/docs/6.x/facades#how-facades-work).
 
 # How to create a facade
 Let’s assume that we provide a `Calculator` class as part of our package and want to make this class available as a facade.
