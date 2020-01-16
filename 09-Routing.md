@@ -209,13 +209,10 @@ php artisan vendor:publish --provider="JohnDoe\BlogPackage\BlogPackageServicePro
 ```
 
 ## Referencing the assets
-We can reference the javascript file in our views as:
+We can reference the stylesheet and javascript file in our views as follows:
 
 ```html
 <script src="{{ asset('blogpackage/js/app.js') }}"></script>
-```
-
-```html
 <link href="{{ asset('blogpackage/css/app.css') }}" rel="stylesheet">
 ```
 
