@@ -180,7 +180,6 @@ In the `BlogPackageServiceProvider` we need to register our Event Service Provid
 // 'BlogPackageServiceProvider.php'
 use JohnDoe\BlogPackage\Providers\EventServiceProvider;
 
-
 public function register()
 {
   // merge config files
