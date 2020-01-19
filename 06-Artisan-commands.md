@@ -87,3 +87,22 @@ class InstallBlogPackageTest extends TestCase
     }
 }
 ```
+
+# Hiding a command
+There might be cases where you'd like to exclude the command from the list of Artisan commands. You can define a `$hidden` property on the command class, which will not show the specific command in the list of Artisan commands. Note, however, that the command can still be used and is only hidden. 
+
+```php
+class InstallBlogPackage extends Command
+{
+    protected $hidden = true;
+
+    protected $signature = 'blogpackage:install';
+
+    protected $description = 'Install the BlogPackage';
+
+    public function handle()
+    {
+        // ...
+    }
+}
+```
