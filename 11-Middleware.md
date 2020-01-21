@@ -120,7 +120,7 @@ class PostController extends Controller
 }
 ```
 
-# Feature testing
+# Feature testing Middleware
 Regardless of the fact that we registered the middleware globally or route specifically, we can test that the middleware is indeed applied when making a request.
 
 Add a new test to the `CreatePostTest` feature test, in which we'll assume our non-capitalized title will be capitalized after the request has been made.
