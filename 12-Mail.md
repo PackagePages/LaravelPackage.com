@@ -71,11 +71,11 @@ To test that e-mailing works and the mail actually contains all the right inform
 
 To demonstrate how to test our e-mail, create a new `WelcomeMailTest` in the `tests/unit` directory. Next, in the test: 
 
-1. first switch the Mail implementation for a mock using `Mail::fake()`. 
-2. Then, we'll whip up a new `Post` using our factory (see section [Models and Migrations](#08-models-and-migrations)). 
-3. Assert that at this stage, no e-mails are sent using `assertNothingSent()`.
-4. Send a new `WelcomeMail` mailable, passing in the `Post` model.
-5. Assert that the e-mail was sent and contains the correct `Post` model using `assertSent()`.
+* Switch the Mail implementation for a mock using `Mail::fake()`. 
+*  New up a `Post` using our factory (see section [Models and Migrations](#08-models-and-migrations)). 
+* Assert that at this stage, no e-mails are sent using `assertNothingSent()`.
+* Send a new `WelcomeMail` mailable, passing in the `Post` model.
+* Assert that the e-mail was sent and contains the correct `Post` model using `assertSent()`.
 
 ```php
 <?php
