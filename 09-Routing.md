@@ -105,7 +105,7 @@ public function boot()
 The 'index' and 'show' methods on the PostController need to render a view. 
 
 ## Creating the blade view files
-Create a new resources/ folder in the root of our package. In that folder, create a subfolder named `views`. In the views folder we'll create another subfolder posts in which we'll create two (extremely) simple templates.
+Create a new `resources/` folder in the root of our package. In that folder, create a subfolder named `views`. In the views folder we'll create another subfolder posts in which we'll create two (extremely) simple templates.
 
 1. `resources/views/posts/index.blade.php`:
     ```
