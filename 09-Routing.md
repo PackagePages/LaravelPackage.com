@@ -216,7 +216,7 @@ We can reference the stylesheet and javascript file in our views as follows:
 <link href="{{ asset('blogpackage/css/app.css') }}" rel="stylesheet">
 ```
 
-# Testing
+# Testing Routes
 Let’s verify that we can indeed create a post, show a post and show all posts with our provided routes, views and controllers.
 
 ## Feature test
