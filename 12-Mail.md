@@ -66,7 +66,7 @@ Post title: {{ $post->title }}
 </p>
 ```
 
-# Testing
+# Testing Mailing
 To test that e-mailing works and the mail actually contains all the right information, Laravel's Mail facade offers a built-in `fake()` method which makes it easy to swap the *real* mailer for a mock in our tests. 
 
 To demonstrate how to test our e-mail, create a new `WelcomeMailTest` in the `tests/unit` directory. Next, in the test: 
