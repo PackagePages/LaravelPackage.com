@@ -2,8 +2,33 @@ If we look at an incoming HTTP request, this request is processed by Laravel's `
 
 That's why middleware is great for authentication, verifying tokens or applying any other check. Laravel also uses middleware to strip out empty characters from strings and encrypt cookies. 
 
-# Creating a middleware
-To create our own middleware, first make a new `Middleware` folder in the `src/Http` directory of the package. As an illustration, let's add a middleware which capitalizes a 'title' parameter whenever that is present in the request (which would be silly in a real world application). 
+# Creating Middleware
+There are basically two types of middleware: 1) acting on the request **before** a response is returned ("Before Middleware"); or 2) acting on the response before returning ("After Middleware"). 
+
+Before discussing the two types of middleware, first create a new `Middleware` folder in the `src/Http` directory of the package.
+
+# Before Middleware
+A *before* middleware performs an action on the request and then calls the next middleware in line. Generally, a Before Middleware takes the following shape:
+
+```php
+<?php
+
+namespace App\Http\Middleware;
+
+use Closure;
+
+class BeforeMiddleware
+{
+    public function handle($request, Closure $next)
+    {
+        // Perform action
+
+        return $next($request);
+    }
+}
+```
+
+As an illustration of a before middleware, let's add a middleware which capitalizes a 'title' parameter whenever that is present in the request (which would be silly in a real world application). 
 
 Add a file called `CapitalizeTitle.php` which provides a `handle()` method accepting the current request and a `$next` action:
 
@@ -30,8 +55,10 @@ class CapitalizeTitle
 }﻿
 ```
 
-# Unit testing
-Although we haven't *registered* the middleware yet, and it will not be used in the application we do want to make sure that the `handle()` method shows the correct behaviour. Let's add a new `CapitalizeTitleMiddlewareTest.php` unit test in the `tests/Unit` directory. In this test, we'll assert that a title parameter on a `Request()` will contain the capitalized string after the middleware ran its `handle()` method:
+# Testing Before Middleware
+Although we haven't *registered* the middleware yet and it will not be used in the application, we do want to make sure that the `handle()` method shows the correct behaviour. 
+
+Add a new `CapitalizeTitleMiddlewareTest.php` unit test in the `tests/Unit` directory. In this test, we'll assert that a title parameter on a `Request()` will contain the capitalized string after the middleware ran its `handle()` method:
 
 ```php
 // 'tests/Unit/CapitalizeMiddlewareTest.php'
@@ -59,6 +86,59 @@ class CapitalizeTitleMiddlewareTest extends TestCase
         (new CapitalizeTitle())->handle($request, function ($request) {
             $this->assertEquals('Some title', $request->title);
         });
+    }
+}﻿
+```
+
+# After Middleware
+The "After middleware" act on the response that is returned after passing through all other layers of middleware down the chain. Next, it modifies that response and returns the response. Generally it takes the following form:
+
+```php
+<?php
+
+namespace App\Http\Middleware;
+
+use Closure;
+
+class AfterMiddleware
+{
+    public function handle($request, Closure $next)
+    {
+        $response = $next($request);
+
+        // Perform action
+
+        return $response;
+    }
+}
+```
+
+# Testing After Middleware
+Similar to before middleware, we can unit test after middleware that operate on the `Response` for a given request and modify this request before it is passed down to the next layer of middleware. Given that we have an `InjectHelloWorld` middleware that injects the string 'Hello World' in each response, the following test would assert correct behaviour: 
+
+```php
+// 'tests/Unit/InjectHelloWorldMiddlewareTest.php'
+<?php
+
+namespace JohnDoe\BlogPackage\Tests\Unit;
+
+use Illuminate\Http\Request;
+use JohnDoe\BlogPackage\Http\Middleware\InjectHelloWorld;
+use JohnDoe\BlogPackage\Tests\TestCase;
+
+class InjectHelloWorldMiddlewareTest extends TestCase
+{
+    /** @test */
+    function it_checks_for_a_hello_word_in_response()
+    {
+        // Given we have a request
+        $request = new Request();
+
+        // when we pass the request to this middleware,
+        // the response should contain 'Hello World'
+        $response = (new InjectHelloWorld())->handle($request, function ($request) { });
+        
+        $this->assertStringContainsString('Hello World', $response);
     }
 }﻿
 ```
@@ -145,4 +225,3 @@ function creating_a_post_will_capitalize_the_title()
 ```
 
 With the tests returning green, we've covered adding Middleware to your package.
-
