@@ -1,6 +1,8 @@
+# Notifications
+
 Notifications are a powerful tool in Laravel's toolbox as they provide support for sending notifications to an array of different services including mail, SMS, Slack or storing them in your database to show on the user's profile page for example.
 
-# Creating a Notification
+## Creating a Notification
 
 To start using Notifications in your package, first create a `Notifications` directory in the `src/` directory of your package. Next, for this example, add a `PostWasPublishedNotification.php` which for example notifies the author of the `Post` that his submission was approved.
 
@@ -62,7 +64,7 @@ class PostWasPublishedNotification extends Notification
 }
 ```
 
-# Testing Notifications
+## Testing Notifications
 
 In the test:
 
@@ -111,7 +113,7 @@ class NotifyPostWasPublishedTest extends TestCase
 
 With the test passing, you can safely use this notification in your package.
 
-# Custom notification channels
+## Custom notification channels
 Additionally, you may configure the channels for the notification to be dependent on the configuration file of your package to allow your users to specify which notification channels they want to use. 
 
 ```php

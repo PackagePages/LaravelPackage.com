@@ -1,6 +1,8 @@
+# Jobs
+
 Much like the Mail facade in the previous section, implementing Jobs in your package is very similar to the workflow you'd go through in a Laravel application.
 
-# Creating a Job
+## Creating a Job
 First, create a new `Jobs` directory in the `src/` directory of your package and add a `PublishPost.php` file, which will be responsible for updating the 'published_at' timestamp of a `Post`. The example below illustrates what the `handle()` method could look like:
 
 ```php
@@ -33,7 +35,7 @@ class PublishPost implements ShouldQueue
 }
 ``` 
 
-# Testing dispatching a Job
+## Testing dispatching a Job
 For this example, we have a `publish()` method on the `Post` model which is already under test (a unit test for `Post`). We can easily test the expected behaviour by adding a new `PublishPostTest.php` unit test in the `tests/unit` directory. 
 
 In this test, we can make use of the [`Bus` facade](https://laravel.com/docs/6.x/mocking#bus-fake) which offers a `fake()` helper to swap the real implementation with a mock. After dispatching the Job, we can make assertions on the `Bus` facade that our Job was dispatched and contains the correct `Post`.
