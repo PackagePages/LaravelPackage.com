@@ -28,3 +28,6 @@ This package by DelveFore is an extension of the Laravel Packager package, enabl
 
 - [Laravel Package Tools](https://github.com/beyondcode/laravel-package-tools)
 Like the previously mentioned package, this package by Marcel Pociot is aimed at providing Artisan commands from within Laravel packages to quickly scaffold `Commands`, `Requests`, `Jobs`, `Events`, etc.
+
+- [Orchestral Canvas](https://github.com/orchestral/canvas)
+The Orchestral Canvas package offers code generators and replicates all of the `make` artisan commands available in your basic Laravel application.
