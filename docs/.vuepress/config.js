@@ -41,5 +41,13 @@ module.exports = {
       '/13-Jobs',
       '/14-Notifications',
     ]
-  }
+  },
+  plugins: [
+    [
+      '@vuepress/google-analytics',
+      {
+        'ga': 'UA-156652082-1'
+      }
+    ]
+  ]
 }

@@ -11,5 +11,8 @@
   "dependencies": {
     "global": "^4.3.2",
     "vuepress": "^1.2.0"
+  },
+  "devDependencies": {
+    "@vuepress/plugin-google-analytics": "^1.2.0"
   }
 }
