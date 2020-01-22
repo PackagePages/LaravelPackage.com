@@ -57,7 +57,7 @@ This will look for views in the `resources/views` directory in the root of your 
 ## Creating a Blade mail template
 Create the `welcome.blade.php` file in the `resources/views/emails` directory, where the `$post` variable will be freely available to use in the template. 
 
-```blade
+```
 // 'resources/views/emails/welcome.blade.php'
 <p>
 Dear reader, 
