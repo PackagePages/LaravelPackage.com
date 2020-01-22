@@ -42,7 +42,7 @@ class AppServiceProvider extends ServiceProvider
       return $user->is($post->author);
     });
   }
-# }Service Providers
+}
 ```
 
 ## Adding our package's service provider
@@ -69,7 +69,7 @@ class BlogServiceProvider extends ServiceProvider
   {
     // 
   }
-# }Service Providers
+}
 ```
 
 ## Autoloading
