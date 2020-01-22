@@ -1,11 +1,12 @@
-# The importance of testing
+# Testing
+
 To develop a robust package, it is important to have test coverage for the provided code. 
 Not only to confirm proper behavior of the existing code, but also to verify everything still works whenever new functionality is added.
 This ensures our package can be refactored with confidence at a later stage.
 
 Therefore, the following sections are dedicated to testability.
 
-# Installing PHPUnit
+## Installing PHPUnit
 There are many options to test behaviour in PHP, however we'll stay close to Laravel's defaults which uses the excellent tool PHPunit.
 
 Install PHPUnit as a dev-dependency in our package:
@@ -48,7 +49,7 @@ Then, copy the following template to use an in-memory sqlite database and enable
 </phpunit>
 ```
 
-# Tests directory structure
+## Tests directory structure
 To accommodate for feature and unit tests, create a tests/ directory with a `Unit` and `Feature` subdirectory and a base `TestCase.php` file. The structure looks as follows:
 
 ```json

@@ -1,6 +1,8 @@
+# Models & Migrations
+
 Sometimes you want your package to offer a bit more. If we image that we're developing a Blog related package, we might want to provide a Post model for example. This post will focus on handling Models, migrations, how to test them and how to deal with the situation whenever your model needs a relationship with the `App\User` model that ships with Laravel.
 
-# Models
+## Models
 Models in our package do not differ from models we would use in a standard Laravel application. Since we required the **Orchestra Testbench**, we can create a model extending the Laravel Eloquent model and save it within the `src/Models` directory:
 
 ```php
@@ -20,7 +22,7 @@ class Post extends Model
 
 To quickly scaffold your models together with a migration, I would advise to create a new Laravel application (a “dummy application” just for the creation of models / migrations / etc.) and use the `php artisan make:model -m` command and copy the model to the package’s `src/Models` directory and using the proper namespace.
 
-# Migrations
+## Migrations
 Migrations live in the `database/migrations` folder in a Laravel application. In our package we mimic this file structure. Therefore, database migrations will not live in the `src/` directory but in their own `database/migrations` folder. The root directory of our package now contains two folders: `src/` and `database/`.
 
 After you’ve generated the migration, copy it from your “dummy” Laravel application to the package’s `database/migrations` folder. Rename it to `create_posts_table.php.stub` removing its timestamp and using a `.stub` extension.
@@ -96,9 +98,9 @@ The migrations of this package are now publishable under the “migrations” ta
 php artisan vendor:publish --provider="JohnDoe\BlogPackage\BlogPackageServiceProvider" --tag="migrations"
 ```
 
-# Testing models and migrations
+## Testing models and migrations
 
-## Writing a unit test
+### Writing a unit test
 Now that we’ve got **PHPunit** set up, let’s create a unit test for our Post model in the `tests/Unit` directory called `PostTest.php`. Ideally we would write a test that verifies a `Post` has a title:
 
 ```php
@@ -126,7 +128,7 @@ class PostTest extends TestCase
 
 Note: we're using the `RefreshDatabase` trait to be sure that we start with a clean database state before every test.
 
-## Running the tests
+### Running the tests
 We can run our test suite by calling the phpunit binary in our vendor directory using `./vendor/bin/phpunit`. However, let’s alias this to `test` in our `composer.json` file by adding a “script”:
 
 ```json
@@ -152,7 +154,7 @@ InvalidArgumentException: Unable to locate factory with name [default] [JohnDoe\
 
 In the next section, we'll address this issue by creating a model factory for the `Post` model.
 
-## Creating a model factory
+### Creating a model factory
 Let’s create a `PostFactory` in the `database/factories` folder:
 
 ```php
@@ -197,7 +199,7 @@ Schema::create('posts', function (Blueprint $table) {
 
 After running the test, you should see it passing.
 
-## Adding tests for other columns
+### Adding tests for other columns
 Let’s add tests for the “body” and “author_id”:
 
 ```php
@@ -264,12 +266,12 @@ Schema::create('posts', function (Blueprint $table) {
 });
 ```
 
-# Models related to App\User
+## Models related to App\User
 Now that we have an “author_id” column on our `Post` model, let’s create a relationship between a `Post` and a `User`. However … we have a problem, since we need a `User` model, but this model also comes out-of-the-box with a fresh installation of the Laravel framework…
 
 We can’t just provide our own `User` model, since you likely want your end user to be able to hook up his own `User` model with your `Post` model. Or even better, let the end user decide which model they want to associate with the `Post` model.
 
-## Using a polymorphic relationship
+### Using a polymorphic relationship
 Instead of opting for a conventional one-to-many relationship (a user can have many posts, and a post belongs to a user), we’ll use a **polymorphic** one-to-many relationship where a `Post` morphs to a certain related model (not necessarily a `User` model).
 
 Let’s compare the standard and polymorphic relationships.
@@ -334,7 +336,7 @@ Schema::create('posts', function (Blueprint $table) {
 
 Now, we need a way to provide our end user with the option to allow certain models to be able to have relationship with our `Post` model. **Traits** offer an excellent solution for this exact purpose.
 
-## Providing a Trait
+### Providing a Trait
 Create a `Traits` folder in the `src/` directory and add the following `HasPosts` trait:
 
 ```php
@@ -367,7 +369,7 @@ $user->posts()->create([
 ]);
 ```
 
-## Testing the polymorphic relationship
+### Testing the polymorphic relationship
 Of course, we want to prove that any model using our `HasPost` trait can indeed create new posts and that those posts are stored correctly.
 
 Therefore, we’ll create a new `User` model, but not within the `src/Models/` directory, but rather in our `tests/` directory. In the `User` model we’ll use the same traits that would be available on the `User` model that ships with a standard Laravel project to stay close to a real world scenario. Also, we use our own `HasPosts` trait:
@@ -452,7 +454,7 @@ public function getEnvironmentSetUp($app)
 }
 ```
 
-## Updating our Post model factory
+### Updating our Post model factory
 Now that we can whip up `User` models with our new factory, let’s first create a new `User` in our `PostFactory` and then assign it to “author_id” and “author_type”:
 
 ```php
