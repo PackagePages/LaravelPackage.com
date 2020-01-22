@@ -31,6 +31,8 @@ class CapitalizeTitle
 ```
 
 # Unit testing
+
+## Before middlewares
 Although we haven't *registered* the middleware yet, and it will not be used in the application we do want to make sure that the `handle()` method shows the correct behaviour. Let's add a new `CapitalizeTitleMiddlewareTest.php` unit test in the `tests/Unit` directory. In this test, we'll assert that a title parameter on a `Request()` will contain the capitalized string after the middleware ran its `handle()` method:
 
 ```php
@@ -59,6 +61,35 @@ class CapitalizeTitleMiddlewareTest extends TestCase
         (new CapitalizeTitle())->handle($request, function ($request) {
             $this->assertEquals('Some title', $request->title);
         });
+    }
+}﻿
+```
+
+## After middlewares
+Similarly, we can unit test middlewares that operates on the `Response` for a given request. For example for checking that the InjectHelloWorld middleware correctly injects the word 'HelloWorld' in the request we can use the following test:
+```php
+// 'tests/Unit/InjectHelloWorldMiddlewareTest.php'
+<?php
+
+namespace JohnDoe\BlogPackage\Tests\Unit;
+
+use Illuminate\Http\Request;
+use JohnDoe\BlogPackage\Http\Middleware\InjectHelloWorld;
+use JohnDoe\BlogPackage\Tests\TestCase;
+
+class InjectHelloWorldMiddlewareTest extends TestCase
+{
+    /** @test */
+    function it_checks_for_a_hello_word_in_response()
+    {
+        // Given we have a request
+        $request = new Request();
+
+        // when we pass the request to this middleware,
+        // the response should contain 'HelloWorld'
+        $response = (new InjectHelloWorld())->handle($request, function ($request) {});
+        
+        $this->assertStringContainsString('HelloWorld', $response);
     }
 }﻿
 ```
