@@ -1,4 +1,4 @@
-# What is a service provider?
+# Service Providers
 
 An essential part of a package is its **Service Provider**. Before creating our own, I’ll try to explain what service providers are about in this section first. If you are familiar with the service providers, please continue to the next section.
 
@@ -42,10 +42,10 @@ class AppServiceProvider extends ServiceProvider
       return $user->is($post->author);
     });
   }
-}
+# }Service Providers
 ```
 
-# Adding our package's service provider
+## Adding our package's service provider
 For our package, we will create our own service provider which contains specific information about the core of what our package has to offer. The package might use a config file, maybe some views, routes, controllers, database migrations, model factories, etc. The service provider needs to **register** them.
 
 Since we’ve pulled in Orchestra Testbench, we can extend the `Illuminate\Support\ServiceProvider` and create our own service provider in the `src/` directory as shown (replace naming with your own details):
@@ -69,10 +69,10 @@ class BlogServiceProvider extends ServiceProvider
   {
     // 
   }
-}
+# }Service Providers
 ```
 
-# Autoloading
+## Autoloading
 To automatically register it with a Laravel project using Laravel’s package auto-discovery we add the “extra” > “laravel” > “providers” key to our service provider to the package's `composer.json`:
 
 ```json

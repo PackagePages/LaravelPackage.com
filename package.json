@@ -1,0 +1,15 @@
+{
+  "name": "laravel-package",
+  "version": "1.0.0",
+  "description": "A central place to learn how to create packages from scratch.",
+  "main": "index.js",
+  "scripts": {
+    "dev": "vuepress dev docs",
+    "build": "vuepress build docs",
+    "serve": "npm run dev"
+  },
+  "dependencies": {
+    "global": "^4.3.2",
+    "vuepress": "^1.2.0"
+  }
+}

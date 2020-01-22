@@ -1,3 +1,5 @@
+# Routing
+
 Sometimes, you want to expose additional routes to the end use of your package.
 Since we're offering a `Post` model, let's add some **RESTful** routes. To keep things simple, we're just going to implement 3 of the RESTful routes: 
 
@@ -5,8 +7,8 @@ Since we're offering a `Post` model, let's add some **RESTful** routes. To keep 
 * showing a single post ('show') 
 * storing a new post ('store')
 
-# Controllers
-## Creating a base controller
+## Controllers
+### Creating a base controller
 We want to create a `PostController`. To make use of some traits the Laravel controllers offer, we'll first create our own base controller containing these traits in a `src/Http/Controllers` directory (resembling Laravel's folder structure) named `Controller.php`:
 
 ```php
@@ -26,7 +28,7 @@ class Controller extends BaseController
 }
 ```
 
-## Creating a controller that extends base controller
+### Creating a controller that extends base controller
 Now, let's create a PostController in the `src/Http/Controllers directory`, with the methods 'index', 'show' and 'store'. We can flesh out the `store()` method as indicated below, but we'll save the 'index' and'show' methods to return a view, which we'll discuss in the next section.
 
 ```php
@@ -73,8 +75,8 @@ class PostController extends Controller
 }
 ```
 
-# Routes
-## Defining routes
+## Routes
+### Defining routes
 Now that we have a controller, create a new routes/ directory in the root of our package and add a `web.php` file containing the three RESTful routes we've mentioned above.
 
 ```php
@@ -89,7 +91,7 @@ Route::get('/posts/{post}', [PostController::class, 'show'])->name('posts.show')
 Route::post('/posts', [PostController::class, 'store'])->name('posts.store');
 ```
 
-## Registering routes in the service provider
+### Registering routes in the service provider
 Before we can use these routes, we need to register them in the `boot()` method of our Service Provider:
 
 ```php
@@ -101,10 +103,10 @@ public function boot()
 }
 ```
 
-# Views
+## Views
 The 'index' and 'show' methods on the PostController need to render a view. 
 
-## Creating the blade view files
+### Creating the blade view files
 Create a new `resources/` folder in the root of our package. In that folder, create a subfolder named `views`. In the views folder we'll create another subfolder posts in which we'll create two (extremely) simple templates.
 
 1. `resources/views/posts/index.blade.php`:
@@ -127,7 +129,7 @@ Create a new `resources/` folder in the root of our package. In that folder, cre
    
 Note: these templates would extend a base / master layout file in a real world scenario, but I'm just keeping things simple for now.
 
-## Register views in the service provider
+### Register views in the service provider
 Now that we have some views, we need to register that we want to load any views from our `resources/views` directory in the `boot()` method of our Service Provider. **Important**: provide a "key" as the second argument to `loadViewsFrom()` as you'll need to specify this key when returning a view from a controller (see next section).
 
 ```php
@@ -139,7 +141,7 @@ public function boot()
 }
 ```
 
-## Returning a view from the controller
+### Returning a view from the controller
 We can now just return the views we've created from the `PostController` (don't forget to import our `Post` model):
 ```php
 // 'src/Http/Controllers/PostController.php'
@@ -160,7 +162,7 @@ public function show()
 }﻿
 ```
 
-## Customizable views
+### Customizable views
 Chances are that you want to be able to let the users of your package *customize* the views. Similar to the database migrations, the views can be **published** if we register them to be exported in the `boot()` method of our service provider under the 'views' key:
 
 ```php
@@ -179,13 +181,13 @@ The views can then be exported by users of our package using:
 php artisan vendor:publish --provider="JohnDoe\BlogPackage\BlogPackageServiceProvider" --tag="views"
 ```
 
-# Assets
+## Assets
 It is likely that you'll want to include a CSS and/or javascript file when you're adding views to your package. This section will explain how you can add these files and we'll start with creating a separate directory.
 
-## Creating an 'assets' directory
+### Creating an 'assets' directory
 If you want to use a CSS stylesheet and/or include a javascript file in your views, create an assets directory in the `resources/` folder. Since we might include several stylesheets and/or javascript files let's create **two subfolders**: `css` and `js` to store these files respectively. A convention is to name the main javascript file `app.js` and the main stylesheet `app.css`.
 
-## Customizable assets
+### Customizable assets
 Just like the views, we can let our users customize the assets if they want. First, we'll determine where we'll export the assets in the `boot()` method of our service provider under the 'assets' key in a 'blogpackage' directory in the public path of the end user's Laravel app:
 
 ```php
@@ -208,7 +210,7 @@ Exporting the assets to the end user's Laravel project:
 php artisan vendor:publish --provider="JohnDoe\BlogPackage\BlogPackageServiceProvider" --tag="assets"
 ```
 
-## Referencing the assets
+### Referencing the assets
 We can reference the stylesheet and javascript file in our views as follows:
 
 ```html
@@ -216,10 +218,10 @@ We can reference the stylesheet and javascript file in our views as follows:
 <link href="{{ asset('blogpackage/css/app.css') }}" rel="stylesheet">
 ```
 
-# Testing Routes
+## Testing Routes
 Let’s verify that we can indeed create a post, show a post and show all posts with our provided routes, views and controllers.
 
-## Feature test
+### Feature test
 Create a new Feature test called `CreatePostTest.php` in the `tests/Feature` directory and add the following assertions to verify that authenticated users can indeed create new posts:
 
 ```php
