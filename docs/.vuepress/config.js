@@ -17,7 +17,7 @@ module.exports = {
     repo: 'Jhnbrn90/LaravelPackage.com',
     docsDir: 'docs',
     editLinks: true,
-    editLinkText: 'Edit this page!',
+    editLinkText: 'Submit a PR to this page on GitHub',
     nav: [
       {
         text: 'John Braun',
