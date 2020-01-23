@@ -108,3 +108,150 @@ class InstallBlogPackage extends Command
     }
 }
 ```
+
+## Creating a Generator Command
+Laravel provides an easy way to create *Generator* Commands, *i.e.* commands with signatures such as `php artisan make:controller`. Those commands modify a general, predefined template (stub) to a specific application. For example by automatically injecting the correct the namespace.
+
+In order to create a Generator Command, you have to extend the `Illuminate\Console\GeneratorCommand` class, and override the following properties and methods:
+
+- `protected $name`: name of the command
+- `protected $description`: description of the command
+- `protected $type`: the type of class the command generates
+- `protected function getStub()`: method returning the path of the stub template file
+- `protected function getDefaultNamespace($rootNamespace)`: the default namespace of the generated class
+- `public function handle()`: the body of the command
+
+The `GeneratorCommand` base class provides some helpers methods:
+- `getNameInput()`: returns the name passed from command line command execution
+- `qualifyClass(string $name)`: returns the qualified class name for a given class name
+- `getPath(string $name)`: returns the file path for a given name
+
+Consider the following example for the `php artisan make:foo MyFoo` command:
+
+```php
+<?php
+
+namespace JohnDoe\BlogPackage\Console;
+
+use Illuminate\Console\GeneratorCommand;
+
+class MakeFooCommand extends GeneratorCommand
+{
+    protected $name = 'make:foo';
+
+    protected $description = 'Create a new foo class';
+
+    protected $type = 'Foo';
+
+    protected function getStub()
+    {
+        return __DIR__ . '/stubs/foo.php.stub';
+    }
+
+    protected function getDefaultNamespace($rootNamespace)
+    {
+        return $rootNamespace . '\Foo';
+    }
+
+    public function handle()
+    {
+        parent::handle();
+
+        $this->doOtherOperations();
+    }
+
+    protected function doOtherOperations()
+    {
+        // Get the fully qualified class name (FQN)
+        $class = $this->qualifyClass($this->getNameInput());
+        
+        // get the destination path, based on the default namespace
+        $path = $this->getPath($class);
+
+        $content = file_get_contents($path);
+
+        // Update the file content with additional data (regular expressions)
+
+        file_put_contents($path, $content);
+    }
+}
+```
+
+Note that the class is exported to a directory **based on the namespace** as specified in the `getDefaultNamespace()` method.
+
+### Creating a stub
+You are free to store stubs in a different directory, but for now consider storing stubs in the `Console\stub` directory. For our `Foo` class generator, the stub could look as follows: 
+
+```php
+// 'stubs/foo.php.stub'
+<?php
+
+namespace DummyNamespace;
+
+use JohnDoe\BlogPackage\Foo;
+
+class DummyClass implements Foo
+{
+    public function myFoo()
+    {
+        // foo
+    }
+}
+```
+
+Note that `DummyNamespace` and `DummyClass` are placeholders (strictly defined in the `GeneratorCommand` base class: Laravel expects these specific names to replace) and are automatically replaced with the correct values.
+
+## Testing Generator Commands
+We can add a feature test for this command in the `tests/Feature` directory, called `MakeFooCommandTest.php` which verifies that a new file is created and contains the correct contents:
+
+```php
+<?php
+
+namespace JohnDoe\BlogPackage\Tests\Feature;
+
+use Illuminate\Support\Facades\File;
+use Illuminate\Support\Facades\Artisan;
+use JohnDoe\BlogPackage\Tests\TestCase;
+
+class MakeFooCommandTest extends TestCase
+{
+    /** @test */
+    function it_creates_a_new_foo_class()
+    {
+        // destination path of the Foo class
+        $fooClass = app_path('Foo/MyFooClass.php');
+
+        // make sure we're starting from a clean state
+        if (File::exists($fooClass)) {
+            unlink($fooClass);
+        }
+
+        $this->assertFalse(File::exists($fooClass));
+
+        // Run the make command
+        Artisan::call('make:foo MyFooClass');
+
+        // Assert a new file is created
+        $this->assertTrue(File::exists($fooClass));
+
+        // Assert the file contains the right contents
+        $expectedContents = <<<CLASS
+<?php
+
+namespace App\Foo;
+
+use JohnDoe\BlogPackage\Foo;
+
+class MyFooClass implements Foo
+{
+    public function myFoo()
+    {
+        // foo
+    }
+}
+CLASS;
+
+        $this->assertEquals($expectedContents, file_get_contents($fooClass));
+    }
+}
+```
