@@ -255,3 +255,37 @@ CLASS;
     }
 }
 ```
+
+## Create a Test-only Command 
+There are some situations in which you would like to only use a certain command for testing and not in your application itself. For example when your package provides a `Trait` that can be used by Command classes. To test the trait, you want to test with an actual command. 
+
+The command itself doesn't add functionality to the package and should therefore not be published. However, excluding the command from the service provider is not the solution as you won't be able to run the command in your tests. 
+
+An elegant solution was [proposed by suggested by Marcel Pociot](https://twitter.com/marcelpociot/status/1219274939565514754): register the Command **only** in the tests, by hooking into the `Application::starting()` method:
+
+```php
+<?php
+
+namespace JohnDoe\BlogPackage\Tests\Feature;
+
+use JohnDoe\BlogPackage\Tests\Commands\TestCommand;
+use Illuminate\Console\Application;
+use Illuminate\Support\Facades\Artisan;
+use Orchestra\Testbench\TestCase;
+
+class TestCommandTest extends TestCase
+{
+   /** @test **/
+   public function it_does_a_certain_thing()
+   {
+        Application::starting(function ($artisan) {
+            $artisan->add(app(TestCommand::class));
+        });
+        
+        // Running the command 
+        Artisan::call('test-command:run');
+       
+       // assertions...
+   }
+}
+```
