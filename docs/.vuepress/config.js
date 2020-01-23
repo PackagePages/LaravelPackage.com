@@ -13,7 +13,6 @@ module.exports = {
     ['meta', { name: "theme-color", content: "#ffffff"}],
   ],
   themeConfig: {
-    smoothScroll: true,
     logo: '/laravel-package-logo.png',
     repo: 'Jhnbrn90/LaravelPackage.com',
     docsDir: 'docs',
