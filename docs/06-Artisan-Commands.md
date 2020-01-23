@@ -109,32 +109,33 @@ class InstallBlogPackage extends Command
 }
 ```
 
-## Creating Generator Command
+## Creating a Generator Command
+Laravel provides an easy way to create *Generator* Commands, *i.e.* commands with signatures such as `php artisan make:controller`. Those commands modify a general, predefined template (stub) to a specific application. For example by automatically injecting the correct the namespace.
 
-Laravel provides an easy way to create GeneratorCommands (i.e. commands with signatures such as 
-`php artisan make:controller`. These serve as ways for creating classes from stub templates.
+In order to create a Generator Command, you have to extend the `Illuminate\Console\GeneratorCommand` class, and override the following properties and methods:
 
-In order to create GeneratorCommands you have to extend the `Illuminate\Console\GeneratorCommand` class, by overriding 
-the following fields and methods:
-- `protected $name`: the intended name for the command
-- `protected $description`: the command description
+- `protected $name`: name of the command
+- `protected $description`: description of the command
 - `protected $type`: the type of class the command generates
 - `protected function getStub()`: method returning the path of the stub template file
 - `protected function getDefaultNamespace($rootNamespace)`: the default namespace of the generated class
 - `public function handle()`: the body of the command
 
-the `GeneratorCommand` base class also contains some helpers methods:
+The `GeneratorCommand` base class provides some helpers methods:
 - `getNameInput()`: returns the name passed from command line command execution
-- `qualifyClass(string $name)`: returns the qualified class name for a given name
+- `qualifyClass(string $name)`: returns the qualified class name for a given class name
 - `getPath(string $name)`: returns the file path for a given name
 
 Consider the following example for the `php artisan make:foo MyFoo` command:
 
 ```php
+<?php
+
+namespace JohnDoe\BlogPackage\Console;
+
 use Illuminate\Console\GeneratorCommand;
 
-
-class MakeMeasurableEventCommand extends GeneratorCommand
+class MakeFooCommand extends GeneratorCommand
 {
     protected $name = 'make:foo';
 
@@ -144,12 +145,12 @@ class MakeMeasurableEventCommand extends GeneratorCommand
 
     protected function getStub()
     {
-        return __DIR__.'/../../stubs/foo.php.stub';
+        return __DIR__ . '/stubs/foo.php.stub';
     }
 
     protected function getDefaultNamespace($rootNamespace)
     {
-        return $rootNamespace.'\Foo';
+        return $rootNamespace . '\Foo';
     }
 
     public function handle()
@@ -161,20 +162,28 @@ class MakeMeasurableEventCommand extends GeneratorCommand
 
     protected function doOtherOperations()
     {
-        $name = $this->qualifyClass($this->getNameInput());
-        $path = $this->getPath($name);
+        // Get the fully qualified class name (FQN)
+        $class = $this->qualifyClass($this->getNameInput());
+        
+        // get the destination path, based on the default namespace
+        $path = $this->getPath($class);
+
         $content = file_get_contents($path);
 
-        // Update the file content with additional data
-        
+        // Update the file content with additional data (regular expressions)
+
         file_put_contents($path, $content);
     }
 }
 ```
 
-Now consider the `stubs/foo.php.stub` file used as stub:
+Note that the class is exported to a directory **based on the namespace** as specified in the `getDefaultNamespace()` method.
+
+### Creating a stub
+You are free to store stubs in a different directory, but for now consider storing stubs in the `Console\stub` directory. For our `Foo` class generator, the stub could look as follows: 
 
 ```php
+// 'stubs/foo.php.stub'
 <?php
 
 namespace DummyNamespace;
