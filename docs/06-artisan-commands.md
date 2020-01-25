@@ -261,7 +261,7 @@ There are some situations in which you would like to only use a certain command 
 
 The command itself doesn't add functionality to the package and should therefore not be published. However, excluding the command from the service provider is not the solution as you won't be able to run the command in your tests. 
 
-An elegant solution was [proposed by suggested by Marcel Pociot](https://twitter.com/marcelpociot/status/1219274939565514754): register the Command **only** in the tests, by hooking into the `Application::starting()` method:
+An elegant solution was [suggested by Marcel Pociot](https://twitter.com/marcelpociot/status/1219274939565514754): register the Command **only** in the tests, by hooking into the `Application::starting()` method:
 
 ```php
 <?php
