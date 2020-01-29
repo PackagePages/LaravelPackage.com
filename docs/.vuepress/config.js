@@ -18,6 +18,10 @@ module.exports = {
     docsDir: 'docs',
     editLinks: true,
     editLinkText: 'Submit a PR to this page on GitHub',
+    algolia: {
+      apiKey: '4f61e9652014585bf63f5a1ff4dd5617',
+      indexName: 'laravelpackage'
+    },
     nav: [
       {
         text: 'John Braun',
