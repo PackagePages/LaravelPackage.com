@@ -1,6 +1,6 @@
 module.exports = {
   title: 'Laravel Package Development',
-  description: 'A central place to learn how to create packages from scratch.',
+  description: 'Learn to create Laravel specific PHP packages from scratch, following this open documentation. Contributions are welcomed.',
   head: [
     ['link', { rel: "apple-touch-icon", sizes: "180x180", href: "/assets/favicons/apple-touch-icon.png"}],
     ['link', { rel: "icon", type: "image/png", sizes: "32x32", href: "/assets/favicons/favicon-32x32.png"}],
