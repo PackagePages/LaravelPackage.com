@@ -35,3 +35,6 @@ Like the previously mentioned package, this package by Marcel Pociot is aimed at
 
 - [Orchestral Canvas](https://github.com/orchestral/canvas)
 The Orchestral Canvas package offers code generators and replicates all of the `make` artisan commands available in your basic Laravel application.
+
+- [Yeoman Laravel Package Scaffolder](https://github.com/verschuur/generator-laravel-package-scaffolder)
+This package provides a standalone generator to quickly scaffold a Laravel package. It will generate a skeleton structure, a ready-to-go composer.json file and a fully configured service provider. Just uncomment what you need and start developing. 
