@@ -4,7 +4,7 @@ To develop a robust package, it is important to have test coverage for the provi
 Not only to confirm proper behavior of the existing code, but also to verify everything still works whenever new functionality is added.
 This ensures our package can be refactored with confidence at a later stage.
 
-Therefore, the following sections are dedicated to testability.
+Tests also allow other developers to understand how certain features of your package are to be used, and gives them confidence about the reliability of your package.
 
 ## Installing PHPUnit
 There are many options to test behaviour in PHP, however we'll stay close to Laravel's defaults which uses the excellent tool PHPunit.
@@ -59,7 +59,7 @@ To accommodate for feature and unit tests, create a tests/ directory with a `Uni
   TestCase.php
 ```
 
-The `TestCase.php` contains tasks related to setting up our “world” before each test is executed. In the `TestCase` class we will implement three important set-up methods: 
+The `TestCase.php` extends \Orchestra\Testbench\TestCase (see example below) and contains tasks related to setting up our “world” before each test is executed. In the `TestCase` class we will implement three important set-up methods: 
 
 * `getPackageProviders()` 
 * `getEnvironmentSetUp()`
