@@ -38,3 +38,6 @@ The Orchestral Canvas package offers code generators and replicates all of the `
 
 - [Yeoman Laravel Package Scaffolder](https://github.com/verschuur/generator-laravel-package-scaffolder)
 This package provides a standalone generator to quickly scaffold a Laravel package. It will generate a skeleton structure, a ready-to-go composer.json file and a fully configured service provider. Just uncomment what you need and start developing. 
+
+- [Laravel Packer](https://github.com/bitfumes/laravel-packer)
+A PHP package offering a command line tool to scaffold a basic package directory structure and `composer.json` file and provides the `make` artisan commands within your package.
