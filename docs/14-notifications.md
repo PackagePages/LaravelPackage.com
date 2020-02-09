@@ -4,7 +4,9 @@ Notifications are a powerful tool in Laravel's toolbox as they provide support f
 
 ## Creating a Notification
 
-To start using Notifications in your package, first create a `Notifications` directory in the `src/` directory of your package. Next, for this example, add a `PostWasPublishedNotification.php` which for example notifies the author of the `Post` that his submission was approved.
+To start using Notifications in your package, first create a `Notifications` directory in the `src/` directory of your package. 
+
+For this example, add a `PostWasPublishedNotification.php` which notifies the author of the `Post` that his submission was approved.
 
 ```php
 <?php
@@ -122,3 +124,4 @@ public function via($notifiable)
     return config('blogpackage.notifications.channels');
 }
 ```
+... and then add the `notifications.channels` sub-array entries to your configuration stub file (see Chapter 7).
