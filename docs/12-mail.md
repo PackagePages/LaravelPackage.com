@@ -1,13 +1,13 @@
 # Mail
 
-Using e-mails in your package works very much the same as in a normal Laravel application. In your package however, you need to make sure you are loading a `views` directory from  
+Using e-mails in your package works very much the same as in a normal Laravel application. In your package however, you need to make sure you are loading a `views` directory from your package (or the end-user's exported version of it).
 
 To start sending e-mails, we need to create 1) a new **mailable** and 2) an e-mail **template**. 
 
-The e-mail template can be in either **markdown** or **blade** template format, as you're used to. In this example, I'll focus on writing a Blade template, however if you're using a markdown template replace the `$this->view('mails.welcome')` with a call to `$this->markdown('mails.welcome')`.
+The e-mail template can be in either **markdown** or **blade** template format, as you're used to. In this example, we'll focus on writing a Blade template, however if you're using a markdown template replace the `$this->view('mails.welcome')` with a call to `$this->markdown('mails.welcome')`.
 
 ## Creating a Mailable
-First, add a new `Mail` folder in the `src/` directory, which will contain your mailables, for example a `WelcomeMail.php` mailable. Since we've been working with a `Post` model in the previous sections, let's accept that model in the constructor and assign it to a **public** `$post` property on the mailable.
+First, add a new `Mail` folder in the `src/` directory, which will contain your mailables. Let's call it `WelcomeMail.php` mailable. Since we've been working with a `Post` model in the previous sections, let's accept that model in the constructor and assign it to a **public** `$post` property on the mailable.
 
 ```php
 <?php
@@ -39,7 +39,7 @@ class WelcomeMail extends Mailable
 ```
 
 ## Register the views directory
-In the call to the mailable's `view()` method we've specified the string `emails.welcome` which Laravel will translate to searching for a `welcome.blade.php` file in the `emails` directory in the package's view directory. 
+In the call to the mailable's `view()` method we've specified the string `emails.welcome` which Laravel will translate to searching for a `welcome.blade.php` file in the `emails` directory in the package's registered views directory. 
 
 To specify a view directory, you need to add the `$this->loadViews()` call to your package's **service provider** in the `boot()` method. **Note: if you're following along since the section about **Routing**, you've already done this.**
 
@@ -69,12 +69,12 @@ Post title: {{ $post->title }}
 ```
 
 ## Testing Mailing
-To test that e-mailing works and the mail actually contains all the right information, [Laravel's Mail facade](https://laravel.com/docs/6.x/mocking#mail-fake) offers a built-in `fake()` method which makes it easy to swap the *real* mailer for a mock in our tests. 
+To test that e-mailing works and the mail actually contains all the right information, [Laravel's Mail facade](https://laravel.com/docs/mocking#mail-fake) offers a built-in `fake()` method which makes it easy to swap the *real* mailer for a mock in our tests. 
 
 To demonstrate how to test our e-mail, create a new `WelcomeMailTest` in the `tests/unit` directory. Next, in the test: 
 
 * Switch the Mail implementation for a mock using `Mail::fake()`. 
-*  New up a `Post` using our factory (see section [Models and Migrations](#08-models-and-migrations)). 
+* Create a `Post` using our factory (see section [Models and Migrations](#08-models-and-migrations)). 
 * Assert that at this stage, no e-mails are sent using `assertNothingSent()`.
 * Send a new `WelcomeMail` mailable, passing in the `Post` model.
 * Assert that the e-mail was sent and contains the correct `Post` model using `assertSent()`.
