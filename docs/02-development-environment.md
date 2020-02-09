@@ -1,7 +1,7 @@
 # Development Environment
 
 ## Installing Composer
-There's a big chance that you already got Composer installed. However, in the case you haven't installed Composer already, the quickest way to get up and running is by copying the script provided on the download page of [Composer](https://getcomposer.org/download/). By copying and pasting the provided script in your command line, the `composer.phar` installer will be downloaded, run and removed again. You can verify a succesful installation by running `composer --version`. To update composer to the latest version, run `composer self-update`.
+There's a big chance that you already have Composer installed. However, in the case you haven't installed Composer already, the quickest way to get up and running is by copying the script provided on the download page of [Composer](https://getcomposer.org/download/). By copying and pasting the provided script in your command line, the `composer.phar` installer will be downloaded, run and removed again. You can verify a succesful installation by running `composer --version`. To update composer to the latest version, run `composer self-update`.
 
 ## Package skeleton
 To start with developing a package, first create an empty directory. It is not necessary to nest packages in an existing Laravel project and I would highly recommend to keep your packages separate from your (Laravel) projects to be able to easily differentiate between them. 

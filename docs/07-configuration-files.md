@@ -26,7 +26,7 @@ public function register()
 ```
 
 ## Exporting
-To allow users to modify the default config values, we need to provide them with the option to export the config file. We can register all "publishables" within the `boot()` method of the package's service provider. Since we only want to offer this functionality whenever the package is booted from the console, we'll add a check if the current app is running in the console. If so, we'll register the publishable config file under the 'config' tag (the second parameter of the `$this->publishes()` function call).
+To allow users to modify the default config values, we need to provide them with the option to export the config file. We can register all "publishables" within the `boot()` method of the package's service provider. Since we only want to offer this functionality whenever the package is booted from the console, we'll first check if the current app is running in the console. We'll register the publishable config file under the 'config' tag (the second parameter of the `$this->publishes()` function call).
 
 ```php
 // 'BlogPackageServiceProvider.php'﻿

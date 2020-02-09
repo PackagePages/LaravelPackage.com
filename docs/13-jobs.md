@@ -38,7 +38,7 @@ class PublishPost implements ShouldQueue
 ## Testing dispatching a Job
 For this example, we have a `publish()` method on the `Post` model which is already under test (a unit test for `Post`). We can easily test the expected behaviour by adding a new `PublishPostTest.php` unit test in the `tests/unit` directory. 
 
-In this test, we can make use of the [`Bus` facade](https://laravel.com/docs/6.x/mocking#bus-fake) which offers a `fake()` helper to swap the real implementation with a mock. After dispatching the Job, we can make assertions on the `Bus` facade that our Job was dispatched and contains the correct `Post`.
+In this test, we can make use of the [`Bus` facade](https://laravel.com/docs/mocking#bus-fake) which offers a `fake()` helper to swap the real implementation with a mock. After dispatching the Job, we can make assertions on the `Bus` facade that our Job was dispatched and contains the correct `Post`.
 
 ```php
 <?php
