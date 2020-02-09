@@ -1,6 +1,6 @@
 # Middleware
 
-If we look at an incoming HTTP request, this request is processed by Laravel's `index.php` file and sent through a series of pipelines. These include a series of middleware ('before' middleware), which each will perform an action on the incoming request before it eventually reaches the core of the application. From the core, a response is prepared which is post modified by all registered 'after' middleware before returning the response.
+If we look at an incoming HTTP request, this request is processed by Laravel's `index.php` file and sent through a series of pipelines. These include a series of ('before') middleware, where each will perform an action on the incoming request before it eventually reaches the core of the application. From the core, a response is prepared which is post-modified by all registered 'after' middleware before returning the response.
 
 That's why middleware is great for authentication, verifying tokens or applying any other check. Laravel also uses middleware to strip out empty characters from strings and encrypt cookies. 
 
@@ -32,7 +32,7 @@ class BeforeMiddleware
 
 As an illustration of a before middleware, let's add a middleware which capitalizes a 'title' parameter whenever that is present in the request (which would be silly in a real world application). 
 
-Add a file called `CapitalizeTitle.php` which provides a `handle()` method accepting the current request and a `$next` action:
+Add a file called `CapitalizeTitle.php` which provides a `handle()` method accepting both the current request and a `$next` action:
 
 ```php
 // 'src/Http/Middleware/CapitalizeTitle.php'
@@ -93,7 +93,7 @@ class CapitalizeTitleMiddlewareTest extends TestCase
 ```
 
 ## After Middleware
-The "After middleware" act on the response that is returned after passing through all other layers of middleware down the chain. Next, it modifies that response and returns the response. Generally it takes the following form:
+The "after middleware" acts on the response that is returned after passing through all other layers of middleware down the chain. Next, it modifies that response and returns the response. Generally it takes the following form:
 
 ```php
 <?php
@@ -169,9 +169,13 @@ public function boot()
 This will push our middleware into the application's array of globally registered middleware.
 
 ## Route middleware
-In our case, you might argue that we likely don't have a 'title' parameter on each request. Probably even only on requests that are related to creating/updating posts. On top of that, we likely only ever want to apply this middleware to requests related to our blog posts. However, this middleware will modify all requests which have a title attribute. This is probably not desired. The solution is to make the middleware route specific.
+In our case, you might argue that we likely don't have a 'title' parameter on each request. Probably even only on requests that are related to creating/updating posts. On top of that, we likely only ever want to apply this middleware to requests related to our blog posts. 
+
+However, our example middleware will modify all requests which have a title attribute. This is probably not desired. The solution is to make the middleware route-specific.
 
 Therefore, we can register an alias to this middleware in the resolved Router class, from within the `boot()` method of our service provider.
+
+Here's how to register the `capitalize` alias for this middleware:
 
 ```php
 // 'BlogPackageServiceProvider.php'
@@ -187,7 +191,7 @@ public function boot()
 }﻿
 ```
 
-We can apply this middleware from within our controller, for example by requiring it from the constructor:
+We can apply this middleware from within our controller by requiring it from the constructor:
 
 ```php
 // 'src/Http/Controllers/PostController.php'
@@ -221,7 +225,7 @@ function creating_a_post_will_capitalize_the_title()
 
     $post = Post::first();
 
-    // 'New: ' was added by our even listener
+    // 'New: ' was added by our event listener
     $this->assertEquals('New: Some title that was not capitalized', $post->title);
 }
 ```
