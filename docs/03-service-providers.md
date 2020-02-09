@@ -8,9 +8,9 @@ Every service provider extends the `Illuminate\Support\ServiceProvider` and impl
 
 The `register()` method is used to bind things in the service container. After all other service providers have been registered (i.e. all register() methods of all service providers were called, including third party packages), Laravel will call the boot() method on all service providers.
 
-In the `register()` method, you might for example register a class binding in the service container, enabling a class to be resolved from the container. However, sometimes you will need to reference another class, then the `boot()` can be used.
+In the `register()` method, you might for example register a class binding in the service container, enabling a class to be resolved from the container. However, sometimes you will need to reference another class, in which case the `boot()` can be used.
 
-Here are is an example of how a service provider may look and which things you might register in a `register()` and `boot()` method.
+Here is an example of how a service provider may look and which things you might implement in a `register()` and `boot()` method.
 
 ```php
 use App\Calculator;
@@ -46,7 +46,7 @@ class AppServiceProvider extends ServiceProvider
 ```
 
 ## Adding our package's service provider
-For our package, we will create our own service provider which contains specific information about the core of what our package has to offer. The package might use a config file, maybe some views, routes, controllers, database migrations, model factories, etc. The service provider needs to **register** them.
+For our package, we will create our own service provider which contains specific information about the core of what our package has to offer. The package might use a config file, maybe some views, routes, controllers, database migrations, model factories, custom commands, etc. The service provider needs to **register** them. We will discuss each of these in subsequent chapters.
 
 Since we’ve pulled in Orchestra Testbench, we can extend the `Illuminate\Support\ServiceProvider` and create our own service provider in the `src/` directory as shown (replace naming with your own details):
 
@@ -73,7 +73,7 @@ class BlogServiceProvider extends ServiceProvider
 ```
 
 ## Autoloading
-To automatically register it with a Laravel project using Laravel’s package auto-discovery we add the “extra” > “laravel” > “providers” key to our service provider to the package's `composer.json`:
+To automatically register it with a Laravel project using Laravel’s package auto-discovery we add our service provider to the “extra” > “laravel” > “providers” key in our package's `composer.json`:
 
 ```json
 {
