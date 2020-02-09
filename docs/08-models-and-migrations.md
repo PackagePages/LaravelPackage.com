@@ -1,6 +1,6 @@
 # Models & Migrations
 
-Sometimes you want your package to offer a bit more. If we image that we're developing a Blog related package, we might want to provide a Post model for example. This post will focus on handling Models, migrations, how to test them and how to deal with the situation whenever your model needs a relationship with the `App\User` model that ships with Laravel.
+Sometimes you want your package to offer a bit more. If we imagine that we're developing a Blog related package, we might want to provide a Post model for example. This will require us to handle Models, migrations, testing, and even connect relationships with the `App\User` model that ships with Laravel.
 
 ## Models
 Models in our package do not differ from models we would use in a standard Laravel application. Since we required the **Orchestra Testbench**, we can create a model extending the Laravel Eloquent model and save it within the `src/Models` directory:
@@ -23,7 +23,7 @@ class Post extends Model
 To quickly scaffold your models together with a migration, I would advise to create a new Laravel application (a “dummy application” just for the creation of models / migrations / etc.) and use the `php artisan make:model -m` command and copy the model to the package’s `src/Models` directory and using the proper namespace.
 
 ## Migrations
-Migrations live in the `database/migrations` folder in a Laravel application. In our package we mimic this file structure. Therefore, database migrations will not live in the `src/` directory but in their own `database/migrations` folder. The root directory of our package now contains two folders: `src/` and `database/`.
+Migrations live in the `database/migrations` folder in a Laravel application. In our package we mimic this file structure. Therefore, database migrations will not live in the `src/` directory but in their own `database/migrations` folder. The root directory of our package now contains at least two folders: `src/` and `database/`.
 
 After you’ve generated the migration, copy it from your “dummy” Laravel application to the package’s `database/migrations` folder. Rename it to `create_posts_table.php.stub` removing its timestamp and using a `.stub` extension.
 
@@ -99,9 +99,10 @@ php artisan vendor:publish --provider="JohnDoe\BlogPackage\BlogPackageServicePro
 ```
 
 ## Testing models and migrations
+As we create an example test, we're going to follow some of the basics of test-driven-development (TDD) here. Whether or not you practice TDD in your normal workflow, explaining the steps here helps expose possible problems you might encounter along the way, thus making your own troubleshooting simpler. Let's get started:
 
 ### Writing a unit test
-Now that we’ve got **PHPunit** set up, let’s create a unit test for our Post model in the `tests/Unit` directory called `PostTest.php`. Ideally we would write a test that verifies a `Post` has a title:
+Now that we’ve got **PHPunit** set up, let’s create a unit test for our Post model in the `tests/Unit` directory called `PostTest.php`. Let's write a test that verifies a `Post` has a title:
 
 ```php
 // 'tests/Unit/PostTest.php'
@@ -152,7 +153,7 @@ When we run `composer test-f a_post_has_a_title`, it leads us to the following e
 InvalidArgumentException: Unable to locate factory with name [default] [JohnDoe\BlogPackage\Models\Post].
 ```
 
-In the next section, we'll address this issue by creating a model factory for the `Post` model.
+This tells us that we need to create a model factory for the `Post` model.
 
 ### Creating a model factory
 Let’s create a `PostFactory` in the `database/factories` folder:
@@ -171,7 +172,9 @@ $factory->define(Post::class, function (Faker $faker) {
 });
 ```
 
-However, the tests will still fail since we haven’t created the `posts` table in our in-memory sqlite database yet. We need to tell our tests to first perform all migrations, then run the test. Let’s load the migrations in the `getEnvironmentSetUp()` method of our `TestCase`:
+However, the tests will still fail since we haven’t created the `posts` table in our in-memory sqlite database yet. We need to tell our tests to first perform all migrations, before running the tests. 
+
+Let’s load the migrations in the `getEnvironmentSetUp()` method of our `TestCase`:
 
 ```php
 // 'tests/TestCase.php'
@@ -232,7 +235,9 @@ class PostTest extends TestCase
 }
 ```
 
-To keep the post to the point, I won’t walk you through driving this out with TDD. However, eventually you’ll end up with a model factory and migration as follows:
+You can continue driving this out with TDD on your own, running the tests, exposing the next thing to implement, and testing again. 
+
+Eventually you’ll end up with a model factory and migration as follows:
 
 ```php
 // 'database/factories/PostFactory.php'
@@ -356,7 +361,7 @@ trait HasPosts
 }
 ```
 
-Now, within a Laravel application that required our package, the end user can add a use `HasPosts` statement to any of their models (likely the `User` model) which would automatically register the one-to-many relationship with our `Post` model. This provides access to creating new posts as follows:
+Now the end user can add a `use HasPosts` statement to any of their models (likely the `User` model) which would automatically register the one-to-many relationship with our `Post` model. This allows creating new posts as follows:
 
 ```php
 // Given we have a User model, using the HasPosts trait
@@ -372,7 +377,9 @@ $user->posts()->create([
 ### Testing the polymorphic relationship
 Of course, we want to prove that any model using our `HasPost` trait can indeed create new posts and that those posts are stored correctly.
 
-Therefore, we’ll create a new `User` model, but not within the `src/Models/` directory, but rather in our `tests/` directory. In the `User` model we’ll use the same traits that would be available on the `User` model that ships with a standard Laravel project to stay close to a real world scenario. Also, we use our own `HasPosts` trait:
+Therefore, we’ll create a new `User` model, not within the `src/Models/` directory, but rather in our `tests/` directory. 
+
+In the `User` model we’ll use the same traits that would be available on the `User` model that ships with a standard Laravel project to stay close to a real world scenario. Also, we use our own `HasPosts` trait:
 
 ```php
 // 'tests/User.php'
@@ -455,7 +462,7 @@ public function getEnvironmentSetUp($app)
 ```
 
 ### Updating our Post model factory
-Now that we can whip up `User` models with our new factory, let’s first create a new `User` in our `PostFactory` and then assign it to “author_id” and “author_type”:
+Now that we can whip up `User` models with our new factory, let’s create a new `User` in our `PostFactory` and then assign it to “author_id” and “author_type”:
 
 ```php
 // 'database/factories/PostFactory.php'
@@ -479,7 +486,7 @@ $factory->define(Post::class, function (Faker $faker) {
 });
 ```
 
-Let’s update the `Post` unit test, to also verify an ‘author_type’ can be specified.
+Next we update the `Post` unit test, to also verify an ‘author_type’ can be specified.
 
 ```php
 // 'tests/Unit/PostTest.php'
@@ -496,9 +503,11 @@ class PostTest extends TestCase
 }
 ```
 
-Finally, we need to verify that our test `User` can create a `Post` and that it is stored correctly. Since we are not creating a new post using a call to a specific route in the application, I would store this test also in the `Post` unit test. In the next section on “Routes & Controllers”, we’ll make a POST request to an endpoint to create a new `Post` model and therefore divert to a Feature test.
+Finally, we need to verify that our test `User` can create a `Post` and that it is stored correctly. 
 
-A test method that verifies the desired behavior between a `User` and a `Post` could look as follows:
+Since we are not creating a new post using a call to a specific route in the application, let's store this test also in the `Post` unit test. In the next section on “Routes & Controllers”, we’ll make a POST request to an endpoint to create a new `Post` model and therefore divert to a Feature test.
+
+A Unit test that verifies the desired behavior between a `User` and a `Post` could look as follows:
 
 ```php
 // 'tests/Unit/PostTest.php'
