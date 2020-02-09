@@ -4,7 +4,7 @@ Using e-mails in your package works very much the same as in a normal Laravel ap
 
 To start sending e-mails, we need to create 1) a new **mailable** and 2) an e-mail **template**. 
 
-The e-mail template can be in either **markdown** or **blade** template format, as you're used to. In this example, we'll focus on writing a Blade template, however if you're using a markdown template replace the `$this->view('mails.welcome')` with a call to `$this->markdown('mails.welcome')`.
+The e-mail template can be in either **markdown** or **blade** template format, as you're used to. In this example, we'll focus on writing a Blade template, however if you're using a markdown template replace the `$this->view('blogpackage::mails.welcome')` with a call to `$this->markdown('blogpackage::mails.welcome')`. Notice that we're using the namespaced view name, allowing users of our package to export the views and update their contents.
 
 ## Creating a Mailable
 First, add a new `Mail` folder in the `src/` directory, which will contain your mailables. Let's call it `WelcomeMail.php` mailable. Since we've been working with a `Post` model in the previous sections, let's accept that model in the constructor and assign it to a **public** `$post` property on the mailable.
@@ -33,7 +33,7 @@ class WelcomeMail extends Mailable
 
     public function build()
     {
-        return $this->view('emails.welcome');
+        return $this->view('blogpackage::emails.welcome');
     }
 }
 ```
@@ -41,7 +41,7 @@ class WelcomeMail extends Mailable
 ## Register the views directory
 In the call to the mailable's `view()` method we've specified the string `emails.welcome` which Laravel will translate to searching for a `welcome.blade.php` file in the `emails` directory in the package's registered views directory. 
 
-To specify a view directory, you need to add the `$this->loadViews()` call to your package's **service provider** in the `boot()` method. **Note: if you're following along since the section about **Routing**, you've already done this.**
+To specify a view directory, you need to add the `$this->loadViews()` call to your package's **service provider** in the `boot()` method. View files can be referenced by the specified namespace, in this example 'blogpackage'. **Note: if you're following along since the section about **Routing**, you've already done this.**
 
 ```php
 // 'BlogPackageServiceProvider.php'
