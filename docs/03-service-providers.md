@@ -85,7 +85,7 @@ To automatically register it with a Laravel project using Laravel’s package au
       "laravel": {
           "providers": [
               "JohnDoe\\BlogPackage\\BlogPackageServiceProvider"
-          ],
+          ]
       }
   }
 }
