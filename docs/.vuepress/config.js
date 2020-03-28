@@ -17,7 +17,7 @@ module.exports = {
     repo: 'Jhnbrn90/LaravelPackage.com',
     docsDir: 'docs',
     editLinks: true,
-    editLinkText: 'Submit a PR to this page on GitHub',
+    editLinkText: 'Improve this page (submit a PR)',
     algolia: {
       apiKey: '4f61e9652014585bf63f5a1ff4dd5617',
       indexName: 'laravelpackage'

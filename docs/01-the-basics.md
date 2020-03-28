@@ -13,7 +13,7 @@ define('LARAVEL_START', microtime(true));
 
 require __DIR__.'/../vendor/autoload.php';
 
-// further bootstrapping methods...
+// additional bootstrapping methods...
 ```
 
 ## The directory structure of a package
