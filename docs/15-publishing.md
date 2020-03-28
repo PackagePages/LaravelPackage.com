@@ -1,17 +1,34 @@
 # Publishing
 Once satisfied with its functionality, you might want to share your package with a broader audience. This section will explain how to publish your package to the [Packagist](https://packagist.org) repository.
 
-## Publishing the git repository
-If you haven't already pushed your local git repository to a repository host (GitHub / GitLab / BitBucket / etc.) you should do so now. It is advisable to create an online repository with the same (package) name as defined in your `composer.json` file.
+If you haven't already pushed your local git repository to a repository host (GitHub / GitLab / BitBucket / etc.) you should do so now. It is advisable to create an online repository with the same (package) name as defined in your `composer.json` file. Try to match these names, for example by renaming your package to follow this convention.
 
-## Publishing on Packagist
+Given the example below, consumers would be able to require the package using `composer require johndoe/blogpackage` and find the corresponding repository at (if using GitHub) `github.com/johndoe/blogpackage`.
+
+```json
+{
+  "name": "johndoe/blogpackage",
+  "description": "A demo package",
+  ...
+}
+```
+
 The next step is to publish the git repository of the package to Packagist. 
 
+## Publishing on Packagist
 To submit a package to Packagist, first [create an account](https://packagist.org/register/) and then use the [Submit link](https://packagist.org/packages/submit) and specify the **public** `repository URL` to the git repository of your package.
 
-Packagist will now host a so called `dev-master` version of your package. Although anyone can now access this package through `composer install [vendor]/[package-name]`, the consumer will always receive the package in its current state on the `master` branch. Since this means that **all** changes to `master` are immediately taking effect when consumers run `composer update`, this might lead to breaking changes. 
+Packagist will now host a so called `dev-master` version of your package. Although anyone can access this package now through `composer require [vendor]/[package-name]`, the consumer will receive the package in its current state on the `master` branch. Since this means that **all** changes to `master` are immediately taking effect when consumers run `composer update`, this might lead to breaking changes. For projects which define a "stable" `minimum-stability` this means that your package will not be installed at all.
 
 To prevent introducing breaking changes while still free to refactor our package, by convention **semantic versioning** is used to be able to discriminate between versions and thus compatibility.
+
+## Releasing v1.0.0
+Releases (and thus versions) of your package are tracked through **tags** on the corresponding git repository. Currently there is a `dev-master` release available through Packagist, which always points to the latest commit on the `master` branch of the repository. However, ideally we would like to serve the package in a fixed state to the consumer. This is where tags come in, which point to a specific commit.
+
+To release version `1.0.0` of the package, first create a new tag in your git repository. If you're using GitHub you can do so by visiting the "releases" tab and "Create a new release". Provide a "Tag version" and "Release title" of `1.0.0` targeted at the current state of the `master` branch (serving as a pointer to the latest commit). Additionally you might provide information regarding this release in the description. After clicking "Publish release", Packagist will automatically update and reflect this new version. By default, consumers requiring the package without specifying a version will be served the latest tag/version/release which in this case will be `1.0.0`. You'll notice when you require this package in your project, the version constraint in `composer.json` will be `^1.0`, allowing `composer update` to download versions up to `1.x` (allowing minor and patch releases) but not `2.x` (major release, containing breaking changes). See the section below on semantic versioning for more information.
+
+## Releasing a new version
+As you make updates to your package, refer to the semantic versioning while drafting new releases. When you create a new tag in the associated git repository, Packagist will automatically be updated.
 
 ## Semantic versioning
 This section will provide a short overview of how Semantic Versioning is used and applied by Composer. To get a more in-depth overview, check out [semver.org](https://semver.org/).
@@ -44,11 +61,3 @@ Alternatively, Composer allows for more strict constraints:
 * Exact version: `1.2.3`, will always download `1.2.3`. If other packages require a different version of this dependency, composer will throw an error since the requirements for this dependency can not be satisfied.
 
 * Defined version range (hyphen "-"): `1.0 - 2.0`, translates to `>=1.0.0 <2.1`. All packages of version `1.x` are considered valid. A more specific range could be defined in the form `1.0.0 - 1.3.0`, which translates to `>=1.0.0 <=1.3.0`. All packages of version `1.2.x` will be considered valid.
-
-## Releasing v1.0.0
-As mentioned in the section on Composer, releases (and thus versions) of your package are tracked through **tags** on the corresponding repository. Currently, there is a `dev-master` release available which always points to the latest commit on the `master` branch of the package. However, ideally we would like to serve the package in a fixed state to the consumer. This is where tags come in, which point to a specific commit.
-
-To release version `1.0.0` of our package, first create a new tag in GitHub by visiting the "releases" tab and "Create a new release". Provide a "Tag version" and "Release title" of `1.0.0` targeted at the current state of the `master` branch (will be pointed to the latest commit). Additionally you might provide information regarding this release in the description. After clicking "Publish release", Packagist will automatically update and reflect this new version. By default, consumers requiring the package without specifying a version will be served the latest tag/version/release which in this case will be `1.0.0`. You'll notice when you require this package in your project, the version constraint in `composer.json` will be `^1.0`, allowing `composer update` to download versions up to `1.x` (allowing minor and patch releases) but not `2.x` (major release, containing breaking changes).
-
-## Releasing a new version
-As you make updates to your package, refer to the semantic versioning while drafting new releases. When you create a new tag in the associated git repository, Packagist will automatically be updated.
