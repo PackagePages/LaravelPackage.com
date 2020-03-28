@@ -44,6 +44,7 @@ module.exports = {
       '/12-mail',
       '/13-jobs',
       '/14-notifications',
+      '/15-publishing',
     ]
   },
 }
