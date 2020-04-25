@@ -189,6 +189,19 @@ public function getEnvironmentSetUp($app)
 }
 ```
 
+Let’s load the factories in the `setUp()` method of our `TestCase`:
+
+```php
+// 'tests/TestCase.php'
+
+public function setUp(): void
+{
+  parent::setUp();
+  // additional setup
+  $this->withFactories(__DIR__ . '/../database/factories');
+}
+```
+
 Now, running the tests again will lead to the expected error of no ‘title’ column being present on the ‘posts’ table. Let’s fix that in the `create_posts_table.php.stub` migration:
 
 ```php
