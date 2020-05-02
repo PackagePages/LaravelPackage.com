@@ -100,11 +100,48 @@ Before we can use these routes, we need to register them in the `boot()` method 
 ```php
 // 'BlogPackageServiceProvider.php'
 public function boot()
-{﻿
+{
   // ... other things 
   $this->loadRoutesFrom(__DIR__.'../../routes/web.php');
 }
 ```
+
+### Making route configuration available to the users
+You may want to allow the users to define a prefix and a middleware to protect the routes exposed by your package.
+
+Instead  of loading routes directly within the `boot()` method of your Service Provider, wrap `loadRoutesFrom()` in another method:
+
+```php
+// 'BlogPackageServiceProvider.php'
+public function boot()
+{
+  // ... other things 
+  $this->registerRoutes();
+}
+
+protected function registerRoutes()
+{
+    Route::group($this->routeConfiguration(), function () {
+        $this->loadRoutesFrom(__DIR__.'../../routes/web.php');
+    });
+}
+
+protected function routeConfiguration()
+{
+    return [
+        'prefix' => config('your-namespace.prefix'),
+        'middleware' => config('your-namespace.middlewares'),
+    ];
+}
+```
+
+And add these lines to your config.php file:
+```php
+'prefix' => 'drip-marketing',
+'middlewares' => [], // you probably want to include 'web' here
+```
+
+This way, every user of your package may customize the routes' prefix and/or restrict access to these routes using a middleware.
 
 ## Views
 The 'index' and 'show' methods on the PostController need to render a view. 
