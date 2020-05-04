@@ -106,13 +106,15 @@ public function boot()
 }
 ```
 
-### Making route configuration available to the users
-You may want to allow the users to define a prefix and a middleware to protect the routes exposed by your package.
+### Configurable route prefix and middleware
+You may want to allow users to define a route prefix and/or middleware for the routes exposed by your package. Instead of registering the routes directly in the `boot()` method we'll register the routes using `Route::group`, passing in the dynamic configuration (prefix and middleware). Don't forget to import the corresponding `Route` facade.
 
-Instead  of loading routes directly within the `boot()` method of your Service Provider, wrap `loadRoutesFrom()` in another method:
+In the following example, a namespace of `blogpackage` is used. Don't forget to replace this with your package's own namespace.
 
 ```php
 // 'BlogPackageServiceProvider.php'
+use Illuminate\Support\Facades\Route;
+
 public function boot()
 {
   // ... other things 
@@ -129,19 +131,19 @@ protected function registerRoutes()
 protected function routeConfiguration()
 {
     return [
-        'prefix' => config('your-namespace.prefix'),
-        'middleware' => config('your-namespace.middlewares'),
+        'prefix' => config('blogpackage.prefix'),
+        'middleware' => config('blogpackage.middleware'),
     ];
 }
 ```
 
-And add these lines to your config.php file:
+Specify a default route prefix and middleware in the package's `config.php` file:
 ```php
-'prefix' => 'drip-marketing',
-'middlewares' => [], // you probably want to include 'web' here
+'prefix' => 'blogger',
+'middleware' => ['web'], // you probably want to include 'web' here
 ```
 
-This way, every user of your package may customize the routes' prefix and/or restrict access to these routes using a middleware.
+Using the above default configuration, all routes defined in `routes.web` need to be prefixed with `/blogger`. In this way, collision with potentially existing routes can be avoided.
 
 ## Views
 The 'index' and 'show' methods on the PostController need to render a view. 
