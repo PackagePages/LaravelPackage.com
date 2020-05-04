@@ -172,6 +172,35 @@ $factory->define(Post::class, function (Faker $faker) {
 });
 ```
 
+### Loading the model factory
+To make use of the newly created model factory, you need to register them in the package's Service Provider. To add them to the Service Provider, point the `Illuminate\Database\Eloquent\Factory` class to the directory containing the model factories:
+
+```php
+// 'src/BlogPackageServiceProvider.php'
+
+public function boot()
+{
+    // Register the model factories
+    $this->app->make('Illuminate\Database\Eloquent\Factory')
+        ->load(__DIR__.'/../database/factories');
+        
+    // ...
+}
+```
+
+If you only use model factories in your tests, you don't have to register them in the service provider. To access them  in your tests, use the `withFactories()` method provided by Orchestra Testbench ([learn more](https://orchestraplatform.readme.io/docs/testbench#section-using-model-factories)) in the `setUp()` method of the parent `TestCase` class:
+
+```php
+// 'tests/TestCase.php'
+
+protected function setUp()
+{
+    parent::setUp();
+    
+    $this->withFactories(__DIR__.'/factories');
+}
+```
+
 However, the tests will still fail since we haven’t created the `posts` table in our in-memory sqlite database yet. We need to tell our tests to first perform all migrations, before running the tests. 
 
 Let’s load the migrations in the `getEnvironmentSetUp()` method of our `TestCase`:
