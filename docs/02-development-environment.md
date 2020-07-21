@@ -111,7 +111,7 @@ Add the following "repositories" key below the "scripts" section in composer.jso
 }
 ```
 
-You can now require your local package in the Laravel application using your choosen namespace of the package. Following our example, this would be:
+You can now require your local package in the Laravel application using your chosen namespace of the package. Following our example, this would be:
 
 ```bash
 composer require johndoe/blogpackage
