@@ -28,6 +28,7 @@ module.exports = {
         link: 'https://johnbraun.blog/'
       },
     ],
+    displayAllHeaders: true,
     sidebar: [
       '/',
       '/01-the-basics',
