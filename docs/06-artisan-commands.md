@@ -76,7 +76,7 @@ use JohnDoe\BlogPackage\Tests\TestCase;
 class InstallBlogPackageTest extends TestCase
 {
     /** @test */
-    function the_install_command_copies_a_the_configuration()
+    function the_install_command_copies_the_configuration()
     {
         // make sure we're starting from a clean state
         if (File::exists(config_path('blogpackage.php'))) {
