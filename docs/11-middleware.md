@@ -206,6 +206,27 @@ class PostController extends Controller
 }
 ```
 
+### Middleware Groups
+Additionally, we can push our middleware to certain groups, like `web` or `api`, to make sure our middleware is applied on each route that belongs to these groups.
+
+To do so, tell the router to _push_ the middleware to a specfic group (in this example `web`):
+
+```php
+// 'BlogPackageServiceProvider.php'
+use Illuminate\Routing\Router;
+use JohnDoe\BlogPackage\Http\Middleware\CapitalizeTitle;
+
+public function boot()
+{
+  // other things ...
+
+  $router = $this->app->make(Router::class);
+  $router->pushMiddlewareToGroup('web', CapitalizeTitle::class);
+}
+```
+
+The route middleware groups of a Laravel application are located in the `App\Http\Kernel` class. When applying this approach, you need to be sure that the consumer(s) of this package have the certain middleware group defined in their application.
+
 ## Feature testing Middleware
 Regardless of the fact that we registered the middleware globally or route specifically, we can test that the middleware is indeed applied when making a request.
 
