@@ -250,8 +250,8 @@ class PostTest extends TestCase
   /** @test */
   function a_post_has_a_body()
   {
-    $post = factory(Post::class)->create(['title' => 'Fake Body']);
-    $this->assertEquals('Fake Title', $post->body);
+    $post = factory(Post::class)->create(['body' => 'Fake Body']);
+    $this->assertEquals('Fake Body', $post->body);
   }
 
   /** @test */
