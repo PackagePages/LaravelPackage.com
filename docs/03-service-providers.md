@@ -6,7 +6,7 @@ As you might know, Laravel comes with a series of service providers, namely the 
 
 Every service provider extends the `Illuminate\Support\ServiceProvider` and implements a `register()` and a `boot()` method.
 
-The `register()` method is used to bind things in the service container. After all other service providers have been registered (i.e. all register() methods of all service providers were called, including third party packages), Laravel will call the boot() method on all service providers.
+The `boot()` method is used to bind things in the service container. After all other service providers have been registered (i.e. all register() methods of all service providers were called, including third party packages), Laravel will call the boot() method on all service providers.
 
 In the `register()` method, you might for example register a class binding in the service container, enabling a class to be resolved from the container. However, sometimes you will need to reference another class, in which case the `boot()` can be used.
 
