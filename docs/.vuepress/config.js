@@ -11,6 +11,7 @@ module.exports = {
     ['meta', { name: "msapplication-TileColor", content: "#3a0839"}],
     ['meta', { name: "msapplication-config", content: "/assets/favicons/browserconfig.xml"}],
     ['meta', { name: "theme-color", content: "#ffffff"}],
+    ['meta', { name: "viewport", content: "width=device-width"}],
   ],
   themeConfig: {
     logo: '/laravel-package-logo.png',
