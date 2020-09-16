@@ -102,7 +102,7 @@ Before we can use these routes, we need to register them in the `boot()` method 
 public function boot()
 {
   // ... other things 
-  $this->loadRoutesFrom(__DIR__.'../../routes/web.php');
+  $this->loadRoutesFrom(__DIR__.'/../routes/web.php');
 }
 ```
 
@@ -124,7 +124,7 @@ public function boot()
 protected function registerRoutes()
 {
     Route::group($this->routeConfiguration(), function () {
-        $this->loadRoutesFrom(__DIR__.'../../routes/web.php');
+        $this->loadRoutesFrom(__DIR__.'/../routes/web.php');
     });
 }
 
