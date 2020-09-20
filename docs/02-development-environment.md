@@ -28,7 +28,7 @@ An example `composer.json` is highlighted below.
     }
   ],
   "require": {}
-}﻿
+}
 ```
 
 Alternatively, you can create your `composer.json` file by running `composer init` in your empty package directory.

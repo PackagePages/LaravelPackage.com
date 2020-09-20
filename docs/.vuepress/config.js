@@ -12,6 +12,7 @@ module.exports = {
     ['meta', { name: "msapplication-config", content: "/assets/favicons/browserconfig.xml"}],
     ['meta', { name: "theme-color", content: "#ffffff"}],
     ['meta', { name: "viewport", content: "width=device-width"}],
+    ['script', { src: "https://cdn.usefathom.com/script.js", spa: "auto", site: "HUVUTEUR", defer:true}]
   ],
   themeConfig: {
     logo: '/laravel-package-logo.png',
