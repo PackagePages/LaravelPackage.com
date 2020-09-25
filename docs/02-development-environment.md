@@ -1,17 +1,17 @@
 # Development Environment
 
 ## Installing Composer
-There's a big chance that you already have Composer installed. However, in the case you haven't installed Composer already, the quickest way to get up and running is by copying the script provided on the download page of [Composer](https://getcomposer.org/download/). By copying and pasting the provided script in your command line, the `composer.phar` installer will be downloaded, run and removed again. You can verify a succesful installation by running `composer --version`. To update composer to the latest version, run `composer self-update`.
+There's a big chance that you already have Composer installed. However, in the case you haven't installed Composer already, the quickest way to get up and running is by copying the script provided on the download page of [Composer](https://getcomposer.org/download/). By copying and pasting the provided script in your command line, the `composer.phar` installer will be downloaded, run and removed again. You can verify a successful installation by running `composer --version`. To update composer to the latest version, run `composer self-update`.
 
 ## Package skeleton
-To start with developing a package, first create an empty directory. It is not necessary to nest packages in an existing Laravel project and I would highly recommend to keep your packages separate from your (Laravel) projects to be able to easily differentiate between them. 
- 
+To start with developing a package, first create an empty directory. It is not necessary to nest packages in an existing Laravel project and I would highly recommend to keep your packages separate from your (Laravel) projects to be able to easily differentiate between them.
+
 Personally, my packages are stored in `~/packages/` and my Laravel apps live in `~/websites/`.
 
 ## Composer.json
 In the root of your package, first create a `composer.json` file with the following minimal configuration (as shown below). Of course, replace all details with your own.
 
-It is important that you are consistent with naming your packages. The common convention is to use your GitHub / Gitlab / Bitbucket / etc.` username followed by a forward slash (“/“) and then a kebab cased version of your package name. 
+It is important that you are consistent with naming your packages. The common convention is to use your GitHub / Gitlab / Bitbucket / etc.` username followed by a forward slash (“/“) and then a kebab cased version of your package name.
 
 An example `composer.json` is highlighted below.
 
@@ -121,14 +121,14 @@ composer require johndoe/blogpackage
 
 ## Orchestra Testbench
 We now have a `composer.json` file and an empty src/ directory. However, we don’t have access to any Laravel specific functionality as provided by the `Illuminate` components.
-    
+
 To use these components in our package, we’ll require the [Orchestra Testbench](https://github.com/orchestral/testbench). Note that each version of the Laravel framework has a corresponding version of Orchestra Testbench. In this post, I’ll assume we’re developing a package for **Laravel 6.0** which is the latest version at the moment of writing this post.
 
 ```bash
 composer require --dev "orchestra/testbench=^4.0"
 ```
 
-Now that we've installed the Orchestra Testbench package, we'll find an `orchestra` folder in the `vendor` directory of our package. In that folder, you'll see there is a `laravel` folder containing the `Illuminate` helpers and a `testbench-core` folder and in that folder you'll see there is a a folder called `laravel` with a complete directory structure of a Laravel project. This allows us to use the Laravel helpers that involve interaction with the project's directory structure (for example related to file manipulation).
+Now that we've installed the Orchestra Testbench package, we'll find an `orchestra` folder in the `vendor` directory of our package. In that folder, you'll see there is a `laravel` folder containing the `Illuminate` helpers and a `testbench-core` folder and in that folder you'll see there is a folder called `laravel` with a complete directory structure of a Laravel project. This allows us to use the Laravel helpers that involve interaction with the project's directory structure (for example related to file manipulation).
 
 Before each test, a testing environment including a fully booted (test) application is created. If we use the Orchestra TestBench's basic `TestCase` for our tests, the methods as provided by the `CreatesApplication` trait in the `Orchestra\Testbench\Concerns` namespace will be responsible for creating this test application. If we look at one of these methods, `getBasePath()` we'll see it directly points to the `laravel` folder that comes with Orchestra Testbench.
 
