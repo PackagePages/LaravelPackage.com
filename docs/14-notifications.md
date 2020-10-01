@@ -4,7 +4,7 @@ Notifications are a powerful tool in Laravel's toolbox as they provide support f
 
 ## Creating a Notification
 
-To start using Notifications in your package, first create a `Notifications` directory in the `src/` directory of your package. 
+To start using Notifications in your package, first create a `Notifications` directory in the `src/` directory of your package.
 
 For this example, add a `PostWasPublishedNotification.php` which notifies the author of the `Post` that his submission was approved.
 
@@ -70,10 +70,10 @@ class PostWasPublishedNotification extends Notification
 
 In the test:
 
-* Swap the `Notification` facade with a mock using the `fake()` helper.
-* Assert no notifications have been sent before calling the `notify()` method.
-* Notify the `User` model via `$user->notify()` (which needs to use the `Notifiable` trait).
-* Assert that the notification was sent and contains the correct `Post` model. 
+- Swap the `Notification` facade with a mock using the `fake()` helper.
+- Assert no notifications have been sent before calling the `notify()` method.
+- Notify the `User` model via `$user->notify()` (which needs to use the `Notifiable` trait).
+- Assert that the notification was sent and contains the correct `Post` model.
 
 ```php
 <?php
@@ -92,7 +92,7 @@ class NotifyPostWasPublishedTest extends TestCase
     public function it_can_notify_a_user_that_a_post_was_published()
     {
         Notification::fake();
-        
+
         $post = factory(Post::class)->create();
 
         // the User model has the 'Notifiable' trait
@@ -116,7 +116,8 @@ class NotifyPostWasPublishedTest extends TestCase
 With the test passing, you can safely use this notification in your package.
 
 ## Custom notification channels
-Additionally, you may configure the channels for the notification to be dependent on the configuration file of your package to allow your users to specify which notification channels they want to use. 
+
+Additionally, you may configure the channels for the notification to be dependent on the configuration file of your package to allow your users to specify which notification channels they want to use.
 
 ```php
 public function via($notifiable)
@@ -124,4 +125,5 @@ public function via($notifiable)
     return config('blogpackage.notifications.channels');
 }
 ```
+
 ... and then add the `notifications.channels` sub-array entries to your configuration stub file (see Chapter 7).

@@ -1,10 +1,11 @@
 # Facades
 
-The word 'facade' refers to a "superficial appearance or illusion of something" according to [Dictionary.com](https://www.dictionary.com/browse/facade). In architecture, the term refers to the front of a building. 
+The word 'facade' refers to a "superficial appearance or illusion of something" according to [Dictionary.com](https://www.dictionary.com/browse/facade). In architecture, the term refers to the front of a building.
 
-A facade in Laravel is a class which redirects **static** method calls to the **dynamic** methods of an underlying class. The goal of a facade is to provide a memorable and expressive syntax to access functionality of an underlying class. 
+A facade in Laravel is a class which redirects **static** method calls to the **dynamic** methods of an underlying class. The goal of a facade is to provide a memorable and expressive syntax to access functionality of an underlying class.
 
 An example of a fluent API using a facade:
+
 ```php
 MessageFactory::sentBy($user)
     ->withTopic('Example message')
@@ -14,9 +15,11 @@ MessageFactory::sentBy($user)
 ```
 
 ## How a facade works
+
 To learn more about facades and how they work, refer to the excellent [Laravel documentation](https://laravel.com/docs/facades#how-facades-work).
 
 ## How to create a facade
+
 Let’s assume that we provide a `Calculator` class as part of our package and want to make this class available as a facade.
 
 First create a `Calculator.php` file in the `src/` directory. To keep things simple, the calculator provides an `add()`, `subtract()` and `clear()` method. All methods return the object itself allowing for a fluent API (chaining the method calls, like: `->add()->subtract()->subtract()->result()`).

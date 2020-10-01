@@ -7,6 +7,7 @@ This is the repo for the [Laravel Package](https://laravelpackage.com) project. 
 Contributions are highly welcomed.
 
 To start contributing, follow these steps:
+
 1. Fork this repository and `git clone` your version
 1. Install the dependencies (including **Vuepress**) with `npm install` (or use yarn)
 1. Edit the documentation and view the output with Vuespress using `npm run dev`
