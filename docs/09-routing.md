@@ -174,6 +174,7 @@ Create a new `resources/` folder in the root of our package. In that folder, cre
    ```
 
 2. `resources/views/posts/show.blade.php`:
+
    ```
    <h1>{{ $post->title }}</h1>
 

@@ -22,13 +22,13 @@ To install a package in your existing Laravel project, the `composer require <ve
 
 ## Tools for developing a package
 
-In the first chapter, the basic structure of a package will be addressed. Now, it can be cumbersome to set-up the basic skeleton everytime from scratch. That's why others created some helpful tools.
+In the first chapter, the basic structure of a package will be addressed. Now, it can be cumbersome to set-up the basic skeleton every time from scratch. That's why others created some helpful tools.
 
 - [Laravel Package Boilerplate](https://laravelpackageboilerplate.com/)
   This tool by Marcel Pociot, allows you to generate a basic template for Laravel specific as well as generic PHP packages which can be downloaded as a `.zip` file.
 
 - [Laravel Packager](https://github.com/Jeroen-G/laravel-packager)
-  This package by Jeroen-G provides a cli tool to quickly scaffold packages, from within an existing Laravel application. It will take care of some of the necessary set-up as is discussed through later chapters. The package was featured recently on [Laracasts](https://laracasts.com/series/building-laracasts/episodes/3).
+  This package by Jeroen-G provides a CLI tool to quickly scaffold packages, from within an existing Laravel application. It will take care of some of the necessary set-up as is discussed through later chapters. The package was featured recently on [Laracasts](https://laracasts.com/series/building-laracasts/episodes/3).
 
 - [Laravel Packager Hermes](https://github.com/DelveFore/laravel-packager-hermes)
   This package by DelveFore is an extension of the Laravel Packager package, enabling usage of Artisan commands within that package to quickly generate Laravel specific classes. Currently, it only supports the scaffolding of `Controllers`.
@@ -43,4 +43,4 @@ In the first chapter, the basic structure of a package will be addressed. Now, i
   This package provides a standalone generator to quickly scaffold a Laravel package. It will generate a skeleton structure, a ready-to-go composer.json file and a fully configured service provider. Just uncomment what you need and start developing.
 
 - [Laravel Packer](https://github.com/bitfumes/laravel-packer)
-  A PHP package offering a command line tool to scaffold a basic package directory structure and `composer.json` file and provides the `make` artisan commands within your package.
+  A PHP package offering a command-line tool to scaffold a basic package directory structure and `composer.json` file and provides the `make` artisan commands within your package.
