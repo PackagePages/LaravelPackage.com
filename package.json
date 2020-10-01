@@ -11,5 +11,8 @@
   "dependencies": {
     "global": "^4.3.2",
     "vuepress": "^1.5.4"
+  },
+  "devDependencies": {
+    "prettier": "2.1.2"
   }
 }

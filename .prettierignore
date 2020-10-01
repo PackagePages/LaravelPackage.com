@@ -1,0 +1,4 @@
+node_modules
+docs/.vuepress/dist
+docs/.vuepress/config.js
+docs/.vuepress/public

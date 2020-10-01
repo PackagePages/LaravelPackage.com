@@ -3,6 +3,7 @@
 Sometimes you want your package to offer a bit more. If we imagine that we're developing a Blog related package, we might want to provide a Post model for example. This will require us to handle Models, migrations, testing, and even connect relationships with the `App\User` model that ships with Laravel.
 
 ## Models
+
 Models in our package do not differ from models we would use in a standard Laravel application. Since we required the **Orchestra Testbench**, we can create a model extending the Laravel Eloquent model and save it within the `src/Models` directory:
 
 ```php
@@ -23,6 +24,7 @@ class Post extends Model
 To quickly scaffold your models together with a migration, I would advise to create a new Laravel application (a “dummy application” just for the creation of models / migrations / etc.) and use the `php artisan make:model -m` command and copy the model to the package’s `src/Models` directory and using the proper namespace.
 
 ## Migrations
+
 Migrations live in the `database/migrations` folder in a Laravel application. In our package we mimic this file structure. Therefore, database migrations will not live in the `src/` directory but in their own `database/migrations` folder. The root directory of our package now contains at least two folders: `src/` and `database/`.
 
 After you’ve generated the migration, copy it from your “dummy” Laravel application to the package’s `database/migrations` folder. Rename it to `create_posts_table.php.stub` removing its timestamp and using a `.stub` extension.
@@ -62,10 +64,10 @@ class CreatePostsTable extends Migration
 }
 ```
 
-To present the end user with our migration(s), we need to register that our package “publishes” its migrations. We can do that as follows in the `boot()` method of our package’s service provider, employing the `publishes()` method, which takes two arguments: 
+To present the end user with our migration(s), we need to register that our package “publishes” its migrations. We can do that as follows in the `boot()` method of our package’s service provider, employing the `publishes()` method, which takes two arguments:
 
 1. an array of file paths ("source path" => "destination path")
- 
+
 2. the name (“tag”) we assign to this group of related publishable assets.
 
 Practically, we can implement this functionality as follows:
@@ -99,9 +101,11 @@ php artisan vendor:publish --provider="JohnDoe\BlogPackage\BlogPackageServicePro
 ```
 
 ## Testing models and migrations
+
 As we create an example test, we're going to follow some of the basics of test-driven-development (TDD) here. Whether or not you practice TDD in your normal workflow, explaining the steps here helps expose possible problems you might encounter along the way, thus making your own troubleshooting simpler. Let's get started:
 
 ### Writing a unit test
+
 Now that we’ve got **PHPunit** set up, let’s create a unit test for our Post model in the `tests/Unit` directory called `PostTest.php`. Let's write a test that verifies a `Post` has a title:
 
 ```php
@@ -130,6 +134,7 @@ class PostTest extends TestCase
 Note: we're using the `RefreshDatabase` trait to be sure that we start with a clean database state before every test.
 
 ### Running the tests
+
 We can run our test suite by calling the phpunit binary in our vendor directory using `./vendor/bin/phpunit`. However, let’s alias this to `test` in our `composer.json` file by adding a “script”:
 
 ```json
@@ -156,6 +161,7 @@ InvalidArgumentException: Unable to locate factory with name [default] [JohnDoe\
 This tells us that we need to create a model factory for the `Post` model.
 
 ### Creating a model factory
+
 Let’s create a `PostFactory` in the `database/factories` folder:
 
 ```php
@@ -173,6 +179,7 @@ $factory->define(Post::class, function (Faker $faker) {
 ```
 
 ### Loading the model factory
+
 To make use of the newly created model factory, you need to register them in the package's Service Provider. To add them to the Service Provider, point the `Illuminate\Database\Eloquent\Factory` class to the directory containing the model factories:
 
 ```php
@@ -183,12 +190,12 @@ public function boot()
     // Register the model factories
     $this->app->make('Illuminate\Database\Eloquent\Factory')
         ->load(__DIR__.'/../database/factories');
-        
+
     // ...
 }
 ```
 
-If you only use model factories in your tests, you don't have to register them in the service provider. To access them  in your tests, use the `withFactories()` method provided by Orchestra Testbench ([learn more](https://orchestraplatform.readme.io/docs/testbench#section-using-model-factories)) in the `setUp()` method of the parent `TestCase` class:
+If you only use model factories in your tests, you don't have to register them in the service provider. To access them in your tests, use the `withFactories()` method provided by Orchestra Testbench ([learn more](https://orchestraplatform.readme.io/docs/testbench#section-using-model-factories)) in the `setUp()` method of the parent `TestCase` class:
 
 ```php
 // 'tests/TestCase.php'
@@ -196,12 +203,12 @@ If you only use model factories in your tests, you don't have to register them i
 protected function setUp()
 {
     parent::setUp();
-    
+
     $this->withFactories(__DIR__.'/../database/factories');
 }
 ```
 
-However, the tests will still fail since we haven’t created the `posts` table in our in-memory sqlite database yet. We need to tell our tests to first perform all migrations, before running the tests. 
+However, the tests will still fail since we haven’t created the `posts` table in our in-memory sqlite database yet. We need to tell our tests to first perform all migrations, before running the tests.
 
 Let’s load the migrations in the `getEnvironmentSetUp()` method of our `TestCase`:
 
@@ -232,6 +239,7 @@ Schema::create('posts', function (Blueprint $table) {
 After running the test, you should see it passing.
 
 ### Adding tests for other columns
+
 Let’s add tests for the “body” and “author_id”:
 
 ```php
@@ -264,7 +272,7 @@ class PostTest extends TestCase
 }
 ```
 
-You can continue driving this out with TDD on your own, running the tests, exposing the next thing to implement, and testing again. 
+You can continue driving this out with TDD on your own, running the tests, exposing the next thing to implement, and testing again.
 
 Eventually you’ll end up with a model factory and migration as follows:
 
@@ -301,11 +309,13 @@ Schema::create('posts', function (Blueprint $table) {
 ```
 
 ## Models related to App\User
+
 Now that we have an “author_id” column on our `Post` model, let’s create a relationship between a `Post` and a `User`. However … we have a problem, since we need a `User` model, but this model also comes out-of-the-box with a fresh installation of the Laravel framework…
 
 We can’t just provide our own `User` model, since you likely want your end user to be able to hook up his own `User` model with your `Post` model. Or even better, let the end user decide which model they want to associate with the `Post` model.
 
 ### Using a polymorphic relationship
+
 Instead of opting for a conventional one-to-many relationship (a user can have many posts, and a post belongs to a user), we’ll use a **polymorphic** one-to-many relationship where a `Post` morphs to a certain related model (not necessarily a `User` model).
 
 Let’s compare the standard and polymorphic relationships.
@@ -333,6 +343,7 @@ class User extends Model
 ```
 
 Definition of a polymorphic one-to-many relationship:
+
 ```php
 // Post model
 class Post extends Model
@@ -371,6 +382,7 @@ Schema::create('posts', function (Blueprint $table) {
 Now, we need a way to provide our end user with the option to allow certain models to be able to have relationship with our `Post` model. **Traits** offer an excellent solution for this exact purpose.
 
 ### Providing a Trait
+
 Create a `Traits` folder in the `src/` directory and add the following `HasPosts` trait:
 
 ```php
@@ -404,9 +416,10 @@ $user->posts()->create([
 ```
 
 ### Testing the polymorphic relationship
+
 Of course, we want to prove that any model using our `HasPost` trait can indeed create new posts and that those posts are stored correctly.
 
-Therefore, we’ll create a new `User` model, not within the `src/Models/` directory, but rather in our `tests/` directory. 
+Therefore, we’ll create a new `User` model, not within the `src/Models/` directory, but rather in our `tests/` directory.
 
 In the `User` model we’ll use the same traits that would be available on the `User` model that ships with a standard Laravel project to stay close to a real world scenario. Also, we use our own `HasPosts` trait:
 
@@ -491,6 +504,7 @@ public function getEnvironmentSetUp($app)
 ```
 
 ### Updating our Post model factory
+
 Now that we can whip up `User` models with our new factory, let’s create a new `User` in our `PostFactory` and then assign it to “author_id” and “author_type”:
 
 ```php
@@ -505,7 +519,7 @@ use JohnDoe\BlogPackage\Tests\User;
 
 $factory->define(Post::class, function (Faker $faker) {
     $author = factory(User::class)->create();
-    
+
     return [
         'title'         => $faker->words(3),
         'body'          => $faker->paragraph,
@@ -532,7 +546,7 @@ class PostTest extends TestCase
 }
 ```
 
-Finally, we need to verify that our test `User` can create a `Post` and that it is stored correctly. 
+Finally, we need to verify that our test `User` can create a `Post` and that it is stored correctly.
 
 Since we are not creating a new post using a call to a specific route in the application, let's store this test also in the `Post` unit test. In the next section on “Routes & Controllers”, we’ll make a POST request to an endpoint to create a new `Post` model and therefore divert to a Feature test.
 
@@ -570,5 +584,3 @@ class PostTest extends TestCase
 ```
 
 At this stage all of the tests should be passing.
-
-
