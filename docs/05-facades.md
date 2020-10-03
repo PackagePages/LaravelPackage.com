@@ -14,11 +14,11 @@ MessageFactory::sentBy($user)
     ->create();
 ```
 
-## How a facade works
+## How a Facade Works
 
 To learn more about facades and how they work, refer to the excellent [Laravel documentation](https://laravel.com/docs/facades#how-facades-work).
 
-## How to create a facade
+## How to Create a Facade
 
 Let’s assume that we provide a `Calculator` class as part of our package and want to make this class available as a facade.
 

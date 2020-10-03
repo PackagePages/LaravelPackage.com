@@ -4,7 +4,7 @@ Laravel ships with a PHP executable 'artisan' file, providing a command-line int
 
 Let's say that we want to provide an easy artisan command for our end user to publish the config file, via: `php artisan blogpackage:install`.
 
-## Creating a new command
+## Creating a New Command
 
 Create a new `Console` folder in the `src/` directory and create a new file named `InstallBlogPackage.php`. This class will extend Laravel's `Command` class and provide a `$signature` (the command) and a `$description` property. In the `handle()` method we specify what our command will do. In this case, we provide some feedback that we're "installing" the package and we'll call another artisan command to publish the config file. Finally, we let the user know that we're done.
 
@@ -38,7 +38,7 @@ class InstallBlogPackage extends Command
 }
 ```
 
-## Registering the command in the service provider
+## Registering the Command in the Service Provider
 
 We need to present this package functionality to the end user, thus registering it in the package's service provider.
 
@@ -60,7 +60,7 @@ public function boot()
 }
 ```
 
-## Testing the artisan command
+## Testing the Artisan Command
 
 To test that our command works, let's create a new unit test called `InstallBlogPackageTest.php` in the Unit test folder.
 
@@ -95,7 +95,7 @@ class InstallBlogPackageTest extends TestCase
 }
 ```
 
-## Hiding a command
+## Hiding a Command
 
 There might be cases where you'd like to exclude the command from the list of Artisan commands. You can define a `$hidden` property on the command class, which will not show the specific command in the list of Artisan commands. Note, however, that the command can still be used and is only hidden.
 
@@ -187,7 +187,7 @@ class MakeFooCommand extends GeneratorCommand
 
 Note that the class is exported to a directory **based on the namespace** as specified in the `getDefaultNamespace()` method.
 
-### Creating a stub
+### Creating a Stub
 
 You are free to store stubs in a different directory, but for now consider storing stubs in the `Console\stub` directory. For our `Foo` class generator, the stub could look as follows:
 
@@ -266,7 +266,7 @@ CLASS;
 }
 ```
 
-## Create a Test-only Command
+## Create a Test-Only Command
 
 There are some situations in which you would like to only use a certain command for testing and not in your application itself. For example when your package provides a `Trait` that can be used by Command classes. To test the trait, you want to test with an actual command.
 

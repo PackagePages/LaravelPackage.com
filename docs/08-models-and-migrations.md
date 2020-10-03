@@ -133,7 +133,7 @@ class PostTest extends TestCase
 
 Note: we're using the `RefreshDatabase` trait to be sure that we start with a clean database state before every test.
 
-### Running the tests
+### Running the Tests
 
 We can run our test suite by calling the phpunit binary in our vendor directory using `./vendor/bin/phpunit`. However, let’s alias this to `test` in our `composer.json` file by adding a “script”:
 
@@ -160,7 +160,7 @@ InvalidArgumentException: Unable to locate factory with name [default] [JohnDoe\
 
 This tells us that we need to create a model factory for the `Post` model.
 
-### Creating a model factory
+### Creating a Model Factory
 
 Let’s create a `PostFactory` in the `database/factories` folder:
 
@@ -178,7 +178,7 @@ $factory->define(Post::class, function (Faker $faker) {
 });
 ```
 
-### Loading the model factory
+### Loading the Model Factory
 
 To make use of the newly created model factory, you need to register them in the package's Service Provider. To add them to the Service Provider, point the `Illuminate\Database\Eloquent\Factory` class to the directory containing the model factories:
 
@@ -238,7 +238,7 @@ Schema::create('posts', function (Blueprint $table) {
 
 After running the test, you should see it passing.
 
-### Adding tests for other columns
+### Adding Tests for Other Columns
 
 Let’s add tests for the “body” and “author_id”:
 
@@ -314,7 +314,7 @@ Now that we have an “author_id” column on our `Post` model, let’s create a
 
 We can’t just provide our own `User` model, since you likely want your end user to be able to hook up his own `User` model with your `Post` model. Or even better, let the end user decide which model they want to associate with the `Post` model.
 
-### Using a polymorphic relationship
+### Using a Polymorphic Relationship
 
 Instead of opting for a conventional one-to-many relationship (a user can have many posts, and a post belongs to a user), we’ll use a **polymorphic** one-to-many relationship where a `Post` morphs to a certain related model (not necessarily a `User` model).
 
@@ -415,7 +415,7 @@ $user->posts()->create([
 ]);
 ```
 
-### Testing the polymorphic relationship
+### Testing the Polymorphic Relationship
 
 Of course, we want to prove that any model using our `HasPost` trait can indeed create new posts and that those posts are stored correctly.
 
@@ -503,7 +503,7 @@ public function getEnvironmentSetUp($app)
 }
 ```
 
-### Updating our Post model factory
+### Updating Our Post Model Factory
 
 Now that we can whip up `User` models with our new factory, let’s create a new `User` in our `PostFactory` and then assign it to “author_id” and “author_type”:
 

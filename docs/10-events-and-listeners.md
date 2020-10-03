@@ -6,7 +6,7 @@ Laravel's events provide a way to hook into a certain activity that took place i
 
 It is not uncommon that packages emit events upon performing a certain task. The end user may or may not register his own listeners for an event you submit within a package. However, sometimes you might also want to listen within your package to your own events. For this we'll need _our own event service provider_ and that's what we're looking at in this section.
 
-## Creating a new Event
+## Creating a New Event
 
 First let's emit an event whenever a new `Post` is created via the route we set up earlier.
 
@@ -58,7 +58,7 @@ class PostController extends Controller
 }
 ```
 
-### Testing we're emitting the event
+### Testing We're Emitting the Event
 
 To be sure this event is successfully fired, add a test to our `CreatePostTest` _feature_ test. We can easily fake Laravel's `Event` facade and make assertions (see [Laravel documentation on Fakes](https://laravel.com/docs/mocking#event-fake)) that the event was emitted **and** about the passed `Post` model.
 
@@ -97,7 +97,7 @@ class CreatePostTest extends TestCase
 
 Now that we know that our event is fired correctly, let's hook up our own listener.
 
-## Creating a new Listener
+## Creating a New Listener
 
 After a `PostWasCreated` event was fired, let's modify the title of our post, for demonstrative purposes. In the `src/` directory, create a new folder `Listeners`. In this folder, create a new file that describes our action: `UpdatePostTitle.php`:
 
@@ -184,7 +184,7 @@ class EventServiceProvider extends ServiceProvider
 }
 ```
 
-## Registering the event service provider
+## Registering the Event Service Provider
 
 In our main `BlogPackageServiceProvider` we need to register our Event Service Provider in the `register()` method, as follows (don't forget to import it):
 
@@ -200,7 +200,7 @@ public function register()
 }﻿
 ```
 
-## Testing the Event/Listener cascade
+## Testing the Event/Listener Cascade
 
 Earlier we faked the `Event` facade, but in this test we would like to confirm that an event was fired that led to a handle method on a listener and that eventually changed the title of our `Post`, exactly like we'd expect. The test assertion is easy: just assume that the title was changed after creating a new post. We'll add this method to the `CreatePostTest` feature test:
 
@@ -224,7 +224,7 @@ function the_title_of_a_post_is_updated_whenever_a_post_is_created()
 
 This test is green, but what if we run the full suite?
 
-## Fixing the failing test
+## Fixing the Failing Test
 
 If we run the full suite with `composer test`, we see we have one failing test:
 

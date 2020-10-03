@@ -30,11 +30,11 @@ Releases (and thus versions) of your package are tracked through **tags** on the
 
 To release version `1.0.0` of the package, first create a new tag in your git repository. If you're using GitHub you can do so by visiting the "releases" tab and "Create a new release". Provide a "Tag version" and "Release title" of `1.0.0` targeted at the current state of the `master` branch (serving as a pointer to the latest commit). Additionally you might provide information regarding this release in the description. After clicking "Publish release", Packagist will automatically update and reflect this new version. By default, consumers requiring the package without specifying a version will be served the latest tag/version/release which in this case will be `1.0.0`. You'll notice when you require this package in your project, the version constraint in `composer.json` will be `^1.0`, allowing `composer update` to download versions up to `1.x` (allowing minor and patch releases) but not `2.x` (major release, containing breaking changes). See the section below on semantic versioning for more information.
 
-## Releasing a new version
+## Releasing a New Version
 
 As you make updates to your package, refer to the semantic versioning while drafting new releases. When you create a new tag in the associated git repository, Packagist will automatically be updated.
 
-## Semantic versioning
+## Semantic Versioning
 
 This section will provide a short overview of how Semantic Versioning is used and applied by Composer. To get a more in-depth overview, check out [semver.org](https://semver.org/).
 
@@ -54,7 +54,7 @@ From the Composer documentation:
 
 > Composer first asks the VCS to list all available tags, then creates an internal list of available versions based on these tags [...] When Composer has a complete list of available versions from your VCS, it then finds the highest version **that matches all version constraints** in your project (it's possible that other packages require more specific versions of the library than you do, so the version it chooses may not always be the highest available version) and it downloads a zip archive of that tag to unpack in the correct location in your vendor directory.
 
-### Version constraints
+### Version Constraints
 
 Composer supports various [version constraints](https://getcomposer.org/doc/articles/versions.md#writing-version-constraints), of which the ones using semantic versioning are the most used as most packages implement semantic versioning. There are two distinct ways to define a semantic version range:
 

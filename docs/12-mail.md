@@ -39,7 +39,7 @@ class WelcomeMail extends Mailable
 }
 ```
 
-## Register the views directory
+## Register the Views Directory
 
 In the call to the mailable's `view()` method we've specified the string `emails.welcome` which Laravel will translate to searching for a `welcome.blade.php` file in the `emails` directory in the package's registered views directory.
 
@@ -56,7 +56,7 @@ public function boot()
 
 This will look for views in the `resources/views` directory in the root of your package.
 
-## Creating a Blade mail template
+## Creating a Blade Mail Template
 
 Create the `welcome.blade.php` file in the `resources/views/emails` directory, where the `$post` variable will be freely available to use in the template.
 

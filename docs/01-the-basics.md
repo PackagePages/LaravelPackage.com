@@ -1,6 +1,6 @@
 # The Basics
 
-## The concept of autoloading
+## The Concept of Autoloading
 
 After each installation or update, composer will generate an `autoload.php` file in the `/vendor` directory. By including this single file, you’ll be able to access all classes provided by your installed libraries.
 
@@ -18,7 +18,7 @@ require __DIR__.'/../vendor/autoload.php';
 // additional bootstrapping methods...
 ```
 
-## The directory structure of a package
+## The Directory Structure of a Package
 
 In general (and by convention), a package contains a `src/` (short for “source”) folder containing all package specific logic (classes) and a `composer.json` file containing information about the package itself. Additionally, most packages also include a license and documentation.
 
