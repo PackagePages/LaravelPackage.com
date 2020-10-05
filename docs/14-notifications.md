@@ -115,7 +115,7 @@ class NotifyPostWasPublishedTest extends TestCase
 
 With the test passing, you can safely use this notification in your package.
 
-## Custom notification channels
+## Custom Notification Channels
 
 Additionally, you may configure the channels for the notification to be dependent on the configuration file of your package to allow your users to specify which notification channels they want to use.
 

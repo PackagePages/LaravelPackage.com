@@ -45,7 +45,7 @@ class AppServiceProvider extends ServiceProvider
 }
 ```
 
-## Adding our package's service provider
+## Adding Our Package's Service Provider
 
 For our package, we will create our own service provider which contains specific information about the core of what our package has to offer. The package might use a config file, maybe some views, routes, controllers, database migrations, model factories, custom commands, etc. The service provider needs to **register** them. We will discuss each of these in subsequent chapters.
 

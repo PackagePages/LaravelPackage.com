@@ -36,7 +36,7 @@ class PublishPost implements ShouldQueue
 }
 ```
 
-## Testing dispatching a Job
+## Testing Dispatching a Job
 
 For this example, we have a `publish()` method on the `Post` model which is already under test (a unit test for `Post`). We can easily test the expected behaviour by adding a new `PublishPostTest.php` unit test in the `tests/unit` directory.
 

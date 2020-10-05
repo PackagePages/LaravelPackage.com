@@ -14,7 +14,7 @@ return [
 ];
 ```
 
-## Merging into the existing configuration
+## Merging Into the Existing Configuration
 
 After registering the config file in the `register()` method of our service provider under a certain "key" ('blogpackage' in our demo), we can access the config values from the config helper by prefixing our "key" as follows: `config('blogpackage.posts_table')`.
 

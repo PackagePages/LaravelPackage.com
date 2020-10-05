@@ -235,7 +235,7 @@ public function boot()
 
 The route middleware groups of a Laravel application are located in the `App\Http\Kernel` class. When applying this approach, you need to be sure that the consumer(s) of this package have the certain middleware group defined in their application.
 
-## Feature testing Middleware
+## Feature Testing Middleware
 
 Regardless of the fact that we registered the middleware globally or route specifically, we can test that the middleware is indeed applied when making a request.
 
