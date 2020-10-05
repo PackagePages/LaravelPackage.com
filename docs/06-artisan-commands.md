@@ -266,7 +266,7 @@ CLASS;
 }
 ```
 
-## Create a Test-Only Command
+## Creating a Test-Only Command
 
 There are some situations in which you would like to only use a certain command for testing and not in your application itself. For example when your package provides a `Trait` that can be used by Command classes. To test the trait, you want to test with an actual command.
 
