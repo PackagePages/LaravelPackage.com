@@ -58,7 +58,7 @@ class PostController extends Controller
 }
 ```
 
-### Testing We're Emitting the Event
+### Testing the Event was Emitted
 
 To be sure this event is successfully fired, add a test to our `CreatePostTest` _feature_ test. We can easily fake Laravel's `Event` facade and make assertions (see [Laravel documentation on Fakes](https://laravel.com/docs/mocking#event-fake)) that the event was emitted **and** about the passed `Post` model.
 
