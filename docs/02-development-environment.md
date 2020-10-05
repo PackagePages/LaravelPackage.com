@@ -129,11 +129,29 @@ composer require johndoe/blogpackage
 
 We now have a `composer.json` file and an empty src/ directory. However, we don’t have access to any Laravel specific functionality as provided by the `Illuminate` components.
 
-To use these components in our package, we’ll require the [Orchestra Testbench](https://github.com/orchestral/testbench). Note that each version of the Laravel framework has a corresponding version of Orchestra Testbench. In this post, I’ll assume we’re developing a package for **Laravel 6.0** which is the latest version at the moment of writing this post.
+To use these components in our package, we’ll require the [Orchestra Testbench](https://github.com/orchestral/testbench). Note that each version of the Laravel framework has a corresponding version of Orchestra Testbench. In this post, I’ll assume we’re developing a package for **Laravel 8.0** which is the latest version at the moment of writing this post.
 
 ```bash
-composer require --dev "orchestra/testbench=^4.0"
+composer require --dev "orchestra/testbench=^6.0"
 ```
+
+The full compatibility table of the Orchestra Testbench is shown bellow, taken from [the original documentation](https://github.com/orchestral/testbench).
+
+
+ Laravel  | Testbench
+:---------|:----------
+ 5.0.x    | 3.0.x
+ 5.1.x    | 3.1.x
+ 5.2.x    | 3.2.x
+ 5.3.x    | 3.3.x
+ 5.4.x    | 3.4.x
+ 5.5.x    | 3.5.x
+ 5.6.x    | 3.6.x
+ 5.7.x    | 3.7.x
+ 5.8.x    | 3.8.x
+ 6.x      | 4.x
+ 7.x      | 5.x
+ 8.x      | 6.x
 
 Now that we've installed the Orchestra Testbench package, we'll find an `orchestra` folder in the `vendor` directory of our package. In that folder, you'll see there is a `laravel` folder containing the `Illuminate` helpers and a `testbench-core` folder and in that folder you'll see there is a folder called `laravel` with a complete directory structure of a Laravel project. This allows us to use the Laravel helpers that involve interaction with the project's directory structure (for example related to file manipulation).
 
