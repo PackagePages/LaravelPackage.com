@@ -60,7 +60,7 @@ public function boot()
 }
 ```
 
-## Testing the Artisan Command
+## Testing a Command
 
 To test that our command works, let's create a new unit test called `InstallBlogPackageTest.php` in the Unit test folder.
 
