@@ -38,7 +38,7 @@ class InstallBlogPackage extends Command
 }
 ```
 
-## Registering the Command in the Service Provider
+## Registering a Command in the Service Provider
 
 We need to present this package functionality to the end user, thus registering it in the package's service provider.
 
