@@ -20,7 +20,7 @@ Packages are downloaded and installed using [Composer](https://getcomposer.org/)
 
 To install a package in your existing Laravel project, the `composer require <vendor>/<package>` command will download all necessary files into a `/vendor` directory of your project where all your third party packages live, separated by vendor name. As a consequence, the content from these packages is separated from your application code which means this piece of code is maintained by someone else, most often by creator of that package. Whenever the package needs an update, run `composer update` to get the latest (compatible) version of your packages.
 
-## Tools for Developing a Package
+## Tools and Helpers
 
 In the first chapter, the basic structure of a package will be addressed. Now, it can be cumbersome to set-up the basic skeleton every time from scratch. That's why others created some helpful tools.
 
