@@ -1,6 +1,6 @@
 # The Basics
 
-## The Concept of Autoloading
+## Autoloading
 
 After each installation or update, composer will generate an `autoload.php` file in the `/vendor` directory. By including this single file, you’ll be able to access all classes provided by your installed libraries.
 
