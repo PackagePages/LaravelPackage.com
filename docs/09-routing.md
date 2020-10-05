@@ -183,7 +183,7 @@ Create a new `resources/` folder in the root of our package. In that folder, cre
 
 Note: these templates would extend a base / master layout file in a real world scenario.
 
-### Register Views in the Service Provider
+### Registering Views in the Service Provider
 
 Now that we have some views, we need to register that we want to load any views from our `resources/views` directory in the `boot()` method of our Service Provider. **Important**: provide a "key" as the second argument to `loadViewsFrom()` as you'll need to specify this key when returning a view from a controller (see next section).
 
