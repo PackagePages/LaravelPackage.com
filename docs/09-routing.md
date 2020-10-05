@@ -275,7 +275,7 @@ The assets can then be exported by users of our package using:
 php artisan vendor:publish --provider="JohnDoe\BlogPackage\BlogPackageServiceProvider" --tag="assets"
 ```
 
-### Referencing the Assets
+### Referencing Assets
 
 We can reference the stylesheet and javascript file in our views as follows:
 
