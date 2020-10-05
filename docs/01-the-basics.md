@@ -18,7 +18,7 @@ require __DIR__.'/../vendor/autoload.php';
 // additional bootstrapping methods...
 ```
 
-## The Directory Structure of a Package
+## Directory Structure
 
 In general (and by convention), a package contains a `src/` (short for “source”) folder containing all package specific logic (classes) and a `composer.json` file containing information about the package itself. Additionally, most packages also include a license and documentation.
 
