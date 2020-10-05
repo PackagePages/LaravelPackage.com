@@ -53,7 +53,7 @@ class PostController extends Controller
 
     event(new PostWasCreated($post));
 
-    return redirect(...);﻿
+    return redirect(...);
   }
 }
 ```
@@ -63,7 +63,7 @@ class PostController extends Controller
 To be sure this event is successfully fired, add a test to our `CreatePostTest` _feature_ test. We can easily fake Laravel's `Event` facade and make assertions (see [Laravel documentation on Fakes](https://laravel.com/docs/mocking#event-fake)) that the event was emitted **and** about the passed `Post` model.
 
 ```php
-// 'tests/Feature/CreatePostTest.php'﻿
+// 'tests/Feature/CreatePostTest.php'
 use Illuminate\Support\Facades\Event;
 use JohnDoe\BlogPackage\Events\PostWasCreated;
 use JohnDoe\BlogPackage\Models\Post;
@@ -142,7 +142,7 @@ function a_newly_created_posts_title_will_be_changed()
     );
 
     $this->assertEquals('New: ' . 'Initial title', $post->fresh()->title);
-}﻿
+}
 ```
 
 Now that we have a passing test for emitting the event, and we know that our listener shows the right behaviour handling the event, let's couple the two together and create a custom Event Service Provider.
@@ -197,7 +197,7 @@ public function register()
   // merge config files
 
   $this->app->register(EventServiceProvider::class);
-}﻿
+}
 ```
 
 ## Testing the Event/Listener Cascade
@@ -205,7 +205,7 @@ public function register()
 Earlier we faked the `Event` facade, but in this test we would like to confirm that an event was fired that led to a handle method on a listener and that eventually changed the title of our `Post`, exactly like we'd expect. The test assertion is easy: just assume that the title was changed after creating a new post. We'll add this method to the `CreatePostTest` feature test:
 
 ```php
-// 'tests/Feature/CreatePostTest.php'﻿
+// 'tests/Feature/CreatePostTest.php'
 /** @test */
 function the_title_of_a_post_is_updated_whenever_a_post_is_created()
 {
@@ -255,7 +255,7 @@ function authenticated_users_can_create_a_post()
     Event::fake();
 
     $this->assertCount(0, Post::all());
-    // the rest of the test... ﻿
+    // the rest of the test... 
 ```
 
 All tests are green, so let's move on to the next topic.

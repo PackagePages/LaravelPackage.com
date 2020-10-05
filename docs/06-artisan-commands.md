@@ -47,9 +47,9 @@ Since we only want to provide this functionality from the command-line we'll add
 ```php
 // 'BlogPackageServiceProvider.php'
 use JohnDoe\BlogPackage\Console\InstallBlogPackage;
-﻿
+
 public function boot()
-{﻿
+{
   if ($this->app->runningInConsole()) {
     // publish config file
 

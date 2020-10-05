@@ -48,9 +48,9 @@ To specify a view directory, you need to add the `$this->loadViews()` call to yo
 ```php
 // 'BlogPackageServiceProvider.php'
 public function boot()
-{﻿
+{
   // ... other things
-  ﻿$this->loadViewsFrom(__DIR__.'/../resources/views', 'blogpackage');
+  $this->loadViewsFrom(__DIR__.'/../resources/views', 'blogpackage');
 }
 ```
 

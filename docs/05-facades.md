@@ -112,7 +112,7 @@ The `Calculator` facade can now be used by the end user after importing it from 
             "Calculator": "JohnDoe\\BlogPackage\\Facades\\Calculator"
         }
     }
-}﻿
+}
 ```
 
 Our facade now no longer requires an import and can be used in projects from the root namespace.

@@ -56,7 +56,7 @@ class CapitalizeTitle
 
         return $next($request);
     }
-}﻿
+}
 ```
 
 ## Testing Before Middleware
@@ -92,7 +92,7 @@ class CapitalizeTitleMiddlewareTest extends TestCase
             $this->assertEquals('Some title', $request->title);
         });
     }
-}﻿
+}
 ```
 
 ## After Middleware
@@ -147,7 +147,7 @@ class InjectHelloWorldMiddlewareTest extends TestCase
 
         $this->assertStringContainsString('Hello World', $response);
     }
-}﻿
+}
 ```
 
 Now that we know the `handle()` method does its job correctly, let's look at the two options to register the middleware: **globally** vs. **route specific**.
@@ -166,10 +166,10 @@ use JohnDoe\BlogPackage\Http\Middleware\CapitalizeTitle;
 public function boot()
 {
   // other things ...
-﻿
+
   $kernel = $this->app->make(Kernel::class);
   $kernel->pushMiddleware(CapitalizeTitle::class);
-}﻿
+}
 ```
 
 This will push our middleware into the application's array of globally registered middleware.
@@ -195,7 +195,7 @@ public function boot()
 
   $router = $this->app->make(Router::class);
   $router->aliasMiddleware('capitalize', CapitalizeTitle::class);
-}﻿
+}
 ```
 
 We can apply this middleware from within our controller by requiring it from the constructor:
@@ -208,7 +208,7 @@ class PostController extends Controller
     {
         $this->middleware('capitalize');
     }
-﻿
+
     // other methods... (will use this middleware)
 }
 ```

@@ -190,9 +190,9 @@ Now that we have some views, we need to register that we want to load any views 
 ```php
 // 'BlogPackageServiceProvider.php'
 public function boot()
-{﻿
+{
   // ... other things
-  ﻿$this->loadViewsFrom(__DIR__.'/../resources/views', 'blogpackage');
+  $this->loadViewsFrom(__DIR__.'/../resources/views', 'blogpackage');
 }
 ```
 
@@ -205,7 +205,7 @@ Note the `blogpackage::` prefix, which matches the prefix we registered in our S
 ```php
 // 'src/Http/Controllers/PostController.php'
 use JohnDoe\BlogPackage\Models\Post;
-﻿
+
 public function index()
 {
     $posts = Post::all();
@@ -218,7 +218,7 @@ public function show()
     $post = Post::findOrFail(request('post'));
 
     return view('blogpackage::posts.show', compact('post'));
-}﻿
+}
 ```
 
 ### Customizable Views
@@ -226,7 +226,7 @@ public function show()
 Chances are that you want to be able to let the users of your package _customize_ the views. Similar to the database migrations, the views can be **published** if we register them to be exported in the `boot()` method of our service provider using the 'views' key of the publishes() method:
 
 ```php
-// 'BlogPackageServiceProvider.php'﻿
+// 'BlogPackageServiceProvider.php'
 if ($this->app->runningInConsole()) {
   // publish database migrations
 
@@ -256,7 +256,7 @@ If you want to use a CSS stylesheet and/or include a javascript file in your vie
 Just like the views, we can let our users customize the assets if they want. First, we'll determine where we'll export the assets in the `boot()` method of our service provider under the 'assets' key in a 'blogpackage' directory in the public path of the end user's Laravel app:
 
 ```php
-// 'BlogPackageServiceProvider.php'﻿
+// 'BlogPackageServiceProvider.php'
 if ($this->app->runningInConsole()) {
   // publish database migrations
 
@@ -294,7 +294,7 @@ Create a new Feature test called `CreatePostTest.php` in the `tests/Feature` dir
 
 ```php
 // 'tests/Feature/CreatePostTest.php'
-﻿<?php
+<?php
 
 namespace JohnDoe\BlogPackage\Tests\Feature;
 
@@ -336,7 +336,7 @@ Additionally, we could verify that we require both a "title" and a "body" attrib
 
 ```php
 // 'tests/Feature/CreatePostTest.php'
-﻿/** @test */
+/** @test */
 function a_post_requires_a_title_and_a_body()
 {
     $author = factory(User::class)->create();

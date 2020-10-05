@@ -80,7 +80,7 @@ class BlogPackageServiceProvider extends ServiceProvider
     if ($this->app->runningInConsole()) {
       // publish config file
       // register artisan command
-﻿
+
       if (! class_exists('CreatePostsTable')) {
         $this->publishes([
           __DIR__ . '/../database/migrations/create_posts_table.php.stub' => database_path('migrations/' . date('Y_m_d_His', time()) . '_create_posts_table.php'),
@@ -247,7 +247,7 @@ Let’s add tests for the “body” and “author_id”:
 class PostTest extends TestCase
 {
   use RefreshDatabase;
-﻿
+ 
   /** @test */
   function a_post_has_a_title()
   {
