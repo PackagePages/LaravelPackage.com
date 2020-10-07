@@ -159,13 +159,13 @@ Before each test, a testing environment including a fully booted (test) applicat
 
 ```php
 // 'vendor/orchestra/testbench-core/src/Concerns/CreatesApplication.php'
-﻿/**
+/**
  * Get base path.
  *
  * @return string
  */
 protected function getBasePath()
 {
-    return __DIR__.'/../../laravel';
+    return \realpath(__DIR__.'/../../laravel');
 }
 ```
