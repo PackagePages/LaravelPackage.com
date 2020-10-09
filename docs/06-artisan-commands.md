@@ -46,17 +46,17 @@ Since we only want to provide this functionality from the command-line we'll add
 
 ```php
 // 'BlogPackageServiceProvider.php'
+
 use JohnDoe\BlogPackage\Console\InstallBlogPackage;
 
 public function boot()
 {
-  if ($this->app->runningInConsole()) {
-    // publish config file
-
-    $this->commands([
-        InstallBlogPackage::class,
-    ]);
-  }
+    // Register the command if we are using the application via the CLI
+    if ($this->app->runningInConsole()) {
+        $this->commands([
+            InstallBlogPackage::class,
+        ]);
+    }
 }
 ```
 
@@ -296,7 +296,7 @@ class TestCommandTest extends TestCase
         // Running the command
         Artisan::call('test-command:run');
 
-       // assertions...
+       // Assertions...
    }
 }
 ```
