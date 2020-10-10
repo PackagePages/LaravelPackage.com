@@ -194,8 +194,6 @@ use JohnDoe\BlogPackage\Providers\EventServiceProvider;
 
 public function register()
 {
-  // merge config files
-
   $this->app->register(EventServiceProvider::class);
 }
 ```
