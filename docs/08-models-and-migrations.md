@@ -171,9 +171,9 @@ Let’s create a `PostFactory` in the `database/factories` folder:
 // 'database/factories/PostFactory.php'
 <?php
 
-namespace Database\Factories;
+namespace JohnDoe\BlogPackage\Database\Factories;
 
-use App\Models\Post;
+use JohnDoe\BlogPackage\Models\Post;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 class PostFactory extends Factory
@@ -197,36 +197,47 @@ class PostFactory extends Factory
         ];
     }
 }
+
 ```
 
-### Loading the model factory
+As with the `src` folder, for our package users to be able to use our model factories we'll need to register the `database/factories` folder within a namespace in our `composer.json` file:
 
-To make use of the newly created model factory, you need to register them in the package's Service Provider. To add them to the Service Provider, point the `Illuminate\Database\Eloquent\Factory` class to the directory containing the model factories:
-
-```php
-// 'src/BlogPackageServiceProvider.php'
-
-public function boot()
+```json
 {
-    // Register the model factories
-    $this->app->make('Illuminate\Database\Eloquent\Factory')
-        ->load(__DIR__.'/../database/factories');
-
-    // ...
+  ...,
+  "autoload": {
+    "psr-4": {
+      "JohnDoe\\BlogPackage\\": "src",
+      "JohnDoe\\BlogPackage\\Database\\Factories": "database/factories"
+    }
+  },
+  ...
 }
 ```
 
-If you only use model factories in your tests, you don't have to register them in the service provider. To access them in your tests, use the `withFactories()` method provided by Orchestra Testbench ([learn more](https://orchestraplatform.readme.io/docs/testbench#section-using-model-factories)) in the `setUp()` method of the parent `TestCase` class:
+After setting it up, don't forget to run `composer dump-autoload`.
+
+### Configuring our Model factory
+
+Running our tests again leads to the following error:
+
+```
+Error: Class 'Database\Factories\JohnDoe\BlogPackage\Models\PostFactory' not found
+```
+
+This is because Laravel is trying to resolve the Model class for our `PostFactory` assuming the default namespaces of a usual project (as of version 8.x, `App` or `App\Models`).
+To be able to instantiate the right Model from our package, we need to add the following method to our `Post` Model:
 
 ```php
-// 'tests/TestCase.php'
-
-protected function setUp()
-{
-    parent::setUp();
-
-    $this->withFactories(__DIR__.'/../database/factories');
-}
+  /**
+   * Create a new factory instance for the model.
+   *
+   * @return \Illuminate\Database\Eloquent\Factories\Factory
+   */
+  protected static function newFactory()
+  {
+      return \Database\Factories\JohnDoe\BlockPackage\Models\Post::new();
+  }
 ```
 
 However, the tests will still fail since we haven’t created the `posts` table in our in-memory sqlite database yet. We need to tell our tests to first perform all migrations, before running the tests.
