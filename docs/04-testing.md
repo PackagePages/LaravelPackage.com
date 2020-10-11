@@ -62,7 +62,7 @@ To accommodate for feature and unit tests, create a tests/ directory with a `Uni
   TestCase.php
 ```
 
-The `TestCase.php` extends \Orchestra\Testbench\TestCase (see example below) and contains tasks related to setting up our “world” before each test is executed. In the `TestCase` class we will implement three important set-up methods:
+The `TestCase.php` extends `\Orchestra\Testbench\TestCase` (see example below) and contains tasks related to setting up our “world” before each test is executed. In the `TestCase` class we will implement three important set-up methods:
 
 - `getPackageProviders()`
 - `getEnvironmentSetUp()`
