@@ -12,10 +12,13 @@ Models in our package do not differ from models we would use in a standard Larav
 
 namespace JohnDoe\BlogPackage\Models;
 
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
 class Post extends Model
 {
+  use HasFactory;
+
   // Disable Laravel's mass assignment protection
   protected $guarded = [];
 }
