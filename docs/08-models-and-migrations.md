@@ -128,7 +128,7 @@ class PostTest extends TestCase
   /** @test */
   function a_post_has_a_title()
   {
-    $post = factory(Post::class)->create(['title' => 'Fake Title']);
+    $post = Post::factory()->create(['title' => 'Fake Title']);
     $this->assertEquals('Fake Title', $post->title);
   }
 }
@@ -171,14 +171,32 @@ Let’s create a `PostFactory` in the `database/factories` folder:
 // 'database/factories/PostFactory.php'
 <?php
 
-use JohnDoe\BlogPackage\Models\Post;
-use Faker\Generator as Faker;
+namespace Database\Factories;
 
-$factory->define(Post::class, function (Faker $faker) {
-  return [
-    //
-  ];
-});
+use App\Models\Post;
+use Illuminate\Database\Eloquent\Factories\Factory;
+
+class PostFactory extends Factory
+{
+    /**
+     * The name of the factory's corresponding model.
+     *
+     * @var string
+     */
+    protected $model = Post::class;
+
+    /**
+     * Define the model's default state.
+     *
+     * @return array
+     */
+    public function definition()
+    {
+        return [
+            //
+        ];
+    }
+}
 ```
 
 ### Loading the model factory
