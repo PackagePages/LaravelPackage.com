@@ -186,6 +186,7 @@ class MakeFooCommand extends GeneratorCommand
 ```
 
 Note that the class is exported to a directory **based on the namespace** as specified in the `getDefaultNamespace()` method.
+
 As with the `InstallBlogPackage` command, we'd have to register this new command in the `BlogServiceProvider`:
 
 ```php
