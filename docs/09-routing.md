@@ -228,8 +228,7 @@ Chances are that you want to be able to let the users of your package _customize
 ```php
 // 'BlogPackageServiceProvider.php'
 if ($this->app->runningInConsole()) {
-  // publish database migrations
-
+  // Publish views
   $this->publishes([
     __DIR__.'/../resources/views' => resource_path('views/vendor/blogpackage'),
   ], 'views');
@@ -258,10 +257,7 @@ Just like the views, we can let our users customize the assets if they want. Fir
 ```php
 // 'BlogPackageServiceProvider.php'
 if ($this->app->runningInConsole()) {
-  // publish database migrations
-
-  // publish views
-
+  // Publish assets
   $this->publishes([
     __DIR__.'/../resources/assets' => public_path('blogpackage'),
     ], 'assets');
