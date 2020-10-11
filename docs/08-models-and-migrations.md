@@ -153,7 +153,7 @@ We can run our test suite by calling the phpunit binary in our vendor directory 
 }
 ```
 
-Now, we can run `composer test` to run all of our tests and `composer test-f` followed by a name of a test method to only run that test.
+Now, we can run `composer test` to run all of our tests and `composer test-f` followed by a name of a test method/class to only run that test.
 
 When we run `composer test-f a_post_has_a_title`, it leads us to the following error:
 
