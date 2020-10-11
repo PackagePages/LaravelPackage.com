@@ -61,7 +61,7 @@ Then, copy the following template to use an in-memory sqlite database and enable
 
 ## Tests directory structure
 
-To accommodate for feature and unit tests, create a tests/ directory with a `Unit` and `Feature` subdirectory and a base `TestCase.php` file. The structure looks as follows:
+To accommodate for feature and unit tests, create a `tests/` directory with a `Unit` and `Feature` subdirectory and a base `TestCase.php` file. The structure looks as follows:
 
 ```json
 - tests
