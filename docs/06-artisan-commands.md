@@ -189,7 +189,7 @@ Note that the class is exported to a directory **based on the namespace** as spe
 
 ### Creating a stub
 
-You are free to store stubs in a different directory, but for now consider storing stubs in the `Console\stub` directory. For our `Foo` class generator, the stub could look as follows:
+You are free to store stubs in a different directory, but for now consider storing stubs in the `Console/stubs` directory. For our `Foo` class generator, the stub could look as follows:
 
 ```php
 // 'stubs/foo.php.stub'
