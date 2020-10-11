@@ -158,7 +158,7 @@ Now, we can run `composer test` to run all of our tests and `composer test-f` fo
 When we run `composer test-f a_post_has_a_title`, it leads us to the following error:
 
 ```
-InvalidArgumentException: Unable to locate factory with name [default] [JohnDoe\BlogPackage\Models\Post].
+Error: Class 'Database\Factories\JohnDoe\BlogPackage\Models\PostFactory' not found
 ```
 
 This tells us that we need to create a model factory for the `Post` model.
