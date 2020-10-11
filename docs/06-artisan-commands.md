@@ -186,6 +186,24 @@ class MakeFooCommand extends GeneratorCommand
 ```
 
 Note that the class is exported to a directory **based on the namespace** as specified in the `getDefaultNamespace()` method.
+As with the `InstallBlogPackage` command, we'd have to register this new command in the `BlogServiceProvider`:
+
+```php
+// 'BlogPackageServiceProvider.php'
+use JohnDoe\BlogPackage\Console\{InstallBlogPackage, MakeFooCommand};
+
+public function boot()
+{
+  if ($this->app->runningInConsole()) {
+    // publish config file
+
+    $this->commands([
+        InstallBlogPackage::class,
+        MakeFooCommand::class, // registering the new command
+    ]);
+  }
+}
+```
 
 ### Creating a stub
 
