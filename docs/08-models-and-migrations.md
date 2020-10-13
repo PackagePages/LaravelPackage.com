@@ -226,7 +226,7 @@ Error: Class 'Database\Factories\JohnDoe\BlogPackage\Models\PostFactory' not fou
 ```
 
 This is because Laravel is trying to resolve the Model class for our `PostFactory` assuming the default namespaces of a usual project (as of version 8.x, `App` or `App\Models`).
-To be able to instantiate the right Model from our package, we need to add the following method to our `Post` Model:
+To be able to instantiate the right Model from our package with the `Post::factory()` method, we need to add the following method to our `Post` Model:
 
 ```php
   /**
