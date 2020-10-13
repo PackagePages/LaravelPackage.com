@@ -262,10 +262,11 @@ Now, running the tests again will lead to the expected error of no ‘title’ c
 ```php
 // 'database/migrations/create_posts_table.php.stub'
 Schema::create('posts', function (Blueprint $table) {
-    $table->bigIncrements('id');
+    $table->id();
     $table->string('title');
     $table->timestamps();
 });
+
 ```
 
 After running the test, you should see it passing.
