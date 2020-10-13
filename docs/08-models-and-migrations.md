@@ -484,16 +484,18 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Foundation\Auth\Access\Authorizable;
 use Illuminate\Contracts\Auth\Authenticatable as AuthenticatableContract;
 use Illuminate\Contracts\Auth\Access\Authorizable as AuthorizableContract;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 use JohnDoe\BlogPackage\Traits\HasPosts;
 
 class User extends Model implements AuthorizableContract, AuthenticatableContract
 {
-    use HasPosts, Authorizable, Authenticatable;
+    use HasPosts, Authorizable, Authenticatable, HasFactory;
 
     protected $guarded = [];
 
     protected $table = 'users';
 }
+
 ```
 
 Now that we have a `User` model, we also need to add a new migration (the standard users table migration that ships with Laravel) to our database`/migrations` as `create_users_table.php.stub`:
