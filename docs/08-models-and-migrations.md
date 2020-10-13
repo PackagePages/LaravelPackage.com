@@ -350,7 +350,7 @@ For now, we hard coded the ‘author_id’, but in the next section we'll see ho
 // 'database/migrations/create_posts_table.php.stub'
 
 Schema::create('posts', function (Blueprint $table) {
-    $table->bigIncrements('id');
+    $table->id();
     $table->string('title');
     $table->text('body');
     $table->unsignedBigInteger('author_id');
@@ -420,7 +420,7 @@ After adding this `author()` method to our Post model, we need to update our `cr
 
 ```php
 Schema::create('posts', function (Blueprint $table) {
-    $table->bigIncrements('id');
+    $table->id();
     $table->string('title');
     $table->text('body');
     $table->unsignedBigInteger('author_id');
