@@ -229,15 +229,15 @@ This is because Laravel is trying to resolve the Model class for our `PostFactor
 To be able to instantiate the right Model from our package with the `Post::factory()` method, we need to add the following method to our `Post` Model:
 
 ```php
-  /**
-   * Create a new factory instance for the model.
-   *
-   * @return \Illuminate\Database\Eloquent\Factories\Factory
-   */
-  protected static function newFactory()
-  {
-      return \Database\Factories\JohnDoe\BlockPackage\Models\Post::new();
-  }
+/**
+* Create a new factory instance for the model.
+*
+* @return \Illuminate\Database\Eloquent\Factories\Factory
+*/
+protected static function newFactory()
+{
+   return \Database\Factories\JohnDoe\BlockPackage\Models\Post::new();
+}
 ```
 
 However, the tests will still fail since we haven’t created the `posts` table in our in-memory sqlite database yet. We need to tell our tests to first perform all migrations, before running the tests.
