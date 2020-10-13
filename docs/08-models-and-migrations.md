@@ -315,16 +315,33 @@ Eventually you’ll end up with a model factory and migration as follows:
 
 namespace JohnDoe\BlogPackage\Database\Factories;
 
-use Faker\Generator as Faker;
 use JohnDoe\BlogPackage\Models\Post;
+use Illuminate\Database\Eloquent\Factories\Factory;
 
-$factory->define(Post::class, function (Faker $faker) {
-    return [
-        'title'     => $faker->words(3),
-        'body'      => $faker->paragraph,
-        'author_id' => 999,
-    ];
-});
+class PostFactory extends Factory
+{
+    /**
+     * The name of the factory's corresponding model.
+     *
+     * @var string
+     */
+    protected $model = Post::class;
+
+    /**
+     * Define the model's default state.
+     *
+     * @return array
+     */
+    public function definition()
+    {
+        return [
+            'title'     => $this->faker->words(3, true),
+            'body'      => $this->faker->paragraph,
+            'author_id' => 999,
+        ];
+    }
+}
+
 ```
 
 For now, we hard coded the ‘author_id’, but in the next section we'll see how we could whip up a relationship with a User model.
