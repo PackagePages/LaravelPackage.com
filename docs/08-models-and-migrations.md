@@ -236,7 +236,7 @@ To be able to instantiate the right Model from our package with the `Post::facto
 */
 protected static function newFactory()
 {
-   return \Database\Factories\JohnDoe\BlockPackage\Models\Post::new();
+    return \Database\Factories\JohnDoe\BlockPackage\Models\Post::new();
 }
 ```
 
