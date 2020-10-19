@@ -638,7 +638,7 @@ class PostTest extends TestCase
   /** @test */
   function a_post_has_an_author_type()
   {
-    $post = factory(Post::class)->create(['author_type' => 'Fake\User']);
+    $post = Post::factory()->create(['author_type' => 'Fake\User']);
     $this->assertEquals('Fake\User', $post->author_type);
   }
 }
