@@ -471,7 +471,7 @@ Of course, we want to prove that any model using our `HasPost` trait can indeed 
 
 Therefore, we’ll create a new `User` model, not within the `src/Models/` directory, but rather in our `tests/` directory.
 
-In the `User` model we’ll use the same traits that would be available on the `User` model that ships with a standard Laravel project to stay close to a real world scenario. Also, we use our own `HasPosts` trait:
+In the `User` model we’ll use the same traits that would be available on the `User` model that ships with a standard Laravel project to stay close to a real world scenario. Additionally, we reference the `UserFactory` provided by the Orchestra Testbench package. Also, we use our own `HasPosts` trait:
 
 ```php
 // 'tests/User.php'
@@ -494,8 +494,17 @@ class User extends Model implements AuthorizableContract, AuthenticatableContrac
     protected $guarded = [];
 
     protected $table = 'users';
-}
 
+    /**
+     * Create a new factory instance for the model.
+     *
+     * @return \Illuminate\Database\Eloquent\Factories\Factory
+     */
+    protected static function newFactory()
+    {
+        return \Orchestra\Testbench\Factories\UserFactory::new();
+    }
+}
 ```
 
 Now that we have a `User` model, we also need to add a new migration (the standard users table migration that ships with Laravel) to our database`/migrations` as `create_users_table.php.stub`:
@@ -565,20 +574,36 @@ Now that we can whip up `User` models with our new factory, let’s create a new
 
 namespace JohnDoe\BlogPackage\Database\Factories;
 
-use Faker\Generator as Faker;
 use JohnDoe\BlogPackage\Models\Post;
+use Illuminate\Database\Eloquent\Factories\Factory;
 use JohnDoe\BlogPackage\Tests\User;
 
-$factory->define(Post::class, function (Faker $faker) {
-    $author = factory(User::class)->create();
+class PostFactory extends Factory
+{
+    /**
+     * The name of the factory's corresponding model.
+     *
+     * @var string
+     */
+    protected $model = Post::class;
 
-    return [
-        'title'         => $faker->words(3),
-        'body'          => $faker->paragraph,
-        'author_id'     => $author->id,
-        'author_type'   => get_class($author),
-    ];
-});
+    /**
+     * Define the model's default state.
+     *
+     * @return array
+     */
+    public function definition()
+    {
+        $author = User::factory()->create();
+
+        return [
+            'title'     => $this->faker->words(3, true),
+            'body'      => $this->faker->paragraph,
+            'author_id' => $author->id,
+            'author_type' => get_class($author)
+        ];
+    }
+}
 ```
 
 Next we update the `Post` unit test, to also verify an ‘author_type’ can be specified.
