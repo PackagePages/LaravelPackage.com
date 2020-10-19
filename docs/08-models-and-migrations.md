@@ -657,10 +657,11 @@ class PostTest extends TestCase
   // other tests...
 
   /** @test */
+  /** @test */
   function a_post_belongs_to_an_author()
   {
     // Given we have an author
-    $author = factory(User::class)->create();
+    $author = User::factory()->create();
     // And this author has a Post
     $author->posts()->create([
         'title' => 'My first fake post',
