@@ -471,7 +471,28 @@ Of course, we want to prove that any model using our `HasPost` trait can indeed 
 
 Therefore, we’ll create a new `User` model, not within the `src/Models/` directory, but rather in our `tests/` directory.
 
-In the `User` model we’ll use the same traits that would be available on the `User` model that ships with a standard Laravel project to stay close to a real world scenario. Additionally, we reference the `UserFactory` provided by the Orchestra Testbench package. Also, we use our own `HasPosts` trait:
+To be able to create users within our tests we'll need to overwrite the `UserFactory` provided by the Orchestra Testbench package, as shown bellow.
+
+```php
+// 'tests/UserFactory.php'
+<?php
+
+namespace JohnDoe\BlogPackage\Tests;
+
+use Orchestra\Testbench\Factories\UserFactory as FactoriesUserFactory;
+
+class UserFactory extends FactoriesUserFactory
+{
+  /**
+   * The name of the factory's corresponding model.
+   *
+   * @var string
+   */
+  protected $model = User::class;
+}
+```
+
+In the `User` model we’ll use the same traits that would be available on the `User` model that ships with a standard Laravel project to stay close to a real world scenario. Also, we use our own `HasPosts` trait and `UserFactory`:
 
 ```php
 // 'tests/User.php'
@@ -502,7 +523,7 @@ class User extends Model implements AuthorizableContract, AuthenticatableContrac
      */
     protected static function newFactory()
     {
-        return \Orchestra\Testbench\Factories\UserFactory::new();
+        return UserFactory::new();
     }
 }
 ```
