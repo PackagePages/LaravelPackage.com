@@ -226,7 +226,7 @@ public function show()
 Chances are that you want to be able to let the users of your package _customize_ the views. Similar to the database migrations, the views can be **published** if we register them to be exported in the `boot()` method of our service provider using the 'views' key of the publishes() method:
 
 ```php
-// 'BlogPackageServiceProvider.php'﻿
+// 'BlogPackageServiceProvider.php'
 if ($this->app->runningInConsole()) {
   // publish database migrations
 
