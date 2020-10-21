@@ -256,7 +256,7 @@ If you want to use a CSS stylesheet and/or include a javascript file in your vie
 Just like the views, we can let our users customize the assets if they want. First, we'll determine where we'll export the assets in the `boot()` method of our service provider under the 'assets' key in a 'blogpackage' directory in the public path of the end user's Laravel app:
 
 ```php
-// 'BlogPackageServiceProvider.php'﻿
+// 'BlogPackageServiceProvider.php'
 if ($this->app->runningInConsole()) {
   // publish database migrations
 
@@ -264,7 +264,7 @@ if ($this->app->runningInConsole()) {
 
   $this->publishes([
     __DIR__.'/../resources/assets' => public_path('blogpackage'),
-    ], 'assets');
+  ], 'assets');
 
 }
 ```
