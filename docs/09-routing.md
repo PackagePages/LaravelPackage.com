@@ -205,7 +205,7 @@ Note the `blogpackage::` prefix, which matches the prefix we registered in our S
 ```php
 // 'src/Http/Controllers/PostController.php'
 use JohnDoe\BlogPackage\Models\Post;
-﻿
+
 public function index()
 {
     $posts = Post::all();
@@ -218,7 +218,7 @@ public function show()
     $post = Post::findOrFail(request('post'));
 
     return view('blogpackage::posts.show', compact('post'));
-}﻿
+}
 ```
 
 ### Customizable views
