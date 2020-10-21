@@ -294,7 +294,7 @@ Create a new Feature test called `CreatePostTest.php` in the `tests/Feature` dir
 
 ```php
 // 'tests/Feature/CreatePostTest.php'
-﻿<?php
+<?php
 
 namespace JohnDoe\BlogPackage\Tests\Feature;
 
