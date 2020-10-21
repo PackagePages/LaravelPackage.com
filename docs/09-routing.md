@@ -339,7 +339,7 @@ Additionally, we could verify that we require both a "title" and a "body" attrib
 /** @test */
 function a_post_requires_a_title_and_a_body()
 {
-    $author = factory(User::class)->create();
+    $author = User::factory()->create();
 
     $this->actingAs($author)->post(route('posts.store'), [
         'title' => '',
