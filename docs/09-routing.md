@@ -378,13 +378,13 @@ Finally, let's verify the index route shows all posts, and the show route shows 
 function all_posts_are_shown_via_the_index_route()
 {
     // Given we have a couple of Posts
-    factory(Post::class)->create([
+    Post::factory()->create([
         'title' => 'Post number 1'
     ]);
-    factory(Post::class)->create([
+    Post::factory()->create([
         'title' => 'Post number 2'
     ]);
-    factory(Post::class)->create([
+    Post::factory()->create([
         'title' => 'Post number 3'
     ]);
 
@@ -400,7 +400,7 @@ function all_posts_are_shown_via_the_index_route()
 /** @test */
 function a_single_post_is_shown_via_the_show_route()
 {
-    $post = factory(Post::class)->create([
+    $post = Post::factory()->create([
         'title' => 'The single post title',
         'body'  => 'The single post body',
     ]);
