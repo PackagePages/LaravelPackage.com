@@ -190,7 +190,7 @@ Now that we have some views, we need to register that we want to load any views 
 ```php
 // 'BlogPackageServiceProvider.php'
 public function boot()
-{﻿
+{
   // ... other things
   ﻿$this->loadViewsFrom(__DIR__.'/../resources/views', 'blogpackage');
 }
