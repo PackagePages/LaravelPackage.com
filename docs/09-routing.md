@@ -313,7 +313,7 @@ class CreatePostTest extends TestCase
         // To make sure we don't start with a Post
         $this->assertCount(0, Post::all());
 
-        $author = factory(User::class)->create();
+        $author = User::factory()->create();
 
         $response = $this->actingAs($author)->post(route('posts.store'), [
             'title' => 'My first fake title',
