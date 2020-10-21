@@ -35,7 +35,7 @@ class Controller extends BaseController
 
 ### Creating a controller that extends base controller
 
-Now, let's create a PostController in the `src/Http/Controllers directory`, starting first with the 'store' method:
+Now, let's create a PostController in the `src/Http/Controllers` directory, starting first with the 'store' method:
 
 ```php
 // 'src/Http/Controllers/PostController'
