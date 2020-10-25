@@ -17,9 +17,14 @@ module.exports = {
   themeConfig: {
     logo: '/laravel-package-logo.png',
     repo: 'Jhnbrn90/LaravelPackage.com',
+    author: {
+        'name': 'John Braun',
+        'twitter': '@jhnbrn90'
+    },
     docsDir: 'docs',
     editLinks: true,
     editLinkText: 'Improve this page (submit a PR)',
+    domain: 'https://www.laravelpackage.com',
     algolia: {
       apiKey: '4f61e9652014585bf63f5a1ff4dd5617',
       indexName: 'laravelpackage'
@@ -50,4 +55,20 @@ module.exports = {
       '/15-publishing',
     ]
   },
+  plugins: [
+      ['seo', {
+        siteTitle: (_, $site) => $site.title,
+        title: $page => $page.title,
+        description: $page => $page.frontmatter.description,
+        author: (_, $site) => $site.themeConfig.author,
+        tags: $page => $page.frontmatter.tags,
+        twitterCard: _ => 'summary_large_image',
+        type: $page => 'article',
+        url: (_, $site, path) => ($site.themeConfig.domain || '') + path,
+        image: ($page, $site) => $page.frontmatter.image,
+        publishedAt: $page => $page.frontmatter.date && new Date($page.frontmatter.date),
+        modifiedAt: $page => $page.lastUpdated && new Date($page.lastUpdated),
+    }],
+    '@vuepress/last-updated',
+  ]
 }

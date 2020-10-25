@@ -13,6 +13,7 @@
     "vuepress": "^1.6.0"
   },
   "devDependencies": {
-    "prettier": "2.1.2"
+    "prettier": "2.1.2",
+    "vuepress-plugin-seo": "^0.1.4"
   }
 }
