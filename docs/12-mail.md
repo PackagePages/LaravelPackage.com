@@ -1,6 +1,6 @@
 ---
 title: 'Mail'
-description: 'This section covers sending e-mail from your package, utilizing the views provided by the package. Additionally, testing of the Mail facade will be covered.'
+description: 'Send e-mail from your package by creating a custom Mailable and mail template, utilizing the views provided by the package. Additionally, testing of the Mail facade will be covered.'
 tags: ['Mail', 'Mail template', 'Views', 'Mailables', 'Testing Mail']
 image: 'https://www.laravelpackage.com/assets/pages/laravelpackage.jpeg'
 date: 2019-09-17

@@ -1,6 +1,6 @@
 ---
 title: 'Notifications'
-description: 'This section covers sending Notifications in a package, to an array of different services including mail, SMS, Slack or storing them in your database. Additionally, the section covers testing of the Notification facade.'
+description: 'Discover how to send Notifications within a package, to an array of different services including mail, SMS, Slack or storing them in your database. Additionally, the section covers testing of the Notification facade.'
 tags: ['Notifications', 'Testing Notifications', 'Custom Notification Channels']
 image: 'https://www.laravelpackage.com/assets/pages/laravelpackage.jpeg'
 date: 2019-09-17

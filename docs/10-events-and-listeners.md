@@ -1,6 +1,6 @@
 ---
 title: 'Events and Listeners'
-description: 'This section explains how to use and test Events and Listeners in a package.'
+description: 'Creating and testing custom Events and Listeners in your package.'
 tags: ['Events', 'Listeners', 'Testing Events', 'Testing Listeners']
 image: 'https://www.laravelpackage.com/assets/pages/laravelpackage.jpeg'
 date: 2019-09-17
@@ -261,7 +261,7 @@ function authenticated_users_can_create_a_post()
     Event::fake();
 
     $this->assertCount(0, Post::all());
-    // the rest of the test... 
+    // the rest of the test...
 ```
 
 All tests are green, so let's move on to the next topic.

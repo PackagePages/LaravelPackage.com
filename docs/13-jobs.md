@@ -1,6 +1,6 @@
 ---
 title: 'Jobs'
-description: 'This section covers implementing Jobs in a package, which is essentially very similar to the workflow within a regular Laravel application. This section also covers testing the Job using the Bus facade.'
+description: 'Implementing Jobs in a package is essentially very similar to the workflow within a regular Laravel application. This section also covers testing the Job using the Bus facade.'
 tags: ['Jobs', 'Dispatching Jobs', 'Testing Jobs', 'Bus Facade']
 image: 'https://www.laravelpackage.com/assets/pages/laravelpackage.jpeg'
 date: 2019-09-17

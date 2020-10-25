@@ -1,6 +1,6 @@
 ---
 title: 'Middleware'
-description: 'This section covers different types of Middleware and how to make use of them within a Laravel package. Additionally, writing tests for the Middleware will be explained.'
+description: 'Explore the different types of Middleware and how to make use of them within a Laravel package. Additionally, writing tests for the Middleware will be explained.'
 tags: ['Middleware', 'Before Middlware', 'After Middleware', 'Route Middleware', 'Middleware Groups', 'Global Middleware', 'Testing Middleware']
 image: 'https://www.laravelpackage.com/assets/pages/laravelpackage.jpeg'
 date: 2019-09-17
