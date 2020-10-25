@@ -1,5 +1,5 @@
 ---
-title: 'Service Providers'
+title: 'Testing'
 description: 'Testing is an essential part of every package to ensure proper behaviour and allow refactoring with confidence. This section explains how to initially setup testing using PHPUnit to create robust packages.'
 tags: ['Testing', 'PHPUnit', 'Directory Structure']
 image: 'https://www.laravelpackage.com/assets/pages/laravelpackage.jpeg'
