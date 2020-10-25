@@ -1,3 +1,11 @@
+---
+title: 'Development Environment'
+description: 'Set up a solid environment for package development. Starting with installing composer, configuring package details and PSR autoloading in composer.json to pulling in the package locally and testing with Orchestra Testbench.'
+tags: ['development setup', 'composer', 'package skeleton', 'PSR', 'namespacing', 'testing', 'testbench']
+image: 'https://www.laravelpackage.com/assets/pages/laravelpackage.jpeg'
+date: 2019-09-17
+---
+
 # Development Environment
 
 ## Installing Composer

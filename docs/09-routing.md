@@ -1,3 +1,11 @@
+---
+title: 'Routing, Views and Controllers'
+description: 'Expose (custom) routes in your package, which call a Controller and can render views which are provided by the package. Additionally, testing of a certain route, controller and view will be discussed.'
+tags: ['Routing', 'Controllers', 'Views', 'RESTful', 'Testing Routing', 'Testing Controllers', 'Testing Views']
+image: 'https://www.laravelpackage.com/assets/pages/laravelpackage.jpeg'
+date: 2019-09-17
+---
+
 # Routing
 
 Sometimes you want to expose additional routes to the end user of your package.

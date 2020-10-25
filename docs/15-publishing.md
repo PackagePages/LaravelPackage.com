@@ -1,3 +1,11 @@
+---
+title: 'Publishing a Package'
+description: 'Publish a package to Packagist, which allows the end user to pull in the package using Composer. Additionally, the section will cover semantic versioning and releasing newer versions of a package.'
+tags: ['Publishing', 'Packagist', 'Composer', 'Semantic Versioning']
+image: 'https://www.laravelpackage.com/assets/pages/laravelpackage.jpeg'
+date: 2019-09-17
+---
+
 # Publishing
 
 Once satisfied with its functionality, you might want to share your package with a broader audience. This section will explain how to publish your package to the [Packagist](https://packagist.org) repository.
