@@ -1,3 +1,11 @@
+---
+title: 'Models and Migrations'
+description: 'Some packages need to offer a Laravel Model. This section explains how to allow for this and include your own database migrations. Additionally, the section will cover testing the models and migrations.'
+tags: ['Models', 'Migrations', 'Testing Models', 'Unit Test']
+image: 'https://www.laravelpackage.com/assets/pages/laravelpackage.jpeg'
+date: 2019-09-17
+---
+
 # Models & Migrations
 
 Sometimes you want your package to offer a bit more. If we imagine that we're developing a Blog related package, we might want to provide a Post model for example. This will require us to handle Models, migrations, testing, and even connect relationships with the `App\User` model that ships with Laravel.
@@ -246,6 +254,7 @@ class PostTest extends TestCase
 {
   use RefreshDatabase;
  
+
   /** @test */
   function a_post_has_a_title()
   {

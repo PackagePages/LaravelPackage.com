@@ -1,3 +1,11 @@
+---
+title: 'Notifications'
+description: 'This section covers sending Notifications in a package, to an array of different services including mail, SMS, Slack or storing them in your database. Additionally, the section covers testing of the Notification facade.'
+tags: ['Notifications', 'Testing Notifications', 'Custom Notification Channels']
+image: 'https://www.laravelpackage.com/assets/pages/laravelpackage.jpeg'
+date: 2019-09-17
+---
+
 # Notifications
 
 Notifications are a powerful tool in Laravel's toolbox as they provide support for sending notifications to an array of different services including mail, SMS, Slack or storing them in your database to show on the user's profile page for example.

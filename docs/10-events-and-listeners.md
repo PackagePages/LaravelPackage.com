@@ -1,3 +1,11 @@
+---
+title: 'Events and Listeners'
+description: 'This section explains how to use and test Events and Listeners in a package.'
+tags: ['Events', 'Listeners', 'Testing Events', 'Testing Listeners']
+image: 'https://www.laravelpackage.com/assets/pages/laravelpackage.jpeg'
+date: 2019-09-17
+---
+
 # Events & Listeners
 
 Your package may want to offer support for hooking into Laravel's Events and Listeners.
