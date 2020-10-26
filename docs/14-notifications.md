@@ -93,10 +93,10 @@ class NotifyPostWasPublishedTest extends TestCase
     {
         Notification::fake();
 
-        $post = factory(Post::class)->create();
+        $post = Post::factory()->create();
 
         // the User model has the 'Notifiable' trait
-        $user = factory(User::class)->create();
+        $user = User::factory()->create();
 
         Notification::assertNothingSent();
 
