@@ -3,23 +3,31 @@ module.exports = {
   description: 'Learn to create Laravel specific PHP packages from scratch, following this open documentation. Contributions are welcomed.',
   head: [
     ['link', { rel: "apple-touch-icon", sizes: "180x180", href: "/assets/favicons/apple-touch-icon.png"}],
+    ['link', { rel: "icon", href: "/assets/laravel-package-logo.png"}],
     ['link', { rel: "icon", type: "image/png", sizes: "32x32", href: "/assets/favicons/favicon-32x32.png"}],
     ['link', { rel: "icon", type: "image/png", sizes: "16x16", href: "/assets/favicons/favicon-16x16.png"}],
     ['link', { rel: "manifest", href: "/assets/favicons/site.webmanifest"}],
     ['link', { rel: "mask-icon", href: "/assets/favicons/safari-pinned-tab.svg", color: "#3a0839"}],
     ['link', { rel: "shortcut icon", href: "/assets/favicons/favicon.ico"}],
+    ['meta', { name: 'apple-mobile-web-app-capable', content: 'yes' }],
+    ['meta', { name: 'apple-mobile-web-app-status-bar-style', content: 'black' }],
     ['meta', { name: "msapplication-TileColor", content: "#3a0839"}],
     ['meta', { name: "msapplication-config", content: "/assets/favicons/browserconfig.xml"}],
     ['meta', { name: "theme-color", content: "#ffffff"}],
     ['meta', { name: "viewport", content: "width=device-width"}],
-    ['script', { src: "https://cdn.usefathom.com/script.js", spa: "auto", site: "HUVUTEUR", defer:true}]
+    ['script', { src: "https://jackal.laravelpackage.com/script.js", spa: "auto", site: "HUVUTEUR", defer:true}]
   ],
   themeConfig: {
     logo: '/laravel-package-logo.png',
     repo: 'Jhnbrn90/LaravelPackage.com',
+    author: {
+        'name': 'John Braun',
+        'twitter': '@jhnbrn90'
+    },
     docsDir: 'docs',
     editLinks: true,
     editLinkText: 'Improve this page (submit a PR)',
+    domain: 'https://www.laravelpackage.com',
     algolia: {
       apiKey: '4f61e9652014585bf63f5a1ff4dd5617',
       indexName: 'laravelpackage'
@@ -50,4 +58,21 @@ module.exports = {
       '/15-publishing',
     ]
   },
+  plugins: [
+      ['seo', {
+        siteTitle: (_, $site) => $site.title,
+        title: $page => $page.title,
+        description: $page => $page.frontmatter.description,
+        author: (_, $site) => $site.themeConfig.author,
+        tags: $page => $page.frontmatter.tags,
+        twitterCard: _ => 'summary_large_image',
+        type: $page => 'article',
+        url: (_, $site, path) => ($site.themeConfig.domain || '') + path,
+        image: ($page, $site) => $page.frontmatter.image,
+        publishedAt: $page => $page.frontmatter.date && new Date($page.frontmatter.date),
+        modifiedAt: $page => $page.lastUpdated && new Date($page.lastUpdated),
+    }],
+    '@vuepress/last-updated',
+    '@vuepress/pwa'
+  ]
 }

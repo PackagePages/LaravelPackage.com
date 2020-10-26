@@ -1,3 +1,11 @@
+---
+title: 'Routing, Views and Controllers'
+description: 'Expose (custom) routes in your package, which call a Controller and can render views which are provided by the package. Additionally, testing of a certain route, controller and view will be discussed.'
+tags: ['Routing', 'Controllers', 'Views', 'RESTful', 'Testing Routing', 'Testing Controllers', 'Testing Views']
+image: 'https://www.laravelpackage.com/assets/pages/laravelpackage.jpeg'
+date: 2019-09-17
+---
+
 # Routing
 
 Sometimes you want to expose additional routes to the end user of your package.
@@ -10,7 +18,7 @@ Since we're offering a `Post` model, let's add some **RESTful** routes. To keep 
 
 ## Controllers
 
-### Creating a base controller
+### Creating a Base Controller
 
 We want to create a `PostController`.
 
@@ -33,7 +41,7 @@ class Controller extends BaseController
 }
 ```
 
-### Creating a controller that extends base controller
+### Creating a Controller That Extends Base Controller
 
 Now, let's create a PostController in the `src/Http/Controllers` directory, starting first with the 'store' method:
 
@@ -83,7 +91,7 @@ class PostController extends Controller
 
 ## Routes
 
-### Defining routes
+### Defining Routes
 
 Now that we have a controller, create a new `routes/` directory in the root of our package and add a `web.php` file containing the three RESTful routes we've mentioned above.
 
@@ -99,7 +107,7 @@ Route::get('/posts/{post}', [PostController::class, 'show'])->name('posts.show')
 Route::post('/posts', [PostController::class, 'store'])->name('posts.store');
 ```
 
-### Registering routes in the service provider
+### Registering Routes in the Service Provider
 
 Before we can use these routes, we need to register them in the `boot()` method of our Service Provider:
 
@@ -112,7 +120,7 @@ public function boot()
 }
 ```
 
-### Configurable route prefix and middleware
+### Configurable Route Prefix and Middleware
 
 You may want to allow users to define a route prefix and/or middleware for the routes exposed by your package. Instead of registering the routes directly in the `boot()` method we'll register the routes using `Route::group`, passing in the dynamic configuration (prefix and middleware). Don't forget to import the corresponding `Route` facade.
 
@@ -157,7 +165,7 @@ Using the above default configuration, all routes defined in `routes.web` need t
 
 The 'index' and 'show' methods on the PostController need to render a view.
 
-### Creating the blade view files
+### Creating the Blade View Files
 
 Create a new `resources/` folder in the root of our package. In that folder, create a subfolder named `views`. In the views folder we'll create a `posts` subfolder in which we'll create two (extremely) simple templates.
 
@@ -183,7 +191,7 @@ Create a new `resources/` folder in the root of our package. In that folder, cre
 
 Note: these templates would extend a base / master layout file in a real world scenario.
 
-### Register views in the service provider
+### Registering Views in the Service Provider
 
 Now that we have some views, we need to register that we want to load any views from our `resources/views` directory in the `boot()` method of our Service Provider. **Important**: provide a "key" as the second argument to `loadViewsFrom()` as you'll need to specify this key when returning a view from a controller (see next section).
 
@@ -196,7 +204,7 @@ public function boot()
 }
 ```
 
-### Returning a view from the controller
+### Returning a View from the Controller
 
 We can now just return the views we've created from the `PostController` (don't forget to import our `Post` model).
 
@@ -221,15 +229,14 @@ public function show()
 }
 ```
 
-### Customizable views
+### Customizable Views
 
 Chances are that you want to be able to let the users of your package _customize_ the views. Similar to the database migrations, the views can be **published** if we register them to be exported in the `boot()` method of our service provider using the 'views' key of the publishes() method:
 
 ```php
 // 'BlogPackageServiceProvider.php'
 if ($this->app->runningInConsole()) {
-  // publish database migrations
-
+  // Publish views
   $this->publishes([
     __DIR__.'/../resources/views' => resource_path('views/vendor/blogpackage'),
   ], 'views');
@@ -247,21 +254,18 @@ php artisan vendor:publish --provider="JohnDoe\BlogPackage\BlogPackageServicePro
 
 It is likely that you'll want to include a CSS and/or javascript file when you're adding views to your package.
 
-### Creating an 'assets' directory
+### Creating an 'assets' Directory
 
 If you want to use a CSS stylesheet and/or include a javascript file in your views, create an `assets` directory in the `resources/` folder. Since we might include several stylesheets and/or javascript files let's create **two subfolders**: `css` and `js` to store these files respectively. A convention is to name the main javascript file `app.js` and the main stylesheet `app.css`.
 
-### Customizable assets
+### Customizable Assets
 
 Just like the views, we can let our users customize the assets if they want. First, we'll determine where we'll export the assets in the `boot()` method of our service provider under the 'assets' key in a 'blogpackage' directory in the public path of the end user's Laravel app:
 
 ```php
 // 'BlogPackageServiceProvider.php'
 if ($this->app->runningInConsole()) {
-  // publish database migrations
-
-  // publish views
-
+  // Publish assets
   $this->publishes([
     __DIR__.'/../resources/assets' => public_path('blogpackage'),
   ], 'assets');
@@ -275,7 +279,7 @@ The assets can then be exported by users of our package using:
 php artisan vendor:publish --provider="JohnDoe\BlogPackage\BlogPackageServiceProvider" --tag="assets"
 ```
 
-### Referencing the assets
+### Referencing Assets
 
 We can reference the stylesheet and javascript file in our views as follows:
 
@@ -288,7 +292,7 @@ We can reference the stylesheet and javascript file in our views as follows:
 
 Let’s verify that we can indeed create a post, show a post and show all posts with our provided routes, views and controllers.
 
-### Feature test
+### Feature Test
 
 Create a new Feature test called `CreatePostTest.php` in the `tests/Feature` directory and add the following assertions to verify that authenticated users can indeed create new posts:
 

@@ -1,6 +1,14 @@
+---
+title: 'Basics of Package Development'
+description: 'Explore the basics of a PHP package, including the general directory structure, composer.json and autoloading.'
+tags: ['package basics', 'directory structure', 'autoloading', 'composer']
+image: 'https://www.laravelpackage.com/assets/pages/laravelpackage.jpeg'
+date: 2019-09-17
+---
+
 # The Basics
 
-## The concept of autoloading
+## Autoloading
 
 After each installation or update, composer will generate an `autoload.php` file in the `/vendor` directory. By including this single file, you’ll be able to access all classes provided by your installed libraries.
 
@@ -18,7 +26,7 @@ require __DIR__.'/../vendor/autoload.php';
 // additional bootstrapping methods...
 ```
 
-## The directory structure of a package
+## Directory Structure
 
 In general (and by convention), a package contains a `src/` (short for “source”) folder containing all package specific logic (classes) and a `composer.json` file containing information about the package itself. Additionally, most packages also include a license and documentation.
 

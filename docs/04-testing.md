@@ -1,3 +1,11 @@
+---
+title: 'Testing'
+description: 'Testing is an essential part of every package to ensure proper behaviour and allow refactoring with confidence. This section explains how to initially setup testing using PHPUnit to create robust packages.'
+tags: ['Testing', 'PHPUnit', 'Directory Structure']
+image: 'https://www.laravelpackage.com/assets/pages/laravelpackage.jpeg'
+date: 2019-09-17
+---
+
 # Testing
 
 To develop a robust package, it is important to have test coverage for the provided code.
@@ -59,7 +67,7 @@ Then, copy the following template to use an in-memory sqlite database and enable
 
 ```
 
-## Tests directory structure
+## Directory Structure
 
 To accommodate for feature and unit tests, create a `tests/` directory with a `Unit` and `Feature` subdirectory and a base `TestCase.php` file. The structure looks as follows:
 

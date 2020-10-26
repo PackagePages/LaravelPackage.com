@@ -1,3 +1,11 @@
+---
+title: 'Service Providers'
+description: 'The Service Provider of a package is essential to register package specific functionality. This section will cover the role and basics of a Service Provider and explains how to create and use a Service Provider for your own package.'
+tags: ['Service Provider']
+image: 'https://www.laravelpackage.com/assets/pages/laravelpackage.jpeg'
+date: 2019-09-17
+---
+
 # Service Providers
 
 An essential part of a package is its **Service Provider**. Before creating our own, I’ll try to explain what service providers are about in this section first. If you are familiar with the service providers, please continue to the next section.
@@ -45,7 +53,7 @@ class AppServiceProvider extends ServiceProvider
 }
 ```
 
-## Adding our package's service provider
+## Creating a Service Provider
 
 For our package, we will create our own service provider which contains specific information about the core of what our package has to offer. The package might use a config file, maybe some views, routes, controllers, database migrations, model factories, custom commands, etc. The service provider needs to **register** them. We will discuss each of these in subsequent chapters.
 

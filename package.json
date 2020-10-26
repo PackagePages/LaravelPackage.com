@@ -10,9 +10,11 @@
   },
   "dependencies": {
     "global": "^4.3.2",
-    "vuepress": "^1.5.4"
+    "vuepress": "^1.6.0"
   },
   "devDependencies": {
-    "prettier": "2.1.2"
+    "@vuepress/plugin-pwa": "^1.7.1",
+    "prettier": "2.1.2",
+    "vuepress-plugin-seo": "^0.1.4"
   }
 }

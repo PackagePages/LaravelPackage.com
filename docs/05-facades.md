@@ -1,3 +1,11 @@
+---
+title: 'Facades'
+description: 'Facades can provide end users of your package with an easy to use (and understand) API for interaction with the functions (features) within your package. This section explains how to create your own facades for your package.'
+tags: ['Facades', 'API']
+image: 'https://www.laravelpackage.com/assets/pages/laravelpackage.jpeg'
+date: 2019-09-17
+---
+
 # Facades
 
 The word 'facade' refers to a "superficial appearance or illusion of something" according to [Dictionary.com](https://www.dictionary.com/browse/facade). In architecture, the term refers to the front of a building.
@@ -14,11 +22,11 @@ MessageFactory::sentBy($user)
     ->create();
 ```
 
-## How a facade works
+## How a Facade Works
 
 To learn more about facades and how they work, refer to the excellent [Laravel documentation](https://laravel.com/docs/facades#how-facades-work).
 
-## How to create a facade
+## Creating a Facade
 
 Let’s assume that we provide a `Calculator` class as part of our package and want to make this class available as a facade.
 
@@ -112,7 +120,7 @@ The `Calculator` facade can now be used by the end user after importing it from 
             "Calculator": "JohnDoe\\BlogPackage\\Facades\\Calculator"
         }
     }
-}﻿
+}
 ```
 
 Our facade now no longer requires an import and can be used in projects from the root namespace.

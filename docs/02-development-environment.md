@@ -1,10 +1,18 @@
+---
+title: 'Development Environment'
+description: 'Set up a solid environment for package development. Starting with installing composer, configuring package details and PSR autoloading in composer.json to pulling in the package locally and testing with Orchestra Testbench.'
+tags: ['development setup', 'composer', 'package skeleton', 'PSR', 'namespacing', 'testing', 'testbench']
+image: 'https://www.laravelpackage.com/assets/pages/laravelpackage.jpeg'
+date: 2019-09-17
+---
+
 # Development Environment
 
 ## Installing Composer
 
 There's a big chance that you already have Composer installed. However, in the case you haven't installed Composer already, the quickest way to get up and running is by copying the script provided on the download page of [Composer](https://getcomposer.org/download/). By copying and pasting the provided script in your command line, the `composer.phar` installer will be downloaded, run and removed again. You can verify a successful installation by running `composer --version`. To update composer to the latest version, run `composer self-update`.
 
-## Package skeleton
+## Package Skeleton
 
 To start with developing a package, first create an empty directory. It is not necessary to nest packages in an existing Laravel project and I would highly recommend to keep your packages separate from your (Laravel) projects to be able to easily differentiate between them.
 
@@ -96,7 +104,7 @@ PSR-4
 
 - Looking for `Vehicle\Air\Wings\Airplane` in `src/Air/Wings/Airplane.php`
 
-## Importing the package locally
+## Importing the Package Locally
 
 To help with development, you can require a local package in a local Laravel project.
 

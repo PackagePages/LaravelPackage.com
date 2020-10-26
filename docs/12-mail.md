@@ -1,3 +1,11 @@
+---
+title: 'Mail'
+description: 'Send e-mail from your package by creating a custom Mailable and mail template, utilizing the views provided by the package. Additionally, testing of the Mail facade will be covered.'
+tags: ['Mail', 'Mail template', 'Views', 'Mailables', 'Testing Mail']
+image: 'https://www.laravelpackage.com/assets/pages/laravelpackage.jpeg'
+date: 2019-09-17
+---
+
 # Mail
 
 Using e-mails in your package works very much the same as in a normal Laravel application. In your package however, you need to make sure you are loading a `views` directory from your package (or the end-user's exported version of it).
@@ -39,7 +47,7 @@ class WelcomeMail extends Mailable
 }
 ```
 
-## Register the views directory
+## Registering the Views Directory
 
 In the call to the mailable's `view()` method we've specified the string `emails.welcome` which Laravel will translate to searching for a `welcome.blade.php` file in the `emails` directory in the package's registered views directory.
 
@@ -56,7 +64,7 @@ public function boot()
 
 This will look for views in the `resources/views` directory in the root of your package.
 
-## Creating a Blade mail template
+## Creating a Blade Mail Template
 
 Create the `welcome.blade.php` file in the `resources/views/emails` directory, where the `$post` variable will be freely available to use in the template.
 

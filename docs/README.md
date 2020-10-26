@@ -1,4 +1,12 @@
-# Introduction
+---
+title: 'Introduction'
+description: 'Learn to create Laravel specific PHP packages from scratch, following this open documentation. Contributions are welcomed.'
+tags: ['Laravel', 'PHP Package', 'Package Development']
+image: 'https://www.laravelpackage.com/assets/pages/laravelpackage.jpeg'
+date: 2019-09-17
+---
+
+# Introduction to Package Development
 
 In my experience, learning to develop a package for Laravel can be quite challenging which is why I previously wrote [a blog series about that](https://johnbraun.blog/posts/creating-a-laravel-package-1).
 
@@ -8,7 +16,7 @@ You are highly encouraged to participate and [contribute to this project](https:
 
 First of all, I want to thank Marcel Pociot. His very clear, structured and detailed PHP Package Development [video course](https://phppackagedevelopment.com/) helped me quickly getting started on developing my own packages. I can highly recommend his video course if you want to learn how to create (framework agnostic) PHP packages.
 
-## Reasons to develop a package
+## Reasons to Develop a Package
 
 You might encounter a scenario where you want to reuse some feature(s) of your application in other applications, open source a certain functionality or just keep related code together but separate it from your main application. In those cases, it makes sense to extract parts to a package. Packages or “libraries” provide an easy way to add additional functionality to existing applications, and are mostly focused on a single feature.
 
@@ -20,7 +28,7 @@ Packages are downloaded and installed using [Composer](https://getcomposer.org/)
 
 To install a package in your existing Laravel project, the `composer require <vendor>/<package>` command will download all necessary files into a `/vendor` directory of your project where all your third party packages live, separated by vendor name. As a consequence, the content from these packages is separated from your application code which means this piece of code is maintained by someone else, most often by creator of that package. Whenever the package needs an update, run `composer update` to get the latest (compatible) version of your packages.
 
-## Tools for developing a package
+## Tools and Helpers
 
 In the first chapter, the basic structure of a package will be addressed. Now, it can be cumbersome to set-up the basic skeleton every time from scratch. That's why others created some helpful tools.
 

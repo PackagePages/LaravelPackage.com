@@ -1,10 +1,18 @@
+---
+title: 'Commands'
+description: 'Creating and testing custom Artisan Commands in your package. Additionally, this section covers testing a command, without publishing it within your package for testing purposes.'
+tags: ['Artisan', 'Commands', 'Testing Commands', 'Test-Only Commands']
+image: 'https://www.laravelpackage.com/assets/pages/laravelpackage.jpeg'
+date: 2019-09-17
+---
+
 # Artisan Commands
 
 Laravel ships with a PHP executable 'artisan' file, providing a command-line interface (CLI) for the framework. Via this CLI, you can access commands as `php artisan migrate` and `php artisan make:model Post`. There are a lot of things you could do with commands. Make sure to read up on the artisan console in the [Laravel documentation](https://laravel.com/docs/artisan).
 
 Let's say that we want to provide an easy artisan command for our end user to publish the config file, via: `php artisan blogpackage:install`.
 
-## Creating a new command
+## Creating a New Command
 
 Create a new `Console` folder in the `src/` directory and create a new file named `InstallBlogPackage.php`. This class will extend Laravel's `Command` class and provide a `$signature` (the command) and a `$description` property. In the `handle()` method we specify what our command will do. In this case, we provide some feedback that we're "installing" the package and we'll call another artisan command to publish the config file. Finally, we let the user know that we're done.
 
@@ -38,7 +46,7 @@ class InstallBlogPackage extends Command
 }
 ```
 
-## Registering the command in the service provider
+## Registering a Command in the Service Provider
 
 We need to present this package functionality to the end user, thus registering it in the package's service provider.
 
@@ -46,21 +54,21 @@ Since we only want to provide this functionality from the command-line we'll add
 
 ```php
 // 'BlogPackageServiceProvider.php'
+
 use JohnDoe\BlogPackage\Console\InstallBlogPackage;
 
 public function boot()
 {
-  if ($this->app->runningInConsole()) {
-    // publish config file
-
-    $this->commands([
-        InstallBlogPackage::class,
-    ]);
-  }
+    // Register the command if we are using the application via the CLI
+    if ($this->app->runningInConsole()) {
+        $this->commands([
+            InstallBlogPackage::class,
+        ]);
+    }
 }
 ```
 
-## Testing the artisan command
+## Testing a Command
 
 To test that our command works, let's create a new unit test called `InstallBlogPackageTest.php` in the Unit test folder.
 
@@ -95,7 +103,7 @@ class InstallBlogPackageTest extends TestCase
 }
 ```
 
-## Hiding a command
+## Hiding a Command
 
 There might be cases where you'd like to exclude the command from the list of Artisan commands. You can define a `$hidden` property on the command class, which will not show the specific command in the list of Artisan commands. Note, however, that the command can still be used and is only hidden.
 
@@ -285,7 +293,7 @@ CLASS;
 }
 ```
 
-## Create a Test-only Command
+## Creating a Test-Only Command
 
 There are some situations in which you would like to only use a certain command for testing and not in your application itself. For example when your package provides a `Trait` that can be used by Command classes. To test the trait, you want to test with an actual command.
 
@@ -315,7 +323,7 @@ class TestCommandTest extends TestCase
         // Running the command
         Artisan::call('test-command:run');
 
-       // assertions...
+       // Assertions...
    }
 }
 ```

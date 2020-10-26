@@ -1,3 +1,11 @@
+---
+title: 'Middleware'
+description: 'Explore the different types of Middleware and how to make use of them within a Laravel package. Additionally, writing tests for the Middleware will be explained.'
+tags: ['Middleware', 'Before Middlware', 'After Middleware', 'Route Middleware', 'Middleware Groups', 'Global Middleware', 'Testing Middleware']
+image: 'https://www.laravelpackage.com/assets/pages/laravelpackage.jpeg'
+date: 2019-09-17
+---
+
 # Middleware
 
 If we look at an incoming HTTP request, this request is processed by Laravel's `index.php` file and sent through a series of pipelines. These include a series of ('before') middleware, where each will perform an action on the incoming request before it eventually reaches the core of the application. From the core, a response is prepared which is post-modified by all registered 'after' middleware before returning the response.
@@ -235,7 +243,7 @@ public function boot()
 
 The route middleware groups of a Laravel application are located in the `App\Http\Kernel` class. When applying this approach, you need to be sure that the consumer(s) of this package have the certain middleware group defined in their application.
 
-## Feature testing Middleware
+## Feature Testing Middleware
 
 Regardless of the fact that we registered the middleware globally or route specifically, we can test that the middleware is indeed applied when making a request.
 
