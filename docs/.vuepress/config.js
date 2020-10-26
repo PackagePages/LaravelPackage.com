@@ -3,11 +3,14 @@ module.exports = {
   description: 'Learn to create Laravel specific PHP packages from scratch, following this open documentation. Contributions are welcomed.',
   head: [
     ['link', { rel: "apple-touch-icon", sizes: "180x180", href: "/assets/favicons/apple-touch-icon.png"}],
+    ['link', { rel: "icon", href: "/assets/laravel-package-logo.png"}],
     ['link', { rel: "icon", type: "image/png", sizes: "32x32", href: "/assets/favicons/favicon-32x32.png"}],
     ['link', { rel: "icon", type: "image/png", sizes: "16x16", href: "/assets/favicons/favicon-16x16.png"}],
     ['link', { rel: "manifest", href: "/assets/favicons/site.webmanifest"}],
     ['link', { rel: "mask-icon", href: "/assets/favicons/safari-pinned-tab.svg", color: "#3a0839"}],
     ['link', { rel: "shortcut icon", href: "/assets/favicons/favicon.ico"}],
+    ['meta', { name: 'apple-mobile-web-app-capable', content: 'yes' }],
+    ['meta', { name: 'apple-mobile-web-app-status-bar-style', content: 'black' }],
     ['meta', { name: "msapplication-TileColor", content: "#3a0839"}],
     ['meta', { name: "msapplication-config", content: "/assets/favicons/browserconfig.xml"}],
     ['meta', { name: "theme-color", content: "#ffffff"}],
@@ -70,5 +73,6 @@ module.exports = {
         modifiedAt: $page => $page.lastUpdated && new Date($page.lastUpdated),
     }],
     '@vuepress/last-updated',
+    '@vuepress/pwa'
   ]
 }
