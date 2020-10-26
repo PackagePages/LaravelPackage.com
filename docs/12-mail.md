@@ -48,9 +48,9 @@ To specify a view directory, you need to add the `$this->loadViews()` call to yo
 ```php
 // 'BlogPackageServiceProvider.php'
 public function boot()
-{﻿
+{
   // ... other things
-  ﻿$this->loadViewsFrom(__DIR__.'/../resources/views', 'blogpackage');
+  $this->loadViewsFrom(__DIR__.'/../resources/views', 'blogpackage');
 }
 ```
 
@@ -100,7 +100,7 @@ class WelcomeMailTest extends TestCase
     {
         Mail::fake();
 
-        $post = factory(Post::class)->create(['title' => 'Fake Title']);
+        $post = Post::factory()->create(['title' => 'Fake Title']);
 
         Mail::assertNothingSent();
 
