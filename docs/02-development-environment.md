@@ -148,18 +148,18 @@ The full compatibility table of the Orchestra Testbench is shown bellow, taken f
 
  Laravel  | Testbench
 :---------|:----------
- 5.0.x    | 3.0.x
- 5.1.x    | 3.1.x
- 5.2.x    | 3.2.x
- 5.3.x    | 3.3.x
- 5.4.x    | 3.4.x
- 5.5.x    | 3.5.x
- 5.6.x    | 3.6.x
- 5.7.x    | 3.7.x
- 5.8.x    | 3.8.x
- 6.x      | 4.x
- 7.x      | 5.x
  8.x      | 6.x
+ 7.x      | 5.x
+ 6.x      | 4.x
+ 5.8.x    | 3.8.x
+ 5.7.x    | 3.7.x
+ 5.6.x    | 3.6.x
+ 5.5.x    | 3.5.x
+ 5.4.x    | 3.4.x
+ 5.3.x    | 3.3.x
+ 5.2.x    | 3.2.x
+ 5.1.x    | 3.1.x
+ 5.0.x    | 3.0.x
 
 Now that we've installed the Orchestra Testbench package, we'll find an `orchestra` folder in the `vendor` directory of our package. In that folder, you'll see there is a `laravel` folder containing the `Illuminate` helpers and a `testbench-core` folder and in that folder you'll see there is a folder called `laravel` with a complete directory structure of a Laravel project. This allows us to use the Laravel helpers that involve interaction with the project's directory structure (for example related to file manipulation).
 
