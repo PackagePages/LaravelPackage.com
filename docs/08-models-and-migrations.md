@@ -484,7 +484,7 @@ namespace JohnDoe\BlogPackage\Tests;
 
 use Orchestra\Testbench\Factories\UserFactory as TestbenchUserFactory;
 
-class UserFactory extends FactoriesUserFactory
+class UserFactory extends TestbenchUserFactory
 {
   /**
    * The name of the factory's corresponding model.
