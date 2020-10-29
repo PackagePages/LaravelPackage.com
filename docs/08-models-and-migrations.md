@@ -214,7 +214,7 @@ As with the `src` folder, for our package users to be able to use our model fact
   "autoload": {
     "psr-4": {
       "JohnDoe\\BlogPackage\\": "src",
-      "JohnDoe\\BlogPackage\\Database\\Factories": "database/factories"
+      "JohnDoe\\BlogPackage\\Database\\Factories\\": "database/factories"
     }
   },
   ...
