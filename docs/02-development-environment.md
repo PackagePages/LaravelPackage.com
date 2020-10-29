@@ -137,7 +137,7 @@ composer require johndoe/blogpackage
 
 We now have a `composer.json` file and an empty src/ directory. However, we don’t have access to any Laravel specific functionality as provided by the `Illuminate` components.
 
-To use these components in our package, we’ll require the [Orchestra Testbench](https://github.com/orchestral/testbench). Note that each version of the Laravel framework has a corresponding version of Orchestra Testbench. In this post, I’ll assume we’re developing a package for **Laravel 8.0** which is the latest version at the moment of writing this post.
+To use these components in our package, we’ll require the [Orchestra Testbench](https://github.com/orchestral/testbench). Note that each version of the Laravel framework has a corresponding version of Orchestra Testbench. In this section, I’ll assume we’re developing a package for **Laravel 8.0** which is the latest version at the moment of writing this section.
 
 ```bash
 composer require --dev "orchestra/testbench=^6.0"
