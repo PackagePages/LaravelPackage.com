@@ -62,6 +62,7 @@ Then, copy the following template to use an in-memory sqlite database and enable
   </testsuites>
   <php>
     <env name="DB_CONNECTION" value="testing"/>
+    <env name="APP_KEY" value="AckfSECXIvnK5r28GVIWUAxmbBSjTsmF"/>
   </php>
 </phpunit>
 
