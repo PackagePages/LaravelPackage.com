@@ -663,7 +663,6 @@ class PostTest extends TestCase
   // other tests...
 
   /** @test */
-  /** @test */
   function a_post_belongs_to_an_author()
   {
     // Given we have an author
