@@ -482,7 +482,7 @@ To be able to create users within our tests we'll need to overwrite the `UserFac
 
 namespace JohnDoe\BlogPackage\Tests;
 
-use Orchestra\Testbench\Factories\UserFactory as FactoriesUserFactory;
+use Orchestra\Testbench\Factories\UserFactory as TestbenchUserFactory;
 
 class UserFactory extends FactoriesUserFactory
 {
