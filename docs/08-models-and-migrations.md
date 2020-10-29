@@ -624,7 +624,7 @@ class PostFactory extends Factory
         $author = User::factory()->create();
 
         return [
-            'title'     => $this->faker->words(3, true),
+            'title'     => $this->faker->title,
             'body'      => $this->faker->paragraph,
             'author_id' => $author->id,
             'author_type' => get_class($author)
