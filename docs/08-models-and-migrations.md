@@ -230,6 +230,8 @@ This is because Laravel is trying to resolve the Model class for our `PostFactor
 To be able to instantiate the right Model from our package with the `Post::factory()` method, we need to add the following method to our `Post` Model:
 
 ```php
+// 'src/Models/Post.php'
+
 /**
 * Create a new factory instance for the model.
 *
