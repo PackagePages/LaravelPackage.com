@@ -232,11 +232,6 @@ To be able to instantiate the right Model from our package with the `Post::facto
 ```php
 // 'src/Models/Post.php'
 
-/**
-* Create a new factory instance for the model.
-*
-* @return \Illuminate\Database\Eloquent\Factories\Factory
-*/
 protected static function newFactory()
 {
     return \JohnDoe\BlogPackage\Database\Factories\PostFactory::new();
