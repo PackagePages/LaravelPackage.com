@@ -25,6 +25,7 @@ module.exports = {
         'twitter': '@jhnbrn90'
     },
     docsDir: 'docs',
+    docsBranch: '6.x-7.x',
     editLinks: true,
     editLinkText: 'Improve this page (submit a PR)',
     domain: 'https://www.laravelpackage.com',
