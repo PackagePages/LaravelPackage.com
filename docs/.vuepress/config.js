@@ -34,11 +34,10 @@ module.exports = {
     },
     nav: [
       {
-        text: 'Version',
+        text: 'Laravel 8.x',
         ariaLabel: 'Version Menu',
         items: [
-          { text: 'Laravel 8.x', link: 'https://laravelpackage.com' },
-          { text: 'Laravel 6.x - 7.x', link: 'https://v6-v7.laravelpackage.com' }
+          { text: 'Laravel 6.x - 7.x', link: 'https://v6-v7.laravelpackage.com', target:'_self', rel: false}
         ]
       },
       {
