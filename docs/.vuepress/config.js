@@ -80,6 +80,9 @@ module.exports = {
         modifiedAt: $page => $page.lastUpdated && new Date($page.lastUpdated),
     }],
     '@vuepress/last-updated',
-    '@vuepress/pwa'
+    ['@vuepress/pwa', {
+      serviceWorker: true,
+      updatePopup: true
+    }]
   ]
 }
