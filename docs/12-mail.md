@@ -108,7 +108,7 @@ class WelcomeMailTest extends TestCase
     {
         Mail::fake();
 
-        $post = factory(Post::class)->create(['title' => 'Fake Title']);
+        $post = Post::factory()->create(['title' => 'Fake Title']);
 
         Mail::assertNothingSent();
 

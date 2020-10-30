@@ -195,9 +195,28 @@ class MakeFooCommand extends GeneratorCommand
 
 Note that the class is exported to a directory **based on the namespace** as specified in the `getDefaultNamespace()` method.
 
-### Creating a Stub
+As with the `InstallBlogPackage` command, we'd have to register this new command in the `BlogServiceProvider`:
 
-You are free to store stubs in a different directory, but for now consider storing stubs in the `Console\stub` directory. For our `Foo` class generator, the stub could look as follows:
+```php
+// 'BlogPackageServiceProvider.php'
+use JohnDoe\BlogPackage\Console\{InstallBlogPackage, MakeFooCommand};
+
+public function boot()
+{
+  if ($this->app->runningInConsole()) {
+    // publish config file
+
+    $this->commands([
+        InstallBlogPackage::class,
+        MakeFooCommand::class, // registering the new command
+    ]);
+  }
+}
+```
+
+### Creating a stub
+
+You are free to store stubs in a different directory, but for now consider storing stubs in the `Console/stubs` directory. For our `Foo` class generator, the stub could look as follows:
 
 ```php
 // 'stubs/foo.php.stub'

@@ -75,7 +75,7 @@ class Calculator
 }
 ```
 
-In addition to this class, we’ll create the facade in a new src/Facades folder:
+In addition to this class, we’ll create the facade in a new `src/Facades` folder:
 
 ```php
 // 'src/Facades/Calculator.php'

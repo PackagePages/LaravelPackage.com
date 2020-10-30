@@ -67,7 +67,7 @@ class PublishPostTest extends TestCase
     {
         Bus::fake();
 
-        $post = factory(Post::class)->create();
+        $post = Post::factory()->create();
 
         $this->assertNull($post->published_at);
 

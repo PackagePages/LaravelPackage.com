@@ -254,7 +254,7 @@ Add a new test to the `CreatePostTest` feature test, in which we'll assume our n
 /** @test */
 function creating_a_post_will_capitalize_the_title()
 {
-    $author = factory(User::class)->create();
+    $author = User::factory()->create();
 
     $this->actingAs($author)->post(route('posts.store'), [
         'title' => 'some title that was not capitalized',

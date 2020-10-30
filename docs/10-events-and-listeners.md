@@ -87,7 +87,7 @@ class CreatePostTest extends TestCase
   {
       Event::fake();
 
-      $author = factory(User::class)->create();
+      $author = User::factory()->create();
 
       $this->actingAs($author)->post(route('posts.store'), [
         'title' => 'A valid title',
@@ -139,7 +139,7 @@ In this test, we'll assert that the listener's `handle()` method indeed changes 
 /** @test */
 function a_newly_created_posts_title_will_be_changed()
 {
-    $post = factory(Post::class)->create([
+    $post = Post::factory()->create([
         'title' => 'Initial title',
     ]);
 
@@ -173,7 +173,6 @@ use JohnDoe\BlogPackage\Listeners\UpdatePostTitle;
 
 class EventServiceProvider extends ServiceProvider
 {
-
     protected $listen = [
         PostWasCreated::class => [
             UpdatePostTitle::class,

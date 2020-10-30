@@ -43,7 +43,7 @@ class Controller extends BaseController
 
 ### Creating a Controller That Extends Base Controller
 
-Now, let's create a PostController in the `src/Http/Controllers directory`, starting first with the 'store' method:
+Now, let's create a PostController in the `src/Http/Controllers` directory, starting first with the 'store' method:
 
 ```php
 // 'src/Http/Controllers/PostController'
@@ -268,7 +268,7 @@ if ($this->app->runningInConsole()) {
   // Publish assets
   $this->publishes([
     __DIR__.'/../resources/assets' => public_path('blogpackage'),
-    ], 'assets');
+  ], 'assets');
 
 }
 ```
@@ -317,7 +317,7 @@ class CreatePostTest extends TestCase
         // To make sure we don't start with a Post
         $this->assertCount(0, Post::all());
 
-        $author = factory(User::class)->create();
+        $author = User::factory()->create();
 
         $response = $this->actingAs($author)->post(route('posts.store'), [
             'title' => 'My first fake title',
@@ -343,7 +343,7 @@ Additionally, we could verify that we require both a "title" and a "body" attrib
 /** @test */
 function a_post_requires_a_title_and_a_body()
 {
-    $author = factory(User::class)->create();
+    $author = User::factory()->create();
 
     $this->actingAs($author)->post(route('posts.store'), [
         'title' => '',
@@ -382,13 +382,13 @@ Finally, let's verify the index route shows all posts, and the show route shows 
 function all_posts_are_shown_via_the_index_route()
 {
     // Given we have a couple of Posts
-    factory(Post::class)->create([
+    Post::factory()->create([
         'title' => 'Post number 1'
     ]);
-    factory(Post::class)->create([
+    Post::factory()->create([
         'title' => 'Post number 2'
     ]);
-    factory(Post::class)->create([
+    Post::factory()->create([
         'title' => 'Post number 3'
     ]);
 
@@ -404,7 +404,7 @@ function all_posts_are_shown_via_the_index_route()
 /** @test */
 function a_single_post_is_shown_via_the_show_route()
 {
-    $post = factory(Post::class)->create([
+    $post = Post::factory()->create([
         'title' => 'The single post title',
         'body'  => 'The single post body',
     ]);

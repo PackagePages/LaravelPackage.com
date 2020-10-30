@@ -20,10 +20,13 @@ Models in our package do not differ from models we would use in a standard Larav
 
 namespace JohnDoe\BlogPackage\Models;
 
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
 class Post extends Model
 {
+  use HasFactory;
+
   // Disable Laravel's mass assignment protection
   protected $guarded = [];
 }
@@ -41,9 +44,9 @@ After you’ve generated the migration, copy it from your “dummy” Laravel ap
 // 'database/migrations/create_posts_table.php.stub'
 <?php
 
-use Illuminate\Support\Facades\Schema;
-use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
+use Illuminate\Database\Schema\Blueprint;
+use Illuminate\Support\Facades\Schema;
 
 class CreatePostsTable extends Migration
 {
@@ -55,7 +58,7 @@ class CreatePostsTable extends Migration
     public function up()
     {
         Schema::create('posts', function (Blueprint $table) {
-            $table->bigIncrements('id');
+            $table->id();
             $table->timestamps();
         });
     }
@@ -131,7 +134,7 @@ class PostTest extends TestCase
   /** @test */
   function a_post_has_a_title()
   {
-    $post = factory(Post::class)->create(['title' => 'Fake Title']);
+    $post = Post::factory()->create(['title' => 'Fake Title']);
     $this->assertEquals('Fake Title', $post->title);
   }
 }
@@ -156,12 +159,12 @@ We can run our test suite by calling the phpunit binary in our vendor directory 
 }
 ```
 
-Now, we can run `composer test` to run all of our tests and `composer test-f` followed by a name of a test method to only run that test.
+Now, we can run `composer test` to run all of our tests and `composer test-f` followed by a name of a test method/class to only run that test.
 
 When we run `composer test-f a_post_has_a_title`, it leads us to the following error:
 
 ```
-InvalidArgumentException: Unable to locate factory with name [default] [JohnDoe\BlogPackage\Models\Post].
+Error: Class 'Database\Factories\JohnDoe\BlogPackage\Models\PostFactory' not found
 ```
 
 This tells us that we need to create a model factory for the `Post` model.
@@ -174,43 +177,59 @@ Let’s create a `PostFactory` in the `database/factories` folder:
 // 'database/factories/PostFactory.php'
 <?php
 
-use JohnDoe\BlogPackage\Models\Post;
-use Faker\Generator as Faker;
+namespace JohnDoe\BlogPackage\Database\Factories;
 
-$factory->define(Post::class, function (Faker $faker) {
-  return [
-    //
-  ];
-});
+use JohnDoe\BlogPackage\Models\Post;
+use Illuminate\Database\Eloquent\Factories\Factory;
+
+class PostFactory extends Factory
+{
+    protected $model = Post::class;
+
+    public function definition()
+    {
+        return [
+            //
+        ];
+    }
+}
+
 ```
 
-### Loading the Model Factory
+As with the `src` folder, for our package users to be able to use our model factories we'll need to register the `database/factories` folder within a namespace in our `composer.json` file:
 
-To make use of the newly created model factory, you need to register them in the package's Service Provider. To add them to the Service Provider, point the `Illuminate\Database\Eloquent\Factory` class to the directory containing the model factories:
-
-```php
-// 'src/BlogPackageServiceProvider.php'
-
-public function boot()
+```json
 {
-    // Register the model factories
-    $this->app->make('Illuminate\Database\Eloquent\Factory')
-        ->load(__DIR__.'/../database/factories');
-
-    // ...
+  ...,
+  "autoload": {
+    "psr-4": {
+      "JohnDoe\\BlogPackage\\": "src",
+      "JohnDoe\\BlogPackage\\Database\\Factories\\": "database/factories"
+    }
+  },
+  ...
 }
 ```
 
-If you only use model factories in your tests, you don't have to register them in the service provider. To access them in your tests, use the `withFactories()` method provided by Orchestra Testbench ([learn more](https://orchestraplatform.readme.io/docs/testbench#section-using-model-factories)) in the `setUp()` method of the parent `TestCase` class:
+After setting it up, don't forget to run `composer dump-autoload`.
+
+### Configuring our Model factory
+
+Running our tests again leads to the following error:
+
+```
+Error: Class 'Database\Factories\JohnDoe\BlogPackage\Models\PostFactory' not found
+```
+
+This is because Laravel is trying to resolve the Model class for our `PostFactory` assuming the default namespaces of a usual project (as of version 8.x, `App` or `App\Models`).
+To be able to instantiate the right Model from our package with the `Post::factory()` method, we need to add the following method to our `Post` Model:
 
 ```php
-// 'tests/TestCase.php'
+// 'src/Models/Post.php'
 
-protected function setUp()
+protected static function newFactory()
 {
-    parent::setUp();
-
-    $this->withFactories(__DIR__.'/../database/factories');
+    return \JohnDoe\BlogPackage\Database\Factories\PostFactory::new();
 }
 ```
 
@@ -236,10 +255,11 @@ Now, running the tests again will lead to the expected error of no ‘title’ c
 ```php
 // 'database/migrations/create_posts_table.php.stub'
 Schema::create('posts', function (Blueprint $table) {
-    $table->bigIncrements('id');
+    $table->id();
     $table->string('title');
     $table->timestamps();
 });
+
 ```
 
 After running the test, you should see it passing.
@@ -253,19 +273,18 @@ Let’s add tests for the “body” and “author_id”:
 class PostTest extends TestCase
 {
   use RefreshDatabase;
- 
 
   /** @test */
   function a_post_has_a_title()
   {
-    $post = factory(Post::class)->create(['title' => 'Fake Title']);
+    $post = Post::factory()->create(['title' => 'Fake Title']);
     $this->assertEquals('Fake Title', $post->title);
   }
 
   /** @test */
   function a_post_has_a_body()
   {
-    $post = factory(Post::class)->create(['body' => 'Fake Body']);
+    $post = Post::factory()->create(['body' => 'Fake Body']);
     $this->assertEquals('Fake Body', $post->body);
   }
 
@@ -273,7 +292,7 @@ class PostTest extends TestCase
   function a_post_has_an_author_id()
   {
     // Note that we are not assuming relations here, just that we have a column to store the 'id' of the author
-    $post = factory(Post::class)->create(['author_id' => 999]); // we choose an off-limits value for the author_id so it is unlikely to collide with another author_id in our tests
+    $post = Post::factory()->create(['author_id' => 999]); // we choose an off-limits value for the author_id so it is unlikely to collide with another author_id in our tests
     $this->assertEquals(999, $post->author_id);
   }
 }
@@ -289,16 +308,23 @@ Eventually you’ll end up with a model factory and migration as follows:
 
 namespace JohnDoe\BlogPackage\Database\Factories;
 
-use Faker\Generator as Faker;
 use JohnDoe\BlogPackage\Models\Post;
+use Illuminate\Database\Eloquent\Factories\Factory;
 
-$factory->define(Post::class, function (Faker $faker) {
-    return [
-        'title'     => $faker->words(3),
-        'body'      => $faker->paragraph,
-        'author_id' => 999,
-    ];
-});
+class PostFactory extends Factory
+{
+    protected $model = Post::class;
+
+    public function definition()
+    {
+        return [
+            'title'     => $this->faker->title,
+            'body'      => $this->faker->paragraph,
+            'author_id' => 999,
+        ];
+    }
+}
+
 ```
 
 For now, we hard coded the ‘author_id’, but in the next section we'll see how we could whip up a relationship with a User model.
@@ -307,7 +333,7 @@ For now, we hard coded the ‘author_id’, but in the next section we'll see ho
 // 'database/migrations/create_posts_table.php.stub'
 
 Schema::create('posts', function (Blueprint $table) {
-    $table->bigIncrements('id');
+    $table->id();
     $table->string('title');
     $table->text('body');
     $table->unsignedBigInteger('author_id');
@@ -377,7 +403,7 @@ After adding this `author()` method to our Post model, we need to update our `cr
 
 ```php
 Schema::create('posts', function (Blueprint $table) {
-    $table->bigIncrements('id');
+    $table->id();
     $table->string('title');
     $table->text('body');
     $table->unsignedBigInteger('author_id');
@@ -428,7 +454,39 @@ Of course, we want to prove that any model using our `HasPost` trait can indeed 
 
 Therefore, we’ll create a new `User` model, not within the `src/Models/` directory, but rather in our `tests/` directory.
 
-In the `User` model we’ll use the same traits that would be available on the `User` model that ships with a standard Laravel project to stay close to a real world scenario. Also, we use our own `HasPosts` trait:
+To be able to create users within our tests we'll need to overwrite the `UserFactory` provided by the Orchestra Testbench package, as shown bellow.
+
+```php
+// 'tests/UserFactory.php'
+<?php
+
+namespace JohnDoe\BlogPackage\Tests;
+
+use Orchestra\Testbench\Factories\UserFactory as TestbenchUserFactory;
+
+class UserFactory extends TestbenchUserFactory
+{
+  protected $model = User::class;
+
+    /**
+     * Define the model's default state.
+     *
+     * @return array
+     */
+    public function definition()
+    {
+        return [
+            'name' => $this->faker->name,
+            'email' => $this->faker->unique()->safeEmail,
+            'email_verified_at' => now(),
+            'password' => bcrypt('password'),
+            'remember_token' => \Illuminate\Support\Str::random(10),
+        ];
+    }
+}
+```
+
+In the `User` model we’ll use the same traits that would be available on the `User` model that ships with a standard Laravel project to stay close to a real world scenario. Also, we use our own `HasPosts` trait and `UserFactory`:
 
 ```php
 // 'tests/User.php'
@@ -441,15 +499,21 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Foundation\Auth\Access\Authorizable;
 use Illuminate\Contracts\Auth\Authenticatable as AuthenticatableContract;
 use Illuminate\Contracts\Auth\Access\Authorizable as AuthorizableContract;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 use JohnDoe\BlogPackage\Traits\HasPosts;
 
 class User extends Model implements AuthorizableContract, AuthenticatableContract
 {
-    use HasPosts, Authorizable, Authenticatable;
+    use HasPosts, Authorizable, Authenticatable, HasFactory;
 
     protected $guarded = [];
 
     protected $table = 'users';
+
+    protected static function newFactory()
+    {
+        return UserFactory::new();
+    }
 }
 ```
 
@@ -459,9 +523,9 @@ Now that we have a `User` model, we also need to add a new migration (the standa
 // 'database/migrations/create_users_table.php.stub'
 <?php
 
-use Illuminate\Support\Facades\Schema;
-use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
+use Illuminate\Database\Schema\Blueprint;
+use Illuminate\Support\Facades\Schema;
 
 class CreateUsersTable extends Migration
 {
@@ -473,7 +537,7 @@ class CreateUsersTable extends Migration
     public function up()
     {
         Schema::create('users', function (Blueprint $table) {
-            $table->bigIncrements('id');
+            $table->id();
             $table->string('name');
             $table->string('email')->unique();
             $table->timestamp('email_verified_at')->nullable();
@@ -520,20 +584,36 @@ Now that we can whip up `User` models with our new factory, let’s create a new
 
 namespace JohnDoe\BlogPackage\Database\Factories;
 
-use Faker\Generator as Faker;
 use JohnDoe\BlogPackage\Models\Post;
+use Illuminate\Database\Eloquent\Factories\Factory;
 use JohnDoe\BlogPackage\Tests\User;
 
-$factory->define(Post::class, function (Faker $faker) {
-    $author = factory(User::class)->create();
+class PostFactory extends Factory
+{
+    /**
+     * The name of the factory's corresponding model.
+     *
+     * @var string
+     */
+    protected $model = Post::class;
 
-    return [
-        'title'         => $faker->words(3),
-        'body'          => $faker->paragraph,
-        'author_id'     => $author->id,
-        'author_type'   => get_class($author),
-    ];
-});
+    /**
+     * Define the model's default state.
+     *
+     * @return array
+     */
+    public function definition()
+    {
+        $author = User::factory()->create();
+
+        return [
+            'title'     => $this->faker->title,
+            'body'      => $this->faker->paragraph,
+            'author_id' => $author->id,
+            'author_type' => get_class($author)
+        ];
+    }
+}
 ```
 
 Next we update the `Post` unit test, to also verify an ‘author_type’ can be specified.
@@ -547,7 +627,7 @@ class PostTest extends TestCase
   /** @test */
   function a_post_has_an_author_type()
   {
-    $post = factory(Post::class)->create(['author_type' => 'Fake\User']);
+    $post = Post::factory()->create(['author_type' => 'Fake\User']);
     $this->assertEquals('Fake\User', $post->author_type);
   }
 }
@@ -569,7 +649,7 @@ class PostTest extends TestCase
   function a_post_belongs_to_an_author()
   {
     // Given we have an author
-    $author = factory(User::class)->create();
+    $author = User::factory()->create();
     // And this author has a Post
     $author->posts()->create([
         'title' => 'My first fake post',
