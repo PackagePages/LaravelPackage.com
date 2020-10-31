@@ -318,7 +318,7 @@ class PostFactory extends Factory
     public function definition()
     {
         return [
-            'title'     => $this->faker->title,
+            'title'     => $this->faker->words(3, true),
             'body'      => $this->faker->paragraph,
             'author_id' => 999,
         ];
@@ -607,7 +607,7 @@ class PostFactory extends Factory
         $author = User::factory()->create();
 
         return [
-            'title'     => $this->faker->title,
+            'title'     => $this->faker->words(3, true),
             'body'      => $this->faker->paragraph,
             'author_id' => $author->id,
             'author_type' => get_class($author)
