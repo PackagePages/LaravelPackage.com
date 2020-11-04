@@ -65,7 +65,6 @@ Then, copy the following template to use an in-memory sqlite database and enable
     <env name="APP_KEY" value="base64:2fl+Ktvkfl+Fuz4Qp/A75G2RTiWVA/ZoKZvp6fiiM10="/>
   </php>
 </phpunit>
-
 ```
 
 ## Directory Structure
