@@ -67,6 +67,8 @@ Then, copy the following template to use an in-memory sqlite database and enable
 </phpunit>
 ```
 
+Note that a dummy `APP_KEY` is mentioned in the example above, in case your test suite uses [Laravel's encrypter](https://laravel.com/docs/8.x/encryption#using-the-encrypter). For most cases, the dummy value will be fine. However, you are free to either change this value to reflect an actual app key (of your Laravel application) or leave it off entirely if your test suite does not interact with the encrypter.
+
 ## Directory Structure
 
 To accommodate for feature and unit tests, create a `tests/` directory with a `Unit` and `Feature` subdirectory and a base `TestCase.php` file. The structure looks as follows:
