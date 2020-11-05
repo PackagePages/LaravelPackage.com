@@ -62,11 +62,12 @@ Then, copy the following template to use an in-memory sqlite database and enable
   </testsuites>
   <php>
     <env name="DB_CONNECTION" value="testing"/>
-    <env name="APP_KEY" value="AckfSECXIvnK5r28GVIWUAxmbBSjTsmF"/>
+    <env name="APP_KEY" value="base64:2fl+Ktvkfl+Fuz4Qp/A75G2RTiWVA/ZoKZvp6fiiM10="/>
   </php>
 </phpunit>
-
 ```
+
+Note that a dummy `APP_KEY` is mentioned in the example above, in case your test suite uses [Laravel's encrypter](https://laravel.com/docs/8.x/encryption#using-the-encrypter). For most cases, the dummy value will be fine. However, you are free to either change this value to reflect an actual app key (of your Laravel application) or leave it off entirely if your test suite does not interact with the encrypter.
 
 ## Directory Structure
 
