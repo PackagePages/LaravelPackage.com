@@ -12,9 +12,9 @@ date: 2019-09-17
 
 After each installation or update, composer will generate an `autoload.php` file in the `/vendor` directory. By including this single file, you’ll be able to access all classes provided by your installed libraries.
 
-Looking at a Laravel project, you’ll see that the `index.php` file in the application root (which handles all incoming requests) requires the autoloader, which then makes all required libraries usable within the scope of your application. This includes Laravel’s first party Illuminate components as well as any required third party packages.
+Looking at a Laravel project, you’ll see that the `public/index.php` file in the application root (which handles all incoming requests) requires the autoloader, which then makes all required libraries usable within the scope of your application. This includes Laravel’s first party Illuminate components as well as any required third party packages.
 
-Laravel's `index.php` file:
+Laravel's `public/index.php` file:
 
 ```php
 <?php
