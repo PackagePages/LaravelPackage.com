@@ -10,7 +10,7 @@
   },
   "dependencies": {
     "global": "^4.3.2",
-    "vuepress": "^1.6.0"
+    "vuepress": "^1.7.1"
   },
   "devDependencies": {
     "@vuepress/plugin-pwa": "^1.7.1",
