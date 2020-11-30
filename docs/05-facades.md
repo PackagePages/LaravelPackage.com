@@ -114,7 +114,7 @@ The `Calculator` facade can now be used by the end user after importing it from 
 "extra": {
     "laravel": {
         "providers": [
-            "JohnDoe\\BlogPackage\\BlogServiceProvider"
+            "JohnDoe\\BlogPackage\\BlogPackageServiceProvider"
         ],
         "aliases": {
             "Calculator": "JohnDoe\\BlogPackage\\Facades\\Calculator"
