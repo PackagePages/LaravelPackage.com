@@ -32,6 +32,9 @@ To install a package in your existing Laravel project, the `composer require <ve
 
 In the first chapter, the basic structure of a package will be addressed. Now, it can be cumbersome to set-up the basic skeleton every time from scratch. That's why others created some helpful tools.
 
+- [Package Skeleton by Spatie](https://github.com/spatie/package-skeleton-laravel)
+  This package skeleton by Spatie offers a great starting point for setting up a Laravel package from scratch. Besides the essential components of a Laravel Package, the skeleton comes with a GitHub specific configuration including a set of (CI) workflows for GitHub actions. They also offer a skeleton for [generic PHP packages](https://github.com/spatie/package-skeleton-php).
+
 - [Laravel Package Boilerplate](https://laravelpackageboilerplate.com/)
   This tool by Marcel Pociot, allows you to generate a basic template for Laravel specific as well as generic PHP packages which can be downloaded as a `.zip` file.
 
