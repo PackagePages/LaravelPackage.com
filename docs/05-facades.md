@@ -26,6 +26,8 @@ MessageFactory::sentBy($user)
 
 To learn more about facades and how they work, refer to the excellent [Laravel documentation](https://laravel.com/docs/facades#how-facades-work).
 
+Practically, it boils down to calling static methods on a Facade, which are "proxied" (redirected) to the non-static methods of an underlying class you have specified. This means that you're not actually using static methods. An example is discussed below, using a `Calculator` class as an example.
+
 ## Creating a Facade
 
 Let’s assume that we provide a `Calculator` class as part of our package and want to make this class available as a facade.
@@ -123,4 +125,9 @@ The `Calculator` facade can now be used by the end user after importing it from 
 }
 ```
 
-Our facade now no longer requires an import and can be used in projects from the root namespace.
+Our facade now no longer requires an import and can be used in projects from the root namespace:
+
+```php
+// Usage of the example Calculator facade
+Calculator::add(5)->subtract(3)->getResult(); // 2
+```
