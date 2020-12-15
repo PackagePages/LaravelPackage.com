@@ -75,7 +75,11 @@ class CreatePostsTable extends Migration
 }
 ```
 
-To present the end user with our migration(s), we need to register that our package “publishes” its migrations. We can do that as follows in the `boot()` method of our package’s service provider, employing the `publishes()` method, which takes two arguments:
+To present the end user with our migration(s), we can either publish (specific) migrations (method 1) or load all migrations from our package automatically (method 2). 
+
+### Publishing Migrations (method 1)
+
+In this approach we register that our package “publishes” its migrations. We can do that as follows in the `boot()` method of our package’s service provider, employing the `publishes()` method, which takes two arguments:
 
 1. an array of file paths ("source path" => "destination path")
 
@@ -109,11 +113,26 @@ The migrations of this package are now publishable under the “migrations” ta
 php artisan vendor:publish --provider="JohnDoe\BlogPackage\BlogPackageServiceProvider" --tag="migrations"
 ```
 
-## Testing models and migrations
+### Loading Migrations Automatically (method 2)
+While the method described above gives full control over which migrations are published, Laravel offers an alternative approach making use of the `loadMigrationsFrom` helper ([see docs](https://laravel.com/docs/packages#migrations)). By specifying a migrations directory in the package's service provider, all migrations will be executed when the end user executes `php artisan migrate` from within their Laravel application.
+
+```php
+class BlogPackageServiceProvider extends ServiceProvider
+{
+  public function boot()
+  {
+    $this->loadMigrationsFrom(__DIR__ . '/../database/migrations');
+  }
+}
+```
+
+Make sure to include a proper timestamp to your migrations, otherwise Laravel can't process them. For example `2018_08_08_100000_example_migration.php`. You can not use a stub (like in method 1) when choosing this approach.
+
+## Testing Models and Migrations
 
 As we create an example test, we're going to follow some of the basics of test-driven-development (TDD) here. Whether or not you practice TDD in your normal workflow, explaining the steps here helps expose possible problems you might encounter along the way, thus making your own troubleshooting simpler. Let's get started:
 
-### Writing a unit test
+### Writing a Unit Test
 
 Now that we’ve got **PHPunit** set up, let’s create a unit test for our Post model in the `tests/Unit` directory called `PostTest.php`. Let's write a test that verifies a `Post` has a title:
 
