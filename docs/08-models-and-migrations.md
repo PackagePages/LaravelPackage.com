@@ -38,10 +38,10 @@ To quickly scaffold your models together with a migration, I would advise to cre
 
 Migrations live in the `database/migrations` folder in a Laravel application. In our package we mimic this file structure. Therefore, database migrations will not live in the `src/` directory but in their own `database/migrations` folder. The root directory of our package now contains at least two folders: `src/` and `database/`.
 
-After you’ve generated the migration, copy it from your “dummy” Laravel application to the package’s `database/migrations` folder. Rename it to `create_posts_table.php.stub` removing its timestamp and using a `.stub` extension.
+After you’ve generated a migration, copy it from your “dummy” Laravel application to the package’s `database/migrations` folder.
 
 ```php
-// 'database/migrations/create_posts_table.php.stub'
+// 'database/migrations/2018_08_08_100000_create_posts_table.php'
 <?php
 
 use Illuminate\Database\Migrations\Migration;
@@ -75,7 +75,7 @@ class CreatePostsTable extends Migration
 }
 ```
 
-To present the end user with our migration(s), we can either publish (specific) migrations (method 1) or load all migrations from our package automatically (method 2). 
+From this point on, there are two possible approaches to present the end user with our migration(s). We can either publish (specific) migrations (method 1) or load all migrations from our package automatically (method 2). 
 
 ### Publishing Migrations (method 1)
 
@@ -85,7 +85,9 @@ In this approach we register that our package “publishes” its migrations. We
 
 2. the name (“tag”) we assign to this group of related publishable assets.
 
-Practically, we can implement this functionality as follows:
+In this approach it is conventional to use a "stubbed" migration which is exported to a real migration when the end user of our package publishes the migrations. Therefore, first rename any migrations to remove the timestamp and add a `.stub` extension. In our example migration, this would lead to: `create_posts_table.php.stub`.
+
+Next, we can implement exporting the migration(s) as follows:
 
 ```php
 class BlogPackageServiceProvider extends ServiceProvider
