@@ -10,7 +10,7 @@ date: 2019-09-17
 
 In my experience, learning to develop a package for Laravel can be quite challenging which is why I previously wrote [a blog series about that](https://johnbraun.blog/posts/creating-a-laravel-package-1).
 
-Over time, I began thinking this topic deserves its own manual, rather than a couple of posts which only cover _my_ insights. That's where I think this e-book type of guide will come in. I've bundled up my blog posts and expanded on a couple of more topics in separate chapters. These chapters are available on GitHub and contributions (in the form of pull requests) are highly welcomed. I hope that this website can become a place to share knowledge on Laravel package development to help developers get a head start.
+Over time, I began thinking this topic deserves its own manual, rather than a couple of posts which only cover _my_ insights. That's where I think this open source documentation on Laravel Package Development will come in. I've bundled up my blog posts and expanded on a couple of more topics in separate chapters. These chapters are available on GitHub and contributions (in the form of pull requests) are highly welcomed. I hope that this website can become a place to share knowledge on Laravel package development to help developers get a head start.
 
 You are highly encouraged to participate and [contribute to this project](https://github.com/Jhnbrn90/LaravelPackage.com). Please feel free to submit a PR, even only for a typo.
 
