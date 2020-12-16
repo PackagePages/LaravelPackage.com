@@ -16,6 +16,10 @@ You are highly encouraged to participate and [contribute to this project](https:
 
 First of all, I want to thank Marcel Pociot. His very clear, structured and detailed PHP Package Development [video course](https://phppackagedevelopment.com/) helped me quickly getting started on developing my own packages. I can highly recommend his video course if you want to learn how to create (framework agnostic) PHP packages.
 
+--- 
+
+💡 Would you rather watch than read? The famous and reputable package builders from **Spatie** launched a full video course on [Laravel Package Development](https://laravelpackage.training).
+
 ## Reasons to Develop a Package
 
 You might encounter a scenario where you want to reuse some feature(s) of your application in other applications, open source a certain functionality or just keep related code together but separate it from your main application. In those cases, it makes sense to extract parts to a package. Packages or “libraries” provide an easy way to add additional functionality to existing applications, and are mostly focused on a single feature.
