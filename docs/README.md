@@ -24,6 +24,9 @@ First of all, I want to thank Marcel Pociot. His very clear, structured and deta
 
 You might encounter a scenario where you want to reuse some feature(s) of your application in other applications, open source a certain functionality or just keep related code together but separate it from your main application. In those cases, it makes sense to extract parts to a package. Packages or “libraries” provide an easy way to add additional functionality to existing applications, and are mostly focused on a single feature.
 
+## Companion Package
+In this documentation, we'll build a demo package along the way (called "BlogPackage") by introducing the listed functionalities one-by-one. Make sure to check out the finished version of this [companion package](https://github.com/Jhnbrn90/BlogPackage) to have a handy reference, for example when something doesn't work as expected. The demo package contains a testsuite containing unit and feature tests for the covered topics.
+
 ## Composer & Packagist
 
 At the time of writing, there are nearly 240,000 packages available on [Packagist](https://packagist.org/), the main repository for PHP packages.
