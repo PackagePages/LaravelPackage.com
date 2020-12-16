@@ -62,3 +62,6 @@ In the first chapter, the basic structure of a package will be addressed. Now, i
 
 - [Laravel Packer](https://github.com/bitfumes/laravel-packer)
   A PHP package offering a command-line tool to scaffold a basic package directory structure and `composer.json` file and provides the `make` artisan commands within your package.
+  
+- [Laravel Package Maker](https://github.com/naoray/laravel-package-maker)
+  A PHP package that provides all the Laravel `make` commands for package development. It uses composer's repositories feature to symlink your test app with your package to make testing as easy as possible.
