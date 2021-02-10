@@ -102,7 +102,7 @@ As suggested by Orchestra Testbench: “If you need to add something early in th
 
 `getPackageProviders()`
 
-As the name suggest, we can load our service provider(s) within the getPackageProviders() method. We’ll do that by returning an array containing all providers. For now, we’ll just include the package specific package provider, but imagine that if the package uses an EventServiceProvider, we would also register it here.
+As the name suggests, we can load our service provider(s) within the getPackageProviders() method. We’ll do that by returning an array containing all providers. For now, we’ll just include the package specific package provider, but imagine that if the package uses an EventServiceProvider, we would also register it here.
 
 ---
 
