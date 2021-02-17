@@ -1,6 +1,6 @@
 ---
 title: 'Routing, Views and Controllers'
-description: 'Expose (custom) routes in your package, which call a Controller and can render views which are provided by the package. Additionally, testing of a certain route, controller and view will be discussed.'
+description: 'Expose (custom) routes in your package, which call a controller action and render views provided by the package. This chapter will additionally cover testing of routes, controllers, and views.'
 tags: ['Routing', 'Controllers', 'Views', 'RESTful', 'Testing Routing', 'Testing Controllers', 'Testing Views']
 image: 'https://www.laravelpackage.com/assets/pages/laravelpackage.jpeg'
 date: 2019-09-17
@@ -8,13 +8,13 @@ date: 2019-09-17
 
 # Routing
 
-Sometimes you want to expose additional routes to the end user of your package.
+Sometimes you want to expose additional routes to the end-user of your package.
 
 Since we're offering a `Post` model, let's add some **RESTful** routes. To keep things simple, we're just going to implement 3 of the RESTful routes:
 
-- showing all posts ('index')
-- showing a single post ('show')
-- storing a new post ('store')
+- show all posts ('index')
+- show a single post ('show')
+- store a new post ('store')
 
 ## Controllers
 
@@ -93,7 +93,7 @@ class PostController extends Controller
 
 ### Defining Routes
 
-Now that we have a controller, create a new `routes/` directory in the root of our package and add a `web.php` file containing the three RESTful routes we've mentioned above.
+Now that we have a controller, create a new `routes/` directory in our package's root and add a `web.php` file containing the three RESTful routes we've mentioned above.
 
 ```php
 // 'routes/web.php'
@@ -122,9 +122,9 @@ public function boot()
 
 ### Configurable Route Prefix and Middleware
 
-You may want to allow users to define a route prefix and/or middleware for the routes exposed by your package. Instead of registering the routes directly in the `boot()` method we'll register the routes using `Route::group`, passing in the dynamic configuration (prefix and middleware). Don't forget to import the corresponding `Route` facade.
+You may want to allow users to define a route prefix and middleware for the routes exposed by your package. Instead of registering the routes directly in the `boot()` method we'll register the routes using `Route::group`, passing in the dynamic configuration (prefix and middleware). Don't forget to import the corresponding `Route` facade.
 
-In the following example, a namespace of `blogpackage` is used. Don't forget to replace this with your package's own namespace.
+The following examples use a namespace of `blogpackage`. Don't forget to replace this with your package's namespace.
 
 ```php
 // 'BlogPackageServiceProvider.php'
@@ -159,15 +159,15 @@ Specify a default route prefix and middleware in the package's `config.php` file
 'middleware' => ['web'], // you probably want to include 'web' here
 ```
 
-Using the above default configuration, all routes defined in `routes.web` need to be prefixed with `/blogger`. In this way, collision with potentially existing routes can be avoided.
+In the above default configuration, all routes defined in `routes.web` need to be prefixed with `/blogger`. In this way, collision with potentially existing routes is avoided.
 
 ## Views
 
-The 'index' and 'show' methods on the PostController need to render a view.
+The 'index' and 'show' methods on the `PostController` need to render a view.
 
 ### Creating the Blade View Files
 
-Create a new `resources/` folder in the root of our package. In that folder, create a subfolder named `views`. In the views folder we'll create a `posts` subfolder in which we'll create two (extremely) simple templates.
+Create a new `resources/` folder at the root of our package. In that folder, create a subfolder named `views`. In the views folder, we'll create a `posts` subfolder in which we'll create two (extremely) simple templates.
 
 1. `resources/views/posts/index.blade.php`:
 
@@ -189,7 +189,7 @@ Create a new `resources/` folder in the root of our package. In that folder, cre
    <p> {{ $post->body }}</p>
    ```
 
-Note: these templates would extend a base / master layout file in a real world scenario.
+Note: these templates would extend a base/master layout file in a real-world scenario.
 
 ### Registering Views in the Service Provider
 
@@ -206,7 +206,7 @@ public function boot()
 
 ### Returning a View from the Controller
 
-We can now just return the views we've created from the `PostController` (don't forget to import our `Post` model).
+We can now return the views we've created from the `PostController` (don't forget to import our `Post` model).
 
 Note the `blogpackage::` prefix, which matches the prefix we registered in our Service Provider.
 
@@ -252,11 +252,11 @@ php artisan vendor:publish --provider="JohnDoe\BlogPackage\BlogPackageServicePro
 
 ## Assets
 
-It is likely that you'll want to include a CSS and/or javascript file when you're adding views to your package.
+You'll likely want to include a CSS and javascript file when you're adding views to your package.
 
 ### Creating an 'assets' Directory
 
-If you want to use a CSS stylesheet and/or include a javascript file in your views, create an `assets` directory in the `resources/` folder. Since we might include several stylesheets and/or javascript files let's create **two subfolders**: `css` and `js` to store these files respectively. A convention is to name the main javascript file `app.js` and the main stylesheet `app.css`.
+If you want to use a CSS stylesheet or include a javascript file in your views, create an `assets` directory in the `resources/` folder. Since we might include several stylesheets or javascript files, let's create **two subfolders**: `css` and `js` to store these files, respectively. A convention is to name the main javascript file `app.js` and the main stylesheet `app.css`.
 
 ### Customizable Assets
 
@@ -290,7 +290,7 @@ We can reference the stylesheet and javascript file in our views as follows:
 
 ## Testing Routes
 
-Let’s verify that we can indeed create a post, show a post and show all posts with our provided routes, views and controllers.
+Let’s verify that we can indeed create a post, show a post and show all posts with our provided routes, views, and controllers.
 
 ### Feature Test
 
@@ -415,4 +415,4 @@ function a_single_post_is_shown_via_the_show_route()
 }
 ```
 
-> Tip: whenever you are getting cryptic error messages from your tests, it might be helpful to disable graceful exception handling to get more insight into the origin of the error. You can do so by declaring `$this->withoutExceptionHandling();` at the start of your test.
+> Tip: whenever you are getting cryptic error messages from your tests, it might be helpful to disable graceful exception handling to get more insight into the error's origin. You can do so by declaring `$this->withoutExceptionHandling();` at the start of your test.

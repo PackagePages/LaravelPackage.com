@@ -10,9 +10,9 @@ date: 2019-09-17
 
 ## Autoloading
 
-After each installation or update, composer will generate an `autoload.php` file in the `/vendor` directory. By including this single file, you’ll be able to access all classes provided by your installed libraries.
+Composer will generate an `autoload.php` file in the `/vendor` directory after each installation or update. By including this single file, you’ll be able to access all classes provided by your installed libraries.
 
-Looking at a Laravel project, you’ll see that the `public/index.php` file in the application root (which handles all incoming requests) requires the autoloader, which then makes all required libraries usable within the scope of your application. This includes Laravel’s first party Illuminate components as well as any required third party packages.
+Looking at a Laravel project, you’ll see that the `public/index.php` file in the application root (which handles all incoming requests) requires the autoloader, which then makes all required libraries usable within the scope of your application. This includes Laravel’s first-party Illuminate components as well as any required third party packages.
 
 Laravel's `public/index.php` file:
 
@@ -30,7 +30,7 @@ require __DIR__.'/../vendor/autoload.php';
 
 In general (and by convention), a package contains a `src/` (short for “source”) folder containing all package specific logic (classes) and a `composer.json` file containing information about the package itself. Additionally, most packages also include a license and documentation.
 
-If we take a look at the general directory structure of a generic package, you’ll notice how it looks quite different from a standard Laravel project.
+If we look at the general directory structure of a generic package, you’ll notice how it looks quite different from a standard Laravel project.
 
 ```
 - src
@@ -41,4 +41,4 @@ LICENSE
 composer.json
 ```
 
-In a package, all code that would live in the `app/` directory of a Laravel app, will live in the `src/` directory when working with a package.
+In a package, all code that would live in the `app/` directory of a Laravel application will live in the `src/` directory when working with a package.

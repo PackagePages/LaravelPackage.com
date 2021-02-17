@@ -1,6 +1,6 @@
 ---
 title: 'Notifications'
-description: 'Discover how to send Notifications within a package, to an array of different services including mail, SMS, Slack or storing them in your database. Additionally, the section covers testing of the Notification facade.'
+description: 'Discover how to send Notifications within a package, to an array of different services including mail, SMS, Slack, or storing them in your database. Additionally, the section covers testing of the Notification facade.'
 tags: ['Notifications', 'Testing Notifications', 'Custom Notification Channels']
 image: 'https://www.laravelpackage.com/assets/pages/laravelpackage.jpeg'
 date: 2019-09-17
@@ -8,13 +8,13 @@ date: 2019-09-17
 
 # Notifications
 
-Notifications are a powerful tool in Laravel's toolbox as they provide support for sending notifications to an array of different services including mail, SMS, Slack or storing them in your database to show on the user's profile page for example.
+Notifications are a powerful tool in Laravel's toolbox. They provide support for sending notifications to an array of different services, including mail, SMS, Slack, or storing them in your database to show on the user's profile page, for example.
 
 ## Creating a Notification
 
-To start using Notifications in your package, first create a `Notifications` directory in the `src/` directory of your package.
+First, to start using Notifications in your package, create a `Notifications` directory in your package's `src/` directory.
 
-For this example, add a `PostWasPublishedNotification.php` which notifies the author of the `Post` that his submission was approved.
+For this example, add a `PostWasPublishedNotification.php`, which notifies the author of the `Post` that his submission was approved.
 
 ```php
 <?php
@@ -125,7 +125,7 @@ With the test passing, you can safely use this notification in your package.
 
 ## Custom Notification Channels
 
-Additionally, you may configure the channels for the notification to be dependent on the configuration file of your package to allow your users to specify which notification channels they want to use.
+Additionally, you may configure the channels for the notification to be dependent on your package's configuration file to allow your users to specify which notification channels they want to use.
 
 ```php
 public function via($notifiable)
@@ -134,4 +134,4 @@ public function via($notifiable)
 }
 ```
 
-... and then add the `notifications.channels` sub-array entries to your configuration stub file (see Chapter 7).
+Finally, add the `notifications.channels` sub-array entries to your configuration stub file (see the [Package Configuration](https://laravelpackage.com/07-configuration-files.html) section).

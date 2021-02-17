@@ -8,15 +8,15 @@ date: 2019-09-17
 
 # Middleware
 
-If we look at an incoming HTTP request, this request is processed by Laravel's `index.php` file and sent through a series of pipelines. These include a series of ('before') middleware, where each will perform an action on the incoming request before it eventually reaches the core of the application. From the core, a response is prepared which is post-modified by all registered 'after' middleware before returning the response.
+If we look at an incoming HTTP request, this request is processed by Laravel's `index.php` file and sent through a series of pipelines. These include a series of ('before') middleware, where each will act on the incoming request before it eventually reaches the core of the application. A response is prepared from the application core, which is post-modified by all registered 'after' middleware before returning the response.
 
-That's why middleware is great for authentication, verifying tokens or applying any other check. Laravel also uses middleware to strip out empty characters from strings and encrypt cookies.
+That's why middleware is excellent for authentication, verifying tokens, or applying any other check. Laravel also uses middleware to strip out empty characters from strings and encrypt cookies.
 
 ## Creating Middleware
 
-There are basically two types of middleware: 1) acting on the request **before** a response is returned ("Before Middleware"); or 2) acting on the response before returning ("After Middleware").
+There are two types of middleware: 1) acting on the request **before** a response is returned ("Before Middleware"); or 2) acting on the response before returning ("After Middleware").
 
-Before discussing the two types of middleware, first create a new `Middleware` folder in the `src/Http` directory of the package.
+Before discussing the two types of middleware, first create a new `Middleware` folder in the package's `src/Http` directory.
 
 ## Before Middleware
 
@@ -40,7 +40,7 @@ class BeforeMiddleware
 }
 ```
 
-As an illustration of a before middleware, let's add a middleware which capitalizes a 'title' parameter whenever that is present in the request (which would be silly in a real world application).
+As an illustration of a before middleware, let's add a middleware that capitalizes a 'title' parameter whenever present in the request (which would be silly in a real-world application).
 
 Add a file called `CapitalizeTitle.php` which provides a `handle()` method accepting both the current request and a `$next` action:
 
@@ -69,7 +69,7 @@ class CapitalizeTitle
 
 ## Testing Before Middleware
 
-Although we haven't _registered_ the middleware yet and it will not be used in the application, we do want to make sure that the `handle()` method shows the correct behaviour.
+Although we haven't _registered_ the middleware yet, and it will not be used in the application, we want to make sure that the `handle()` method shows the correct behavior.
 
 Add a new `CapitalizeTitleMiddlewareTest.php` unit test in the `tests/Unit` directory. In this test, we'll assert that a title parameter on a `Request()` will contain the capitalized string after the middleware ran its `handle()` method:
 
@@ -105,7 +105,7 @@ class CapitalizeTitleMiddlewareTest extends TestCase
 
 ## After Middleware
 
-The "after middleware" acts on the response that is returned after passing through all other layers of middleware down the chain. Next, it modifies that response and returns the response. Generally it takes the following form:
+The "after middleware" acts on the response returned after passing through all other middleware layers down the chain. Next, it modifies, and returns the response. Generally, it takes the following form:
 
 ```php
 <?php
@@ -129,7 +129,7 @@ class AfterMiddleware
 
 ## Testing After Middleware
 
-Similar to before middleware, we can unit test after middleware that operate on the `Response` for a given request and modify this request before it is passed down to the next layer of middleware. Given that we have an `InjectHelloWorld` middleware that injects the string 'Hello World' in each response, the following test would assert correct behaviour:
+Similar to *before middleware*, we can unit test *after middleware* that operate on the `Response` for a given request and modify this request before it is passed down to the next layer of middleware. Given that we have an `InjectHelloWorld` middleware that injects the string 'Hello World' in each response, the following test would assert correct behavior:
 
 ```php
 // 'tests/Unit/InjectHelloWorldMiddlewareTest.php'
@@ -162,9 +162,9 @@ Now that we know the `handle()` method does its job correctly, let's look at the
 
 ## Global middleware
 
-Global middleware is as the name implies, globally applied. Each request will pass through these middlewares.
+Global middleware is, as the name implies, globally applied. Each request will pass through these middlewares.
 
-If we want our capitalization check example to be applied globally, we can append this middleware to the `Http\Kernel` from within our package's service provider. Make sure to import the _Http Kernel_ contract, not the _Console Kernel_ contract:
+If we want our capitalization check example to be applied globally, we can append this middleware to the `Http\Kernel` from our package's service provider. Make sure to import the _Http Kernel_ contract, not the _Console Kernel_ contract:
 
 ```php
 // 'BlogPackageServiceProvider.php'
@@ -225,7 +225,7 @@ class PostController extends Controller
 
 Additionally, we can push our middleware to certain groups, like `web` or `api`, to make sure our middleware is applied on each route that belongs to these groups.
 
-To do so, tell the router to _push_ the middleware to a specfic group (in this example `web`):
+To do so, tell the router to _push_ the middleware to a specific group (in this example, `web`):
 
 ```php
 // 'BlogPackageServiceProvider.php'
@@ -241,11 +241,11 @@ public function boot()
 }
 ```
 
-The route middleware groups of a Laravel application are located in the `App\Http\Kernel` class. When applying this approach, you need to be sure that the consumer(s) of this package have the certain middleware group defined in their application.
+The route middleware groups of a Laravel application are located in the `App\Http\Kernel` class. When applying this approach, you need to be sure that this package's users have the specific middleware group defined in their application.
 
 ## Feature Testing Middleware
 
-Regardless of the fact that we registered the middleware globally or route specifically, we can test that the middleware is indeed applied when making a request.
+Regardless of whether we registered the middleware globally or route specifically, we can test that the middleware is applied when making a request.
 
 Add a new test to the `CreatePostTest` feature test, in which we'll assume our non-capitalized title will be capitalized after the request has been made.
 
