@@ -8,13 +8,15 @@ date: 2019-09-17
 
 # Artisan Commands
 
-Laravel ships with a PHP executable 'artisan' file, providing a command-line interface (CLI) for the framework. Via this CLI, you can access commands as `php artisan migrate` and `php artisan make:model Post`. There are a lot of things you could do with commands. Make sure to read up on the artisan console in the [Laravel documentation](https://laravel.com/docs/artisan).
+Laravel ships with an executable `artisan` file, which offers a number of helpful commands through a command-line interface (CLI).
+
+Via this CLI, you can access commands as `php artisan migrate` and `php artisan make:model Post`. There are a lot of things you could do with commands. Make sure to read up on the artisan console in the [Laravel documentation](https://laravel.com/docs/artisan).
 
 Let's say that we want to provide an easy artisan command for our end user to publish the config file, via: `php artisan blogpackage:install`.
 
 ## Creating a New Command
 
-Create a new `Console` folder in the `src/` directory and create a new file named `InstallBlogPackage.php`. This class will extend Laravel's `Command` class and provide a `$signature` (the command) and a `$description` property. In the `handle()` method we specify what our command will do. In this case, we provide some feedback that we're "installing" the package and we'll call another artisan command to publish the config file. Finally, we let the user know that we're done.
+Create a new `Console` folder in the `src/` directory and create a new file named `InstallBlogPackage.php`. This class will extend Laravel's `Command` class and provide a `$signature` (the command) and a `$description` property. In the `handle()` method, we specify what our command will do. In this case we provide some feedback that we're "installing" the package, and we'll call another artisan command to publish the config file. Finally, we let the user know that we're done.
 
 ```php
 // 'src/Console/InstallBlogPackage.php'
@@ -48,9 +50,9 @@ class InstallBlogPackage extends Command
 
 ## Registering a Command in the Service Provider
 
-We need to present this package functionality to the end user, thus registering it in the package's service provider.
+We need to present this package functionality to the end-user, thus registering it in the package's service provider.
 
-Since we only want to provide this functionality from the command-line we'll add it within the if-runningInConsole()-statement (don't forget to import the class):
+Since we only want to provide this functionality when used from the command-line we'll add it within a conditional which checks if the application instance is running in the console:
 
 ```php
 // 'BlogPackageServiceProvider.php'
@@ -70,9 +72,9 @@ public function boot()
 
 ## Testing a Command
 
-To test that our command works, let's create a new unit test called `InstallBlogPackageTest.php` in the Unit test folder.
+To test that our Command class works, let's create a new unit test called `InstallBlogPackageTest.php` in the Unit test folder.
 
-Since we’re using **Orchestra Testbench**, we have a config folder at `config_path()` containing every file a normal Laravel installation would have. (You can check where this directory lives yourself if you `dd(config_path()))`. Therefore, we can easily assert that this directory should have our `blogpackage.php` config file after running our artisan command. To make sure we're starting at a clean state, let's delete any remainder configuration file from the previous test first.
+Since we're using **Orchestra Testbench**, we have a config folder at `config_path()` containing every file a typical Laravel installation would have. (You can check where this directory lives yourself if you `dd(config_path()))`. Therefore, we can easily assert that this directory should have our `blogpackage.php` config file after running our artisan command. To ensure we're starting clean, let's delete any remainder configuration file from the previous test first.
 
 ```php
 // 'tests/Unit/InstallBlogPackageTest.php'
@@ -105,7 +107,7 @@ class InstallBlogPackageTest extends TestCase
 
 ## Hiding a Command
 
-There might be cases where you'd like to exclude the command from the list of Artisan commands. You can define a `$hidden` property on the command class, which will not show the specific command in the list of Artisan commands. Note, however, that the command can still be used and is only hidden.
+There might be cases where you'd like to exclude the command from the list of Artisan commands. You can define a `$hidden` property on the command class, which will not show the specific command in the list of Artisan commands. NB: you can still use the command while hidden.
 
 ```php
 class InstallBlogPackage extends Command
@@ -125,9 +127,9 @@ class InstallBlogPackage extends Command
 
 ## Creating a Generator Command
 
-Laravel provides an easy way to create _Generator_ Commands, _i.e._ commands with signatures such as `php artisan make:controller`. Those commands modify a general, predefined template (stub) to a specific application. For example by automatically injecting the correct the namespace.
+Laravel provides an easy way to create _Generator_ Commands, _i.e.,_ commands with signatures such as `php artisan make:controller`. Those commands modify a general, predefined template (stub) to a specific application. For example, by automatically injecting the correct namespace.
 
-In order to create a Generator Command, you have to extend the `Illuminate\Console\GeneratorCommand` class, and override the following properties and methods:
+To create a Generator Command, you have to extend the `Illuminate\Console\GeneratorCommand` class, and override the following properties and methods:
 
 - `protected $name`: name of the command
 - `protected $description`: description of the command
@@ -193,9 +195,9 @@ class MakeFooCommand extends GeneratorCommand
 }
 ```
 
-Note that the class is exported to a directory **based on the namespace** as specified in the `getDefaultNamespace()` method.
+Note that the Generator Command will export the class to a directory **based on the namespace** specified in the `getDefaultNamespace()` method.
 
-As with the `InstallBlogPackage` command, we'd have to register this new command in the `BlogPackageServiceProvider`:
+As with the `InstallBlogPackage` command, we have to register this new command in the `BlogPackageServiceProvider`:
 
 ```php
 // 'BlogPackageServiceProvider.php'
@@ -216,7 +218,7 @@ public function boot()
 
 ### Creating a stub
 
-You are free to store stubs in a different directory, but for now consider storing stubs in the `Console/stubs` directory. For our `Foo` class generator, the stub could look as follows:
+You are free to store stubs in a different directory, but we'll store the stubs in the `Console/stubs` directory in this example. For our `Foo` class generator, the stub could look as follows:
 
 ```php
 // 'stubs/foo.php.stub'
@@ -235,11 +237,11 @@ class DummyClass implements Foo
 }
 ```
 
-Note that `DummyNamespace` and `DummyClass` are placeholders (strictly defined in the `GeneratorCommand` base class: Laravel expects these specific names to replace) and are automatically replaced with the correct values.
+Note that `DummyNamespace` and `DummyClass` are placeholders, strictly defined in the `GeneratorCommand` base class. Laravel expects these specific names to replace them automatically with the correct values.
 
 ## Testing Generator Commands
 
-We can add a feature test for this command in the `tests/Feature` directory, called `MakeFooCommandTest.php` which verifies that a new file is created and contains the correct contents:
+We can add a feature test for this command in the `tests/Feature` directory, called `MakeFooCommandTest.php`, which verifies that a new file is created and contains the correct contents:
 
 ```php
 <?php
@@ -295,11 +297,9 @@ CLASS;
 
 ## Creating a Test-Only Command
 
-There are some situations in which you would like to only use a certain command for testing and not in your application itself. For example when your package provides a `Trait` that can be used by Command classes. To test the trait, you want to test with an actual command.
+There are some situations where you would like to only use a particular command for testing and not in your application itself. For example, when your package provides a `Trait` that Command classes can use. To test the trait, you want to use an actual command.
 
-The command itself doesn't add functionality to the package and should therefore not be published. However, merely excluding the command from the service provider is not the solution as you want to be able to run the command in your tests.
-
-An elegant solution [suggested by Marcel Pociot](https://twitter.com/marcelpociot/status/1219274939565514754) is to: register the Command **only** in the tests, by hooking into Laravel's `Application::starting()` method:
+Using an actual command solely for test purposes doesn't add functionality to the package and should not be published. A viable solution is to register the Command **only** in the tests, by hooking into Laravel's `Application::starting()` method as [proposed by Marcel Pociot](https://twitter.com/marcelpociot/status/1219274939565514754):
 
 ```php
 <?php

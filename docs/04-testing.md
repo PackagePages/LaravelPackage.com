@@ -1,6 +1,6 @@
 ---
 title: 'Testing'
-description: 'Testing is an essential part of every package to ensure proper behaviour and allow refactoring with confidence. This section explains how to initially setup testing using PHPUnit to create robust packages.'
+description: 'Testing is an essential part of every package to ensure proper behavior and allow refactoring with confidence. This section explains how to set up a testing environment using PHPUnit to create robust packages.'
 tags: ['Testing', 'PHPUnit', 'Directory Structure']
 image: 'https://www.laravelpackage.com/assets/pages/laravelpackage.jpeg'
 date: 2019-09-17
@@ -8,15 +8,13 @@ date: 2019-09-17
 
 # Testing
 
-To develop a robust package, it is important to have test coverage for the provided code.
-Not only to confirm proper behavior of the existing code, but also to verify everything still works whenever new functionality is added.
-This ensures our package can be refactored with confidence at a later stage.
+It is essential to have proper test coverage for the package's provided code. Adding tests to our package can confirm the existing code's behavior, verify everything still works whenever adding new functionality, and ensure we can safely refactor our package with confidence at a later stage.
 
-Tests also allow other developers to understand how certain features of your package are to be used, and gives them confidence about the reliability of your package.
+Additionally, having good code coverage can motivate potential contributors by giving them more confidence that their addition does not break something else in the package. Tests also allow other developers to understand how specific features of your package are to be used and give them confidence about your package's reliability.
 
 ## Installing PHPUnit
 
-There are many options to test behaviour in PHP, however we'll stay close to Laravel's defaults which uses the excellent tool PHPunit.
+There are many options to test behavior in PHP. However, we'll stay close to Laravel's defaults, which uses the excellent tool PHPUnit.
 
 Install PHPUnit as a dev-dependency in our package:
 
@@ -24,7 +22,7 @@ Install PHPUnit as a dev-dependency in our package:
 composer require --dev phpunit/phpunit
 ```
 
-**Note:** you might need to install a specific version if you’re developing a package for an older version of Laravel.
+**Note:** you might need to install a specific version if you're developing a package for an older version of Laravel.
 
 To configure PHPUnit, create a `phpunit.xml` file in the root directory of the package.
 Then, copy the following template to use an in-memory sqlite database and enable colorful reporting.
@@ -67,17 +65,17 @@ Then, copy the following template to use an in-memory sqlite database and enable
 </phpunit>
 ```
 
-Note that a dummy `APP_KEY` is mentioned in the example above, in case your test suite uses [Laravel's encrypter](https://laravel.com/docs/8.x/encryption#using-the-encrypter). For most cases, the dummy value will be fine. However, you are free to either change this value to reflect an actual app key (of your Laravel application) or leave it off entirely if your test suite does not interact with the encrypter.
+Note the dummy `APP_KEY` in the example above. This environment variable is consumed by [Laravel's encrypter](https://laravel.com/docs/8.x/encryption#using-the-encrypter), which your tests might be making use of. For most cases, the dummy value will be sufficient. However, you are free to either change this value to reflect an actual app key (of your Laravel application) or leave it off entirely if your test suite does not interact with the encrypter.
 
 ## Directory Structure
 
-To accommodate for feature and unit tests, create a `tests/` directory with a `Unit` and `Feature` subdirectory and a base `TestCase.php` file. The structure looks as follows:
+To accommodate Feature and Unit tests, create a `tests/` directory with a `Unit` and `Feature` subdirectory and a base `TestCase.php` file. The structure looks as follows:
 
 ```json
 - tests
-  - Feature
-  - Unit
-  TestCase.php
+    - Feature
+    - Unit
+      TestCase.php
 ```
 
 The `TestCase.php` extends `\Orchestra\Testbench\TestCase` (see example below) and contains tasks related to setting up our “world” before each test is executed. In the `TestCase` class we will implement three important set-up methods:
@@ -86,23 +84,23 @@ The `TestCase.php` extends `\Orchestra\Testbench\TestCase` (see example below) a
 - `getEnvironmentSetUp()`
 - `setUp()`
 
-Let’s look at these methods one by one.
+Let's look at these methods one by one.
 
 `setUp()`
 
-You might have already used this method in your own tests. Often it is used when you need a certain model in all following tests. The instantiation of that model can therefore be extracted to a setUp() method which is called before each test. Within the tests, the desired model can be retrieved from the Test class instance variable. When using this method, don’t forget to call the parent setUp() method (and make sure to return void).
+You might have already used this method in your tests. Often it is used when you need a certain model in all following tests. The instantiation of that model can therefore be extracted to a setUp() method which is called before each test. Within the tests, the desired model can be retrieved from the Test class instance variable. When using this method, don't forget to call the parent setUp() method (and make sure to return void).
 
 ---
 
 `getEnvironmentSetUp()`
 
-As suggested by Orchestra Testbench: “If you need to add something early in the application bootstrapping process, you could use the getEnvironmentSetUp() method”. Therefore, I suggest it is called before the setUp() method(s).
+As suggested by Orchestra Testbench: "If you need to add something early in the application bootstrapping process, you could use the getEnvironmentSetUp() method". Therefore, I suggest it is called before the setUp() method(s).
 
 ---
 
 `getPackageProviders()`
 
-As the name suggests, we can load our service provider(s) within the getPackageProviders() method. We’ll do that by returning an array containing all providers. For now, we’ll just include the package specific package provider, but imagine that if the package uses an EventServiceProvider, we would also register it here.
+As the name suggests, we can load our service provider(s) within the getPackageProviders() method. We'll do that by returning an array containing all providers. For now, we'll just include the package specific package provider, but imagine that if the package uses an EventServiceProvider, we would also register it here.
 
 ---
 
@@ -138,7 +136,7 @@ class TestCase extends \Orchestra\Testbench\TestCase
 }
 ```
 
-Before we can run the PHPUnit test suite, we first need to map our testing namespace to the appropriate folder in the composer.json file under an “autoload-dev” (psr-4) key:
+Before we can run the PHPUnit test suite, we first need to map our testing namespace to the appropriate folder in the composer.json file under an "autoload-dev" (psr-4) key:
 
 ```json
 {
@@ -147,9 +145,9 @@ Before we can run the PHPUnit test suite, we first need to map our testing names
   "autoload": {},
 
   "autoload-dev": {
-      "psr-4": {
-          "JohnDoe\\BlogPackage\\Tests\\": "tests"
-      }
+    "psr-4": {
+      "JohnDoe\\BlogPackage\\Tests\\": "tests"
+    }
   }
 }
 ```

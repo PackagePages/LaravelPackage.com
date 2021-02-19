@@ -8,7 +8,9 @@ date: 2019-09-17
 
 # Models & Migrations
 
-Sometimes you want your package to offer a bit more. If we imagine that we're developing a Blog related package, we might want to provide a Post model for example. This will require us to handle Models, migrations, testing, and even connect relationships with the `App\User` model that ships with Laravel.
+There are scenarios where you'll need to ship one or more Eloquent models with your package. For example, when you're developing a Blog related package that includes a `Post` model.
+
+This chapter will cover how to provide Eloquent models within your package, including migrations, tests, and how to possibly add a relationship to the `App\User` model that ships with Laravel.
 
 ## Models
 
@@ -32,11 +34,17 @@ class Post extends Model
 }
 ```
 
-To quickly scaffold your models together with a migration, I would advise to create a new Laravel application (a “dummy application” just for the creation of models / migrations / etc.) and use the `php artisan make:model -m` command and copy the model to the package’s `src/Models` directory and using the proper namespace.
+There are multiple ways to generate models together with a migration automatically. The straightforward approach is to use a regular Laravel application and then copy over the artisan-generated files to your package and then update the namespaces.
+
+If you are looking for ways to automate the scaffolding within your package, you might install one of the following tools as a `dev` dependency within your package and use a CLI command to generate the scaffolds.
+
+- [Laravel Package Tools](https://github.com/beyondcode/laravel-package-tools)
+- [Laravel Packer](https://github.com/bitfumes/laravel-packer)
+- [Laravel Package Maker](https://github.com/naoray/laravel-package-maker)
 
 ## Migrations
 
-Migrations live in the `database/migrations` folder in a Laravel application. In our package we mimic this file structure. Therefore, database migrations will not live in the `src/` directory but in their own `database/migrations` folder. The root directory of our package now contains at least two folders: `src/` and `database/`.
+Migrations live in the `database/migrations` folder in a Laravel application. In our package we mimic this file structure. Therefore, database migrations will not live in the `src/` directory but in their own `database/migrations` folder. Our package's root directory now contains at least two folders: `src/` and `database/`.
 
 After you’ve generated a migration, copy it from your “dummy” Laravel application to the package’s `database/migrations` folder.
 
@@ -75,17 +83,17 @@ class CreatePostsTable extends Migration
 }
 ```
 
-From this point on, there are two possible approaches to present the end user with our migration(s). We can either publish (specific) migrations (method 1) or load all migrations from our package automatically (method 2). 
+From this point on, there are two possible approaches to present the end-user with our migration(s). We can either publish (specific) migrations (method 1) or load all migrations from our package automatically (method 2).
 
 ### Publishing Migrations (method 1)
 
-In this approach we register that our package “publishes” its migrations. We can do that as follows in the `boot()` method of our package’s service provider, employing the `publishes()` method, which takes two arguments:
+In this approach, we register that our package “publishes” its migrations. We can do that as follows in the `boot()` method of our package’s service provider, employing the `publishes()` method, which takes two arguments:
 
 1. an array of file paths ("source path" => "destination path")
 
 2. the name (“tag”) we assign to this group of related publishable assets.
 
-In this approach it is conventional to use a "stubbed" migration which is exported to a real migration when the end user of our package publishes the migrations. Therefore, first rename any migrations to remove the timestamp and add a `.stub` extension. In our example migration, this would lead to: `create_posts_table.php.stub`.
+In this approach, it is conventional to use a "stubbed" migration. This stub is exported to a real migration when the user of our package publishes the migrations. Therefore, rename any migrations to remove the timestamp and add a `.stub` extension. In our example migration, this would lead to: `create_posts_table.php.stub`.
 
 Next, we can implement exporting the migration(s) as follows:
 
@@ -116,7 +124,7 @@ php artisan vendor:publish --provider="JohnDoe\BlogPackage\BlogPackageServicePro
 ```
 
 ### Loading Migrations Automatically (method 2)
-While the method described above gives full control over which migrations are published, Laravel offers an alternative approach making use of the `loadMigrationsFrom` helper ([see docs](https://laravel.com/docs/packages#migrations)). By specifying a migrations directory in the package's service provider, all migrations will be executed when the end user executes `php artisan migrate` from within their Laravel application.
+While the method described above gives full control over which migrations are published, Laravel offers an alternative approach making use of the `loadMigrationsFrom` helper ([see docs](https://laravel.com/docs/packages#migrations)). By specifying a migrations directory in the package's service provider, all migrations will be executed when the end-user executes `php artisan migrate` from within their Laravel application.
 
 ```php
 class BlogPackageServiceProvider extends ServiceProvider
@@ -128,15 +136,15 @@ class BlogPackageServiceProvider extends ServiceProvider
 }
 ```
 
-Make sure to include a proper timestamp to your migrations, otherwise Laravel can't process them. For example `2018_08_08_100000_example_migration.php`. You can not use a stub (like in method 1) when choosing this approach.
+Make sure to include a proper timestamp to your migrations, otherwise, Laravel can't process them. For example: `2018_08_08_100000_example_migration.php`. You can not use a stub (like in method 1) when choosing this approach.
 
 ## Testing Models and Migrations
 
-As we create an example test, we're going to follow some of the basics of test-driven-development (TDD) here. Whether or not you practice TDD in your normal workflow, explaining the steps here helps expose possible problems you might encounter along the way, thus making your own troubleshooting simpler. Let's get started:
+As we create an example test, we will follow some of the basics of test-driven-development (TDD) here. Whether or not you practice TDD in your typical workflow, explaining the steps here helps expose possible problems you might encounter along the way, thus making troubleshooting simpler. Let's get started:
 
 ### Writing a Unit Test
 
-Now that we’ve got **PHPunit** set up, let’s create a unit test for our Post model in the `tests/Unit` directory called `PostTest.php`. Let's write a test that verifies a `Post` has a title:
+Now that we’ve set up **PHPunit**, let’s create a unit test for our Post model in the `tests/Unit` directory called `PostTest.php`. Let's write a test that verifies a `Post` has a title:
 
 ```php
 // 'tests/Unit/PostTest.php'
@@ -165,7 +173,7 @@ Note: we're using the `RefreshDatabase` trait to be sure that we start with a cl
 
 ### Running the Tests
 
-We can run our test suite by calling the phpunit binary in our vendor directory using `./vendor/bin/phpunit`. However, let’s alias this to `test` in our `composer.json` file by adding a “script”:
+We can run our test suite by calling the PHPUnit binary in our vendor directory using `./vendor/bin/phpunit`. However, let’s alias this to `test` in our `composer.json` file by adding a “script”:
 
 ```json
 {
@@ -180,7 +188,7 @@ We can run our test suite by calling the phpunit binary in our vendor directory 
 }
 ```
 
-Now, we can run `composer test` to run all of our tests and `composer test-f` followed by a name of a test method/class to only run that test.
+We can now run `composer test` to run all of our tests and `composer test-f` followed by a test method/class's name to run that test solely.
 
 When we run `composer test-f a_post_has_a_title`, it leads us to the following error:
 
@@ -188,7 +196,7 @@ When we run `composer test-f a_post_has_a_title`, it leads us to the following e
 Error: Class 'Database\Factories\JohnDoe\BlogPackage\Models\PostFactory' not found
 ```
 
-This tells us that we need to create a model factory for the `Post` model.
+The abovementioned error tells us that we need to create a model factory for the `Post` model.
 
 ### Creating a Model Factory
 
@@ -217,7 +225,7 @@ class PostFactory extends Factory
 
 ```
 
-As with the `src` folder, for our package users to be able to use our model factories we'll need to register the `database/factories` folder within a namespace in our `composer.json` file:
+As with the `src` folder, for our package users to be able to use our model factories, we'll need to register the `database/factories` folder within a namespace in our `composer.json` file:
 
 ```json
 {
@@ -236,13 +244,13 @@ After setting it up, don't forget to run `composer dump-autoload`.
 
 ### Configuring our Model factory
 
-Running our tests again leads to the following error:
+Rerunning our tests lead to the following error:
 
 ```
 Error: Class 'Database\Factories\JohnDoe\BlogPackage\Models\PostFactory' not found
 ```
 
-This is because Laravel is trying to resolve the Model class for our `PostFactory` assuming the default namespaces of a usual project (as of version 8.x, `App` or `App\Models`).
+The abovementioned error is caused by Laravel, which tries to resolve the Model class for our `PostFactory` assuming the default namespaces of a usual project (as of version 8.x, `App` or `App\Models`).
 To be able to instantiate the right Model from our package with the `Post::factory()` method, we need to add the following method to our `Post` Model:
 
 ```php
@@ -254,7 +262,7 @@ protected static function newFactory()
 }
 ```
 
-However, the tests will still fail since we haven’t created the `posts` table in our in-memory sqlite database yet. We need to tell our tests to first perform all migrations, before running the tests.
+However, the tests will still fail since we haven’t created the `posts` table in our in-memory SQLite database. We need to tell our tests to first perform all migrations before running the tests.
 
 Let’s load the migrations in the `getEnvironmentSetUp()` method of our `TestCase`:
 
@@ -348,7 +356,7 @@ class PostFactory extends Factory
 
 ```
 
-For now, we hard coded the ‘author_id’, but in the next section we'll see how we could whip up a relationship with a User model.
+For now, we hard-coded the ‘author_id’. In the next section, we'll see how we could whip up a relationship with a `User` model.
 
 ```php
 // 'database/migrations/create_posts_table.php.stub'
@@ -364,13 +372,13 @@ Schema::create('posts', function (Blueprint $table) {
 
 ## Models related to App\User
 
-Now that we have an “author_id” column on our `Post` model, let’s create a relationship between a `Post` and a `User`. However … we have a problem, since we need a `User` model, but this model also comes out-of-the-box with a fresh installation of the Laravel framework…
+Now that we have an “author_id” column on our `Post` model, let’s create a relationship between a `Post` and a `User`. However, we have a problem since we need a `User` model, but this model also comes out-of-the-box with a fresh installation of the Laravel framework…
 
-We can’t just provide our own `User` model, since you likely want your end user to be able to hook up his own `User` model with your `Post` model. Or even better, let the end user decide which model they want to associate with the `Post` model.
+We can’t just provide our own `User` model, since you likely want your end-user to be able to hook up his own `User` model with your `Post` model. Or even better, let the end-user decide which model they want to associate with the `Post` model.
 
 ### Using a Polymorphic Relationship
 
-Instead of opting for a conventional one-to-many relationship (a user can have many posts, and a post belongs to a user), we’ll use a **polymorphic** one-to-many relationship where a `Post` morphs to a certain related model (not necessarily a `User` model).
+Instead of opting for a conventional one-to-many relationship (a user can have many posts, and a post belongs to a user), we’ll use a **polymorphic** one-to-many relationship where a `Post` morphs to a specific related model (not necessarily a `User` model).
 
 Let’s compare the standard and polymorphic relationships.
 
@@ -420,7 +428,7 @@ class Admin extends Model
 }
 ```
 
-After adding this `author()` method to our Post model, we need to update our `create_posts_table_migration.php.stub` file to reflect our polymorphic relationship. Since we named the method “author”, Laravel expects an “author_id” and an “author_type” field. The latter contains a string of the namespaced model we are referring to (for example “App\User”).
+After adding this `author()` method to our Post model, we need to update our `create_posts_table_migration.php.stub` file to reflect our polymorphic relationship. Since we named the method “author”, Laravel expects an “author_id” and an “author_type” field. The latter contains a string of the namespaced model we refer to (for example, “App\User”).
 
 ```php
 Schema::create('posts', function (Blueprint $table) {
@@ -433,7 +441,7 @@ Schema::create('posts', function (Blueprint $table) {
 });
 ```
 
-Now, we need a way to provide our end user with the option to allow certain models to be able to have relationship with our `Post` model. **Traits** offer an excellent solution for this exact purpose.
+Now, we need a way to provide our end-user with the option to allow specific models to have a relationship with our `Post` model. **Traits** offer an excellent solution for this exact purpose.
 
 ### Providing a Trait
 
@@ -456,7 +464,7 @@ trait HasPosts
 }
 ```
 
-Now the end user can add a `use HasPosts` statement to any of their models (likely the `User` model) which would automatically register the one-to-many relationship with our `Post` model. This allows creating new posts as follows:
+Now the end-user can add a `use HasPosts` statement to any of their models (likely the `User` model), which would automatically register the one-to-many relationship with our `Post` model. This allows creating new posts as follows:
 
 ```php
 // Given we have a User model, using the HasPosts trait
@@ -471,11 +479,11 @@ $user->posts()->create([
 
 ### Testing the Polymorphic Relationship
 
-Of course, we want to prove that any model using our `HasPost` trait can indeed create new posts and that those posts are stored correctly.
+Of course, we want to prove that any model using our `HasPost` trait can create new posts and that those posts are stored correctly.
 
 Therefore, we’ll create a new `User` model, not within the `src/Models/` directory, but rather in our `tests/` directory.
 
-To be able to create users within our tests we'll need to overwrite the `UserFactory` provided by the Orchestra Testbench package, as shown bellow.
+To create users within our tests we'll need to overwrite the `UserFactory` provided by the Orchestra Testbench package, as shown below.
 
 ```php
 // 'tests/UserFactory.php'
@@ -507,7 +515,7 @@ class UserFactory extends TestbenchUserFactory
 }
 ```
 
-In the `User` model we’ll use the same traits that would be available on the `User` model that ships with a standard Laravel project to stay close to a real world scenario. Also, we use our own `HasPosts` trait and `UserFactory`:
+In the `User` model we’ll use the same traits available on the `User` model that ships with a standard Laravel project to stay close to a real-world scenario. Also, we use our own `HasPosts` trait and `UserFactory`:
 
 ```php
 // 'tests/User.php'
@@ -637,7 +645,7 @@ class PostFactory extends Factory
 }
 ```
 
-Next we update the `Post` unit test, to also verify an ‘author_type’ can be specified.
+Next, we update the `Post` unit test to verify an ‘author_type’ can be specified.
 
 ```php
 // 'tests/Unit/PostTest.php'
@@ -654,9 +662,9 @@ class PostTest extends TestCase
 }
 ```
 
-Finally, we need to verify that our test `User` can create a `Post` and that it is stored correctly.
+Finally, we need to verify that our test `User` can create a `Post` and it is stored correctly.
 
-Since we are not creating a new post using a call to a specific route in the application, let's store this test also in the `Post` unit test. In the next section on “Routes & Controllers”, we’ll make a POST request to an endpoint to create a new `Post` model and therefore divert to a Feature test.
+Since we are not creating a new post using a call to a specific route in the application, let's store this test in the `Post` unit test. In the next section on “Routes & Controllers”, we’ll make a POST request to an endpoint to create a new `Post` model and therefore divert to a Feature test.
 
 A Unit test that verifies the desired behavior between a `User` and a `Post` could look as follows:
 
@@ -691,4 +699,4 @@ class PostTest extends TestCase
 }
 ```
 
-At this stage all of the tests should be passing.
+At this stage, all of the tests should be passing.

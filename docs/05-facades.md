@@ -1,6 +1,6 @@
 ---
 title: 'Facades'
-description: 'Facades can provide end users of your package with an easy to use (and understand) API for interaction with the functions (features) within your package. This section explains how to create your own facades for your package.'
+description: 'Facades can provide end-users of your package with an easy-to-use (and understand) API for interaction with the functions (features) within your package. This section explains how to create your facades for your package.'
 tags: ['Facades', 'API']
 image: 'https://www.laravelpackage.com/assets/pages/laravelpackage.jpeg'
 date: 2019-09-17
@@ -8,9 +8,9 @@ date: 2019-09-17
 
 # Facades
 
-The word 'facade' refers to a "superficial appearance or illusion of something" according to [Dictionary.com](https://www.dictionary.com/browse/facade). In architecture, the term refers to the front of a building.
+The word 'facade' refers to a "superficial appearance or illusion of something," according to [Dictionary.com](https://www.dictionary.com/browse/facade). In architecture, the term refers to the front of a building.
 
-A facade in Laravel is a class which redirects **static** method calls to the **dynamic** methods of an underlying class. The goal of a facade is to provide a memorable and expressive syntax to access functionality of an underlying class.
+A facade in Laravel is a class that redirects **static** method calls to the **dynamic** methods of an underlying class. A facade's goal is to provide a memorable and expressive syntax to access an underlying class's functionality.
 
 An example of a fluent API using a facade:
 
@@ -26,7 +26,7 @@ MessageFactory::sentBy($user)
 
 To learn more about facades and how they work, refer to the excellent [Laravel documentation](https://laravel.com/docs/facades#how-facades-work).
 
-Practically, it boils down to calling static methods on a Facade, which are "proxied" (redirected) to the non-static methods of an underlying class you have specified. This means that you're not actually using static methods. An example is discussed below, using a `Calculator` class as an example.
+Practically, it boils down to calling static methods on a Facade, which are "proxied" (redirected) to the non-static methods of an underlying class you have specified. This means that you're not *actually* using static methods. An example is discussed below, using a `Calculator` class as an example.
 
 ## Creating a Facade
 
@@ -110,7 +110,7 @@ public function register()
 }
 ```
 
-The `Calculator` facade can now be used by the end user after importing it from the appropriate namespace: `use JohnDoe\BlogPackage\Facades\Calculator;`. However, Laravel allows us to register an alias which can register a facade in the root namespace. We can define our alias under an “alias” key below the “providers” in the `composer.json` file:
+The end user can now use the `Calculator` facade after importing it from the appropriate namespace: `use JohnDoe\BlogPackage\Facades\Calculator;`. However, Laravel allows us to register an alias that can register a facade in the root namespace. We can define our alias under an “alias” key below the “providers” in the `composer.json` file:
 
 ```json
 "extra": {

@@ -1,6 +1,6 @@
 ---
 title: 'Mail'
-description: 'Send e-mail from your package by creating a custom Mailable and mail template, utilizing the views provided by the package. Additionally, testing of the Mail facade will be covered.'
+description: 'Send e-mail from your package by creating a custom Mailable class and template, utilizing the views provided by the package. Additionally, This chapter will cover testing of the Mail facade.'
 tags: ['Mail', 'Mail template', 'Views', 'Mailables', 'Testing Mail']
 image: 'https://www.laravelpackage.com/assets/pages/laravelpackage.jpeg'
 date: 2019-09-17
@@ -8,11 +8,11 @@ date: 2019-09-17
 
 # Mail
 
-Using e-mails in your package works very much the same as in a normal Laravel application. In your package however, you need to make sure you are loading a `views` directory from your package (or the end-user's exported version of it).
+Using e-mails in your package works very much the same as in a normal Laravel application. However, in your package, you need to make sure you are loading a `views` directory from your package (or the end-user's exported version of it).
 
 To start sending e-mails, we need to create 1) a new **mailable** and 2) an e-mail **template**.
 
-The e-mail template can be in either **markdown** or **blade** template format, as you're used to. In this example, we'll focus on writing a Blade template, however if you're using a markdown template replace the `$this->view('blogpackage::mails.welcome')` with a call to `$this->markdown('blogpackage::mails.welcome')`. Notice that we're using the namespaced view name, allowing users of our package to export the views and update their contents.
+The e-mail template can be in either **markdown** or **blade** template format, as you're used to. In this example, we'll focus on writing a Blade template, however if you're using a markdown template replace the `$this->view('blogpackage::mails.welcome')` with a call to `$this->markdown('blogpackage::mails.welcome')`. Notice that we're using the namespaced view name, allowing our package users to export the views and update their contents.
 
 ## Creating a Mailable
 
@@ -49,9 +49,9 @@ class WelcomeMail extends Mailable
 
 ## Registering the Views Directory
 
-In the call to the mailable's `view()` method we've specified the string `emails.welcome` which Laravel will translate to searching for a `welcome.blade.php` file in the `emails` directory in the package's registered views directory.
+In the call to the mailable's `view()` method we've specified the string `emails.welcome`, which Laravel will translate to searching for a `welcome.blade.php` file in the `emails` directory in the package's registered views directory.
 
-To specify a view directory, you need to add the `$this->loadViews()` call to your package's **service provider** in the `boot()` method. View files can be referenced by the specified namespace, in this example 'blogpackage'. **Note: if you're following along since the section about **Routing**, you've already done this.**
+To specify a view directory, you need to add the `$this->loadViews()` call to your package's **service provider** in the `boot()` method. View files can be referenced by the specified namespace, in this example, 'blogpackage'. **Note: if you're following along since the section about **Routing**, you've already done this.**
 
 ```php
 // 'BlogPackageServiceProvider.php'
@@ -81,7 +81,7 @@ Post title: {{ $post->title }}
 
 ## Testing Mailing
 
-To test that e-mailing works and the mail actually contains all the right information, [Laravel's Mail facade](https://laravel.com/docs/mocking#mail-fake) offers a built-in `fake()` method which makes it easy to swap the _real_ mailer for a mock in our tests.
+To test that e-mailing works and the mail contains all the right information, [Laravel's Mail facade](https://laravel.com/docs/mocking#mail-fake) offers a built-in `fake()` method which makes it easy to swap the _real_ mailer for a mock in our tests.
 
 To demonstrate how to test our e-mail, create a new `WelcomeMailTest` in the `tests/unit` directory. Next, in the test:
 
