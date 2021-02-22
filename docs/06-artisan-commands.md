@@ -25,6 +25,7 @@ Create a new `Console` folder in the `src/` directory and create a new file name
 namespace JohnDoe\BlogPackage\Console;
 
 use Illuminate\Console\Command;
+use Illuminate\Support\Facades\File;
 
 class InstallBlogPackage extends Command
 {
@@ -37,13 +38,32 @@ class InstallBlogPackage extends Command
         $this->info('Installing BlogPackage...');
 
         $this->info('Publishing configuration...');
-
-        $this->call('vendor:publish', [
-            '--provider' => "JohnDoe\BlogPackage\BlogPackageServiceProvider",
-            '--tag' => "config"
-        ]);
-
+        
+        //check if file exists
+        if(!File::exists(config_path('blogpackage.php')) {
+            $this->publish_config();
+        } else {
+            $check = $this->confirm('Config file already exists. Do you wand rewrite it?', false);
+            if($check) {
+                $this->publish_config(true);
+                $this->info('Config file was rewritten');
+            } else {
+                $this->warn('Republishing configuration was canceled');
+            }
         $this->info('Installed BlogPackage');
+    }
+    
+    private function publish_config($force = false)
+    {
+       $params = [
+                '--provider' => "JohnDoe\BlogPackage\BlogPackageServiceProvider",
+                '--tag' => "config"
+                ];
+       
+       // force publish
+       if($force) { $params['--force'] = ''; }
+       
+       $this->call('vendor:publish', $params);
     }
 }
 ```
@@ -105,6 +125,72 @@ class InstallBlogPackageTest extends TestCase
 }
 ```
 
+
+
+To test that our Command works fine on each step, let's create a new feature test called `InstallBlogPackageTest.php` in the Feature test folder.
+Since Laravel 8.x you may test your command with the following test which utilizes the `expectsQuestion`, `expectsOutput`, `doesntExpectOutput`, and `assertExitCode` methods:
+```php
+// 'tests/Feature/InstallBlogPackageTest.php'
+<?php
+
+namespace JohnDoe\BlogPackage\Tests\Feature;
+
+use Illuminate\Support\Facades\File;
+use JohnDoe\BlogPackage\Tests\TestCase;
+
+class InstallBlogPackageTest extends TestCase
+{
+    /** @test */
+    function check_successfully_publishing()
+    {
+        // make sure we're starting from a clean state
+        if (File::exists(config_path('blogpackage.php'))) {
+            unlink(config_path('blogpackage.php'));
+        }
+
+        $this->assertFalse(File::exists(config_path('blogpackage.php')));
+
+        //begin our test
+        $this->artisan('blogpackage:install')
+        ->expectsOutput('Installing BlogPackage...')
+        ->expectsOutput('Publishing configuration...')
+        ->doesntExpectOutput('Republishing configuration was canceled');
+        ->expectsOutput('Installed BlogPackage');
+       
+        $this->assertTrue(File::exists(config_path('blogpackage.php')));
+    }
+    
+    /** @test */
+    public function check_if_file_already_exists_cancel()
+    {
+      $this->assertTrue(File::exists(config_path('blogpackage.php')));
+      
+      $this->artisan('blogpackage:install')
+      ->expectsOutput('Installing BlogPackage...')
+      ->expectsOutput('Publishing configuration...')
+      ->expectsQuestion('Config file already exists. Do you wand rewrite it?', 'no')
+      ->expectsOutput('Republishing configuration was canceled');
+    }
+    
+    /** @test */
+    public function check_if_file_already_exists_rewrite()
+    {
+      $this->assertTrue(File::exists(config_path('blogpackage.php')));
+      
+      $this->artisan('blogpackage:install')
+      ->expectsOutput('Installing BlogPackage...')
+      ->expectsOutput('Publishing configuration...')
+      ->expectsQuestion('Config file already exists. Do you wand rewrite it?', 'yes')
+      ->expectsOutput('Config file was rewritten');
+    }
+    
+}
+```
+
+
+
+
+
 ## Hiding a Command
 
 There might be cases where you'd like to exclude the command from the list of Artisan commands. You can define a `$hidden` property on the command class, which will not show the specific command in the list of Artisan commands. NB: you can still use the command while hidden.
@@ -124,6 +210,7 @@ class InstallBlogPackage extends Command
     }
 }
 ```
+
 
 ## Creating a Generator Command
 
