@@ -1,8 +1,8 @@
 ---
-title: 'Commands'
-description: 'Creating and testing custom Artisan Commands in your package. Additionally, this section covers testing a command, without publishing it within your package for testing purposes.'
-tags: ['Artisan', 'Commands', 'Testing Commands', 'Test-Only Commands']
-image: 'https://www.laravelpackage.com/assets/pages/laravelpackage.jpeg'
+title: "Commands"
+description: "Creating and testing custom Artisan Commands in your package. Additionally, this section covers testing a command, without publishing it within your package for testing purposes."
+tags: ["Artisan", "Commands", "Testing Commands", "Test-Only Commands"]
+image: "https://www.laravelpackage.com/assets/pages/laravelpackage.jpeg"
 date: 2019-09-17
 ---
 
@@ -38,31 +38,32 @@ class InstallBlogPackage extends Command
         $this->info('Installing BlogPackage...');
 
         $this->info('Publishing configuration...');
-        
+
         //check if file exists
-        if(!File::exists(config_path('blogpackage.php')) {
+        if(!File::exists(config_path('blogpackage.php'))) {
             $this->publish_config();
         } else {
-            $check = $this->confirm('Config file already exists. Do you wand rewrite it?', false);
+            $check = $this->confirm('Config file already exists. Do you want rewrite it?', false);
             if($check) {
                 $this->publish_config(true);
                 $this->info('Config file was rewritten');
             } else {
                 $this->warn('Republishing configuration was canceled');
             }
-        $this->info('Installed BlogPackage');
+            $this->info('Installed BlogPackage');
+        }
     }
-    
+
     private function publish_config($force = false)
     {
        $params = [
                 '--provider' => "JohnDoe\BlogPackage\BlogPackageServiceProvider",
                 '--tag' => "config"
                 ];
-       
+
        // force publish
        if($force) { $params['--force'] = ''; }
-       
+
        $this->call('vendor:publish', $params);
     }
 }
@@ -125,12 +126,11 @@ class InstallBlogPackageTest extends TestCase
 }
 ```
 
-
-
-To test that our Command works fine on each step, let's create a new feature test called `InstallBlogPackageTest.php` in the Feature test folder.
+To test that our Command works fine on each step, let's create a new feature test called `InstallBlogPackageCommandTest.php` in the Feature test folder.
 Since Laravel 8.x you may test your command with the following test which utilizes the `expectsQuestion`, `expectsOutput`, `doesntExpectOutput`, and `assertExitCode` methods:
+
 ```php
-// 'tests/Feature/InstallBlogPackageTest.php'
+// 'tests/Feature/InstallBlogPackageCommandTest.php'
 <?php
 
 namespace JohnDoe\BlogPackage\Tests\Feature;
@@ -138,7 +138,7 @@ namespace JohnDoe\BlogPackage\Tests\Feature;
 use Illuminate\Support\Facades\File;
 use JohnDoe\BlogPackage\Tests\TestCase;
 
-class InstallBlogPackageTest extends TestCase
+class InstallBlogPackageCommandTest extends TestCase
 {
     /** @test */
     function check_successfully_publishing()
@@ -154,42 +154,41 @@ class InstallBlogPackageTest extends TestCase
         $this->artisan('blogpackage:install')
         ->expectsOutput('Installing BlogPackage...')
         ->expectsOutput('Publishing configuration...')
-        ->doesntExpectOutput('Republishing configuration was canceled');
+        ->doesntExpectOutput('Republishing configuration was canceled')
         ->expectsOutput('Installed BlogPackage');
-       
+
         $this->assertTrue(File::exists(config_path('blogpackage.php')));
     }
-    
+
     /** @test */
     public function check_if_file_already_exists_cancel()
     {
       $this->assertTrue(File::exists(config_path('blogpackage.php')));
-      
+
       $this->artisan('blogpackage:install')
       ->expectsOutput('Installing BlogPackage...')
       ->expectsOutput('Publishing configuration...')
-      ->expectsQuestion('Config file already exists. Do you wand rewrite it?', 'no')
+      ->expectsQuestion('Config file already exists. Do you want rewrite it?', 'no')
       ->expectsOutput('Republishing configuration was canceled');
     }
-    
+
     /** @test */
     public function check_if_file_already_exists_rewrite()
     {
       $this->assertTrue(File::exists(config_path('blogpackage.php')));
-      
+
       $this->artisan('blogpackage:install')
       ->expectsOutput('Installing BlogPackage...')
       ->expectsOutput('Publishing configuration...')
-      ->expectsQuestion('Config file already exists. Do you wand rewrite it?', 'yes')
+      ->expectsQuestion('Config file already exists. Do you want rewrite it?', 'yes')
       ->expectsOutput('Config file was rewritten');
+
+      //Remove file after last test
+      unlink(config_path('blogpackage.php'));
     }
-    
+
 }
 ```
-
-
-
-
 
 ## Hiding a Command
 
@@ -210,7 +209,6 @@ class InstallBlogPackage extends Command
     }
 }
 ```
-
 
 ## Creating a Generator Command
 
