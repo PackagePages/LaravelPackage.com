@@ -16,7 +16,7 @@ Let's say that we want to provide an easy artisan command for our end user to pu
 
 ## Creating a New Command
 
-Create a new `Console` folder in the `src/` directory and create a new file named `InstallBlogPackage.php`. This class will extend Laravel's `Command` class and provide a `$signature` (the command) and a `$description` property. In the `handle()` method, we specify what our command will do. In this case we provide some feedback that we're "installing" the package, and we'll call another artisan command to publish the config file. Finally, we let the user know that we're done.
+Create a new `Console` folder in the `src/` directory and create a new file named `InstallBlogPackage.php`. This class will extend Laravel's `Command` class and provide a `$signature` (the command) and a `$description` property. In the `handle()` method, we specify what our command will do. In this case we provide some feedback that we're "installing" the package, and we'll call another artisan command to publish the config file. Using the `File` facade we can check if the configuration file already exists. If so, we'll ask if we should overwrite it or cancel publishing of the config file. Finally, we let the user know that we're done.
 
 ```php
 // 'src/Console/InstallBlogPackage.php'
@@ -38,31 +38,45 @@ class InstallBlogPackage extends Command
         $this->info('Installing BlogPackage...');
 
         $this->info('Publishing configuration...');
-
-        //check if file exists
-        if(!File::exists(config_path('blogpackage.php'))) {
-            $this->publish_config();
+        
+        if ($this->configExists('blogpackage.php') === false) {
+            $this->publishConfiguration();
+            $this->info('Published configuration');
         } else {
-            $check = $this->confirm('Config file already exists. Do you want rewrite it?', false);
-            if($check) {
-                $this->publish_config(true);
-                $this->info('Config file was rewritten');
+            if ($this->shouldOverwriteConfig()) {
+                $this->info('Overwriting configuration file...');
+                $this->publishConfiguration($force = true);
             } else {
-                $this->warn('Republishing configuration was canceled');
+                $this->info('Existing configuration was not overwritten');
             }
-            $this->info('Installed BlogPackage');
         }
+        
+        $this->info('Installed BlogPackage');
+    }
+    
+    private function configExists($fileName)
+    {
+        return File::exists(config_path($fileName));
+    }
+    
+    private function shouldOverwriteConfig()
+    {
+        return $this->confirm(
+            'Config file already exists. Do you want to overwrite it?', 
+            false
+        );
     }
 
-    private function publish_config($force = false)
+    private function publishConfiguration($forcePublish = false)
     {
-       $params = [
-                '--provider' => "JohnDoe\BlogPackage\BlogPackageServiceProvider",
-                '--tag' => "config"
-                ];
-
-       // force publish
-       if($force) { $params['--force'] = ''; }
+        $params = [
+            '--provider' => "JohnDoe\BlogPackage\BlogPackageServiceProvider",
+            '--tag' => "config"
+        ];
+        
+        if ($forcePublish === true) {
+            $params['--force'] = '';
+        }
 
        $this->call('vendor:publish', $params);
     }
