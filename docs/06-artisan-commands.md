@@ -39,7 +39,7 @@ class InstallBlogPackage extends Command
 
         $this->info('Publishing configuration...');
         
-        if ($this->configExists('blogpackage.php') === false) {
+        if (! $this->configExists('blogpackage.php')) {
             $this->publishConfiguration();
             $this->info('Published configuration');
         } else {
