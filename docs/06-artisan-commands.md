@@ -1,8 +1,8 @@
 ---
-title: "Commands"
-description: "Creating and testing custom Artisan Commands in your package. Additionally, this section covers testing a command, without publishing it within your package for testing purposes."
-tags: ["Artisan", "Commands", "Testing Commands", "Test-Only Commands"]
-image: "https://www.laravelpackage.com/assets/pages/laravelpackage.jpeg"
+title: 'Commands'
+description: 'Creating and testing custom Artisan Commands in your package. Additionally, this section covers testing a command, without publishing it within your package for testing purposes.'
+tags: ['Artisan', 'Commands', 'Testing Commands', 'Test-Only Commands']
+image: 'https://www.laravelpackage.com/assets/pages/laravelpackage.jpeg'
 date: 2019-09-17
 ---
 
