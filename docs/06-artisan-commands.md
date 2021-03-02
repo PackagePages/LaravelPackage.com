@@ -16,7 +16,7 @@ Let's say that we want to provide an easy artisan command for our end user to pu
 
 ## Creating a New Command
 
-Create a new `Console` folder in the `src/` directory and create a new file named `InstallBlogPackage.php`. This class will extend Laravel's `Command` class and provide a `$signature` (the command) and a `$description` property. In the `handle()` method, we specify what our command will do. In this case we provide some feedback that we're "installing" the package, and we'll call another artisan command to publish the config file. Finally, we let the user know that we're done.
+Create a new `Console` folder in the `src/` directory and create a new file named `InstallBlogPackage.php`. This class will extend Laravel's `Command` class and provide a `$signature` (the command) and a `$description` property. In the `handle()` method, we specify what our command will do. In this case we provide some feedback that we're "installing" the package, and we'll call another artisan command to publish the config file. Using the `File` facade we can check if the configuration file already exists. If so, we'll ask if we should overwrite it or cancel publishing of the config file. Finally, we let the user know that we're done.
 
 ```php
 // 'src/Console/InstallBlogPackage.php'
@@ -25,6 +25,7 @@ Create a new `Console` folder in the `src/` directory and create a new file name
 namespace JohnDoe\BlogPackage\Console;
 
 use Illuminate\Console\Command;
+use Illuminate\Support\Facades\File;
 
 class InstallBlogPackage extends Command
 {
@@ -37,13 +38,47 @@ class InstallBlogPackage extends Command
         $this->info('Installing BlogPackage...');
 
         $this->info('Publishing configuration...');
+        
+        if (! $this->configExists('blogpackage.php')) {
+            $this->publishConfiguration();
+            $this->info('Published configuration');
+        } else {
+            if ($this->shouldOverwriteConfig()) {
+                $this->info('Overwriting configuration file...');
+                $this->publishConfiguration($force = true);
+            } else {
+                $this->info('Existing configuration was not overwritten');
+            }
+        }
+        
+        $this->info('Installed BlogPackage');
+    }
+    
+    private function configExists($fileName)
+    {
+        return File::exists(config_path($fileName));
+    }
+    
+    private function shouldOverwriteConfig()
+    {
+        return $this->confirm(
+            'Config file already exists. Do you want to overwrite it?', 
+            false
+        );
+    }
 
-        $this->call('vendor:publish', [
+    private function publishConfiguration($forcePublish = false)
+    {
+        $params = [
             '--provider' => "JohnDoe\BlogPackage\BlogPackageServiceProvider",
             '--tag' => "config"
-        ]);
+        ];
+        
+        if ($forcePublish === true) {
+            $params['--force'] = '';
+        }
 
-        $this->info('Installed BlogPackage');
+       $this->call('vendor:publish', $params);
     }
 }
 ```
@@ -102,6 +137,67 @@ class InstallBlogPackageTest extends TestCase
 
         $this->assertTrue(File::exists(config_path('blogpackage.php')));
     }
+}
+```
+
+In addition to the basic test which asserts that a configuration file is present after installation, we can add several tests which assert the appropriate installation process of our package. Let's add tests for the other scenarios where the user already has a configuration with the name `blogpackage.php` published. We will utilize the assertions `expectsQuestion`, `expectsOutput`, `doesntExpectOutput`, and `assertExitCode`.
+
+```php
+// 'tests/Unit/InstallBlogPackageTest.php'
+/** @test */
+public function when_a_config_file_is_present_users_can_choose_to_not_overwrite_it()
+{
+    // Given we have already have an existing config file
+    File::put(config_path('blogpackage.php'), 'test contents');
+    $this->assertTrue(File::exists(config_path('blogpackage.php')));
+    
+    // When we run the install command
+    $command = $this->artisan('blogpackage:install');
+    
+    // We expect a warning that our configuration file exists
+    $command->expectsQuestion(
+        'Config file already exists. Do you want to overwrite it?',
+        // When answered with "no" 
+        'no'
+    );
+    
+    // We should see a message that our file was not overwritten
+    $command->expectsOutput('Existing configuration was not overwritten');
+    
+    // Assert that the original contents of the config file remain
+    $this->assertEquals(file_get_contents(config_path('blogpackage.php')), 'test contents');
+    
+    // Clean up
+    unlink(config_path('blogpackage.php'));
+}
+
+/** @test */
+public function when_a_config_file_is_present_users_can_choose_to_do_overwrite_it()
+{
+    // Given we have already have an existing config file
+    File::put(config_path('blogpackage.php'), 'test contents');
+    $this->assertTrue(File::exists(config_path('blogpackage.php')));
+        
+    // When we run the install command
+    $command = $this->artisan('blogpackage:install');
+    
+    // We expect a warning that our configuration file exists
+    $command->expectsQuestion(
+        'Config file already exists. Do you want to overwrite it?',
+        // When answered with "yes" 
+        'yes'
+    );
+    
+    $command->expectsOutput('Overwriting configuration file...');
+    
+    // Assert that the original contents are overwritten
+    $this->assertEquals(
+        file_get_contents(config_path('blogpackage.php')), 
+        file_get_contents(__DIR__.'/../config/config.php')
+    );
+    
+    // Clean up
+    unlink(config_path('blogpackage.php'));
 }
 ```
 
