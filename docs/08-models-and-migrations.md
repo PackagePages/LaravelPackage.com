@@ -374,9 +374,30 @@ Schema::create('posts', function (Blueprint $table) {
 
 Now that we have an “author_id” column on our `Post` model, let’s create a relationship between a `Post` and a `User`. However, we have a problem since we need a `User` model, but this model also comes out-of-the-box with a fresh installation of the Laravel framework…
 
-We can’t just provide our own `User` model, since you likely want your end-user to be able to hook up his own `User` model with your `Post` model. Or even better, let the end-user decide which model they want to associate with the `Post` model.
+We can’t just provide our own `User` model, since you likely want your end-user to be able to hook up the `User` model from their Laravel app. 
 
-### Using a Polymorphic Relationship
+Below, there are two options to create a relation  
+
+### Approach 1: Fetching the User model from the Auth configuration
+
+If you simply want to create a relationship between **authenticated users** and *e.g.* a `Post` model, the easiest option is to reference the Model that is used in the `config/auth.php` file. By default, this is the `App\Models\User` Eloquent model.
+
+If you just want to target the Eloquent model that is responsible for the authentication, create a `belongsToMany` relationship on the `Post` model as follows:
+
+```php
+// Post model
+class Post extends Model
+{
+  public function author()
+  {
+    return $this->belongsTo(config('auth.providers.users.model'));
+  }
+}
+```
+
+However, hat if the user of our package has an `Admin` and a `User` model and the author of a `Post` can be an `Admin` model or a `User` model ? In such cases, you can opt for a polymorphic relationship.
+
+### Approach 2: Using a Polymorphic Relationship
 
 Instead of opting for a conventional one-to-many relationship (a user can have many posts, and a post belongs to a user), we’ll use a **polymorphic** one-to-many relationship where a `Post` morphs to a specific related model (not necessarily a `User` model).
 
