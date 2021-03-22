@@ -395,7 +395,7 @@ class Post extends Model
 }
 ```
 
-However, hat if the user of our package has an `Admin` and a `User` model and the author of a `Post` can be an `Admin` model or a `User` model ? In such cases, you can opt for a polymorphic relationship.
+However, what if the user of our package has an `Admin` and a `User` model and the author of a `Post` can be an `Admin` model or a `User` model ? In such cases, you can opt for a polymorphic relationship.
 
 ### Approach 2: Using a Polymorphic Relationship
 
