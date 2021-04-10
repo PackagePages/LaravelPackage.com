@@ -131,6 +131,22 @@ You can now require your local package in the Laravel application using your cho
 composer require johndoe/blogpackage
 ```
 
+If you have multiple packages in the same directory and want to instruct Composer to look for all of them, you can list the package location by using a wildcard `*` as follows:
+
+```json
+{
+  "scripts": { ... },
+
+  "repositories": [
+    {
+      "type": "path",
+      "url": "../../packages/*"
+    }
+  ]
+}
+```
+
+
 **Important:** you will need to perform a composer update in your Laravel application whenever you make changes to the `composer.json` file of your package or any providers it registers.
 
 ## Orchestra Testbench
