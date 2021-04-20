@@ -251,13 +251,15 @@ php artisan vendor:publish --provider="JohnDoe\BlogPackage\BlogPackageServicePro
 ```
 
 ## View Components
-Since Laravel 8, it is possible to generate Blade components using `php artisan make:component MyComponent` which generates a base `MyComponent` class and a Blade `my-component.blade.php` file, which receives all public properties as defined in the `MyComponent` class. These components can then be reused and included in any view using the component syntax: `<x-my-component>` and closing `</x-my-component>` (or the self-closing form). To learn more about Blade components, make sure to check out the Laravel documentation.  
 
-In addition to generating Blade components using the artisan command, it is also possible to create a `my-component.blade.php` component without class. These are called anonymous components and are placed in the `views/components` directory by convention. 
+Since Laravel 8, it is possible to generate Blade components using `php artisan make:component MyComponent` which generates a base `MyComponent` class and a Blade `my-component.blade.php` file, which receives all public properties as defined in the `MyComponent` class. These components can then be reused and included in any view using the component syntax: `<x-my-component>` and closing `</x-my-component>` (or the self-closing form). To learn more about Blade components, make sure to check out the Laravel documentation.
+
+In addition to generating Blade components using the artisan command, it is also possible to create a `my-component.blade.php` component without class. These are called anonymous components and are placed in the `views/components` directory by convention.
 
 This section will cover how to provide these type of Blade components in your package.
 
 ### Class Based Components
+
 If you want to offer class based View Components in your package, first create a new `View/Components` directory in the `src` folder. Add a new class, for example `Alert.php`.
 
 ```php
@@ -288,19 +290,17 @@ Next, create a new `views/components` directory in the `resources` folder. Add a
 
 ```html
 <div>
-    <p>This is an Alert</p>
+  <p>This is an Alert</p>
 
-    <p>
-        {{ $message }}
-    </p>
+  <p>{{ $message }}</p>
 </div>
 ```
 
-Next, register the component in the Service Provider by the class and provide a prefix for the components. In our example, using 'blogpackage', the alert component will become available as `<x-blogpackage-alert />`.  
+Next, register the component in the Service Provider by the class and provide a prefix for the components. In our example, using 'blogpackage', the alert component will become available as `<x-blogpackage-alert />`.
 
 ```php
 // 'BlogPackageServiceProvider.php'
-<?php 
+<?php
 
 use JohnDoe\BlogPackage\View\Components\Alert;
 
@@ -314,7 +314,8 @@ public function boot()
 ```
 
 ### Anonymous View Components
-If your package provides anonymous components, it suffices to add the `my-component.blade.php` Blade component to `resources/views/components` directory, given that you have specified the `loadViewsFrom` directory in your Service Provider as "resources/views". If you don't already, add the `loadViewsFrom` method to your Service Provider: 
+
+If your package provides anonymous components, it suffices to add the `my-component.blade.php` Blade component to `resources/views/components` directory, given that you have specified the `loadViewsFrom` directory in your Service Provider as "resources/views". If you don't already, add the `loadViewsFrom` method to your Service Provider:
 
 ```php
 // 'BlogPackageServiceProvider.php'
@@ -325,19 +326,20 @@ public function boot()
 }
 ```
 
-Components (in the `resources/views/components` folder) can now be referenced prefixed by the defined namespace above ("blogpackage"): 
+Components (in the `resources/views/components` folder) can now be referenced prefixed by the defined namespace above ("blogpackage"):
 
 ```
   <x-blogpackage::alert />
 ```
 
 ### Customizable View Components
+
 In order to let the end user of our package modify the provided Blade component(s), we first need to register the publishables into our Service Provider:
 
 ```php
 // 'BlogPackageServiceProvider.php'
 if ($this->app->runningInConsole()) {
-  // Publish view components 
+  // Publish view components
   $this->publishes([
       __DIR__.'/../src/View/Components/' => app_path('View/Components'),
       __DIR__.'/../resources/views/components/' => resource_path('views/components'),
