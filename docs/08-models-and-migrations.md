@@ -1,8 +1,8 @@
 ---
-title: 'Models and Migrations'
-description: 'Some packages need to offer a Laravel Model. This section explains how to allow for this and include your own database migrations. Additionally, the section will cover testing the models and migrations.'
-tags: ['Models', 'Migrations', 'Testing Models', 'Unit Test']
-image: 'https://www.laravelpackage.com/assets/pages/laravelpackage.jpeg'
+title: "Models and Migrations"
+description: "Some packages need to offer a Laravel Model. This section explains how to allow for this and include your own database migrations. Additionally, the section will cover testing the models and migrations."
+tags: ["Models", "Migrations", "Testing Models", "Unit Test"]
+image: "https://www.laravelpackage.com/assets/pages/laravelpackage.jpeg"
 date: 2019-09-17
 ---
 
@@ -124,6 +124,7 @@ php artisan vendor:publish --provider="JohnDoe\BlogPackage\BlogPackageServicePro
 ```
 
 ### Loading Migrations Automatically (method 2)
+
 While the method described above gives full control over which migrations are published, Laravel offers an alternative approach making use of the `loadMigrationsFrom` helper ([see docs](https://laravel.com/docs/packages#migrations)). By specifying a migrations directory in the package's service provider, all migrations will be executed when the end-user executes `php artisan migrate` from within their Laravel application.
 
 ```php
@@ -374,13 +375,13 @@ Schema::create('posts', function (Blueprint $table) {
 
 Now that we have an “author_id” column on our `Post` model, let’s create a relationship between a `Post` and a `User`. However, we have a problem since we need a `User` model, but this model also comes out-of-the-box with a fresh installation of the Laravel framework…
 
-We can’t just provide our own `User` model, since you likely want your end-user to be able to hook up the `User` model from their Laravel app. 
+We can’t just provide our own `User` model, since you likely want your end-user to be able to hook up the `User` model from their Laravel app.
 
-Below, there are two options to create a relation  
+Below, there are two options to create a relation
 
 ### Approach 1: Fetching the User model from the Auth configuration
 
-If you simply want to create a relationship between **authenticated users** and *e.g.* a `Post` model, the easiest option is to reference the Model that is used in the `config/auth.php` file. By default, this is the `App\Models\User` Eloquent model.
+If you simply want to create a relationship between **authenticated users** and _e.g._ a `Post` model, the easiest option is to reference the Model that is used in the `config/auth.php` file. By default, this is the `App\Models\User` Eloquent model.
 
 If you just want to target the Eloquent model that is responsible for the authentication, create a `belongsToMany` relationship on the `Post` model as follows:
 

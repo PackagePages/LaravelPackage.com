@@ -1,8 +1,8 @@
 ---
-title: 'Facades'
-description: 'Facades can provide end-users of your package with an easy-to-use (and understand) API for interaction with the functions (features) within your package. This section explains how to create your facades for your package.'
-tags: ['Facades', 'API']
-image: 'https://www.laravelpackage.com/assets/pages/laravelpackage.jpeg'
+title: "Facades"
+description: "Facades can provide end-users of your package with an easy-to-use (and understand) API for interaction with the functions (features) within your package. This section explains how to create your facades for your package."
+tags: ["Facades", "API"]
+image: "https://www.laravelpackage.com/assets/pages/laravelpackage.jpeg"
 date: 2019-09-17
 ---
 
@@ -26,7 +26,7 @@ MessageFactory::sentBy($user)
 
 To learn more about facades and how they work, refer to the excellent [Laravel documentation](https://laravel.com/docs/facades#how-facades-work).
 
-Practically, it boils down to calling static methods on a Facade, which are "proxied" (redirected) to the non-static methods of an underlying class you have specified. This means that you're not *actually* using static methods. An example is discussed below, using a `Calculator` class as an example.
+Practically, it boils down to calling static methods on a Facade, which are "proxied" (redirected) to the non-static methods of an underlying class you have specified. This means that you're not _actually_ using static methods. An example is discussed below, using a `Calculator` class as an example.
 
 ## Creating a Facade
 

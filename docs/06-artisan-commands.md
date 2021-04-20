@@ -1,8 +1,8 @@
 ---
-title: 'Commands'
-description: 'Creating and testing custom Artisan Commands in your package. Additionally, this section covers testing a command, without publishing it within your package for testing purposes.'
-tags: ['Artisan', 'Commands', 'Testing Commands', 'Test-Only Commands']
-image: 'https://www.laravelpackage.com/assets/pages/laravelpackage.jpeg'
+title: "Commands"
+description: "Creating and testing custom Artisan Commands in your package. Additionally, this section covers testing a command, without publishing it within your package for testing purposes."
+tags: ["Artisan", "Commands", "Testing Commands", "Test-Only Commands"]
+image: "https://www.laravelpackage.com/assets/pages/laravelpackage.jpeg"
 date: 2019-09-17
 ---
 
@@ -38,7 +38,7 @@ class InstallBlogPackage extends Command
         $this->info('Installing BlogPackage...');
 
         $this->info('Publishing configuration...');
-        
+
         if (! $this->configExists('blogpackage.php')) {
             $this->publishConfiguration();
             $this->info('Published configuration');
@@ -50,19 +50,19 @@ class InstallBlogPackage extends Command
                 $this->info('Existing configuration was not overwritten');
             }
         }
-        
+
         $this->info('Installed BlogPackage');
     }
-    
+
     private function configExists($fileName)
     {
         return File::exists(config_path($fileName));
     }
-    
+
     private function shouldOverwriteConfig()
     {
         return $this->confirm(
-            'Config file already exists. Do you want to overwrite it?', 
+            'Config file already exists. Do you want to overwrite it?',
             false
         );
     }
@@ -73,7 +73,7 @@ class InstallBlogPackage extends Command
             '--provider' => "JohnDoe\BlogPackage\BlogPackageServiceProvider",
             '--tag' => "config"
         ];
-        
+
         if ($forcePublish === true) {
             $params['--force'] = '';
         }
@@ -150,23 +150,23 @@ public function when_a_config_file_is_present_users_can_choose_to_not_overwrite_
     // Given we have already have an existing config file
     File::put(config_path('blogpackage.php'), 'test contents');
     $this->assertTrue(File::exists(config_path('blogpackage.php')));
-    
+
     // When we run the install command
     $command = $this->artisan('blogpackage:install');
-    
+
     // We expect a warning that our configuration file exists
     $command->expectsQuestion(
         'Config file already exists. Do you want to overwrite it?',
-        // When answered with "no" 
+        // When answered with "no"
         'no'
     );
-    
+
     // We should see a message that our file was not overwritten
     $command->expectsOutput('Existing configuration was not overwritten');
-    
+
     // Assert that the original contents of the config file remain
     $this->assertEquals(file_get_contents(config_path('blogpackage.php')), 'test contents');
-    
+
     // Clean up
     unlink(config_path('blogpackage.php'));
 }
@@ -177,25 +177,25 @@ public function when_a_config_file_is_present_users_can_choose_to_do_overwrite_i
     // Given we have already have an existing config file
     File::put(config_path('blogpackage.php'), 'test contents');
     $this->assertTrue(File::exists(config_path('blogpackage.php')));
-        
+
     // When we run the install command
     $command = $this->artisan('blogpackage:install');
-    
+
     // We expect a warning that our configuration file exists
     $command->expectsQuestion(
         'Config file already exists. Do you want to overwrite it?',
-        // When answered with "yes" 
+        // When answered with "yes"
         'yes'
     );
-    
+
     $command->expectsOutput('Overwriting configuration file...');
-    
+
     // Assert that the original contents are overwritten
     $this->assertEquals(
-        file_get_contents(config_path('blogpackage.php')), 
+        file_get_contents(config_path('blogpackage.php')),
         file_get_contents(__DIR__.'/../config/config.php')
     );
-    
+
     // Clean up
     unlink(config_path('blogpackage.php'));
 }

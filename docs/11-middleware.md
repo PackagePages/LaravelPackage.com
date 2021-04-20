@@ -1,8 +1,17 @@
 ---
-title: 'Middleware'
-description: 'Explore the different types of Middleware and how to make use of them within a Laravel package. Additionally, writing tests for the Middleware will be explained.'
-tags: ['Middleware', 'Before Middlware', 'After Middleware', 'Route Middleware', 'Middleware Groups', 'Global Middleware', 'Testing Middleware']
-image: 'https://www.laravelpackage.com/assets/pages/laravelpackage.jpeg'
+title: "Middleware"
+description: "Explore the different types of Middleware and how to make use of them within a Laravel package. Additionally, writing tests for the Middleware will be explained."
+tags:
+  [
+    "Middleware",
+    "Before Middlware",
+    "After Middleware",
+    "Route Middleware",
+    "Middleware Groups",
+    "Global Middleware",
+    "Testing Middleware",
+  ]
+image: "https://www.laravelpackage.com/assets/pages/laravelpackage.jpeg"
 date: 2019-09-17
 ---
 
@@ -129,7 +138,7 @@ class AfterMiddleware
 
 ## Testing After Middleware
 
-Similar to *before middleware*, we can unit test *after middleware* that operate on the `Response` for a given request and modify this request before it is passed down to the next layer of middleware. Given that we have an `InjectHelloWorld` middleware that injects the string 'Hello World' in each response, the following test would assert correct behavior:
+Similar to _before middleware_, we can unit test _after middleware_ that operate on the `Response` for a given request and modify this request before it is passed down to the next layer of middleware. Given that we have an `InjectHelloWorld` middleware that injects the string 'Hello World' in each response, the following test would assert correct behavior:
 
 ```php
 // 'tests/Unit/InjectHelloWorldMiddlewareTest.php'

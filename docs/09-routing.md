@@ -1,8 +1,17 @@
 ---
-title: 'Routing, Views and Controllers'
-description: 'Expose (custom) routes in your package, which call a controller action and render views provided by the package. This chapter will additionally cover testing of routes, controllers, and views.'
-tags: ['Routing', 'Controllers', 'Views', 'RESTful', 'Testing Routing', 'Testing Controllers', 'Testing Views']
-image: 'https://www.laravelpackage.com/assets/pages/laravelpackage.jpeg'
+title: "Routing, Views and Controllers"
+description: "Expose (custom) routes in your package, which call a controller action and render views provided by the package. This chapter will additionally cover testing of routes, controllers, and views."
+tags:
+  [
+    "Routing",
+    "Controllers",
+    "Views",
+    "RESTful",
+    "Testing Routing",
+    "Testing Controllers",
+    "Testing Views",
+  ]
+image: "https://www.laravelpackage.com/assets/pages/laravelpackage.jpeg"
 date: 2019-09-17
 ---
 
