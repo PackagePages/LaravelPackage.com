@@ -51,9 +51,6 @@ The first chapter will address the basic structure of a package. While it is goo
 - [Laravel Packager Hermes](https://github.com/DelveFore/laravel-packager-hermes)
   This package by DelveFore is an extension of the Laravel Packager package, enabling usage of Artisan commands within that package to quickly generate Laravel specific classes. Currently, it only supports the scaffolding of `Controllers`.
 
-- [Laravel Package Tools](https://github.com/beyondcode/laravel-package-tools)
-  Like the previously mentioned package, Marcel Pociot's package aims to provide Artisan commands from within Laravel packages to quickly scaffold `Commands`, `Requests`, `Jobs`, `Events`, etc.
-
 - [Orchestral Canvas](https://github.com/orchestral/canvas)
   The Orchestral Canvas package offers code generators and replicates all of the `make` artisan commands available in your basic Laravel application.
 
