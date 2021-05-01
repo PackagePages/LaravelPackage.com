@@ -250,6 +250,111 @@ The views can then be exported by users of our package using:
 php artisan vendor:publish --provider="JohnDoe\BlogPackage\BlogPackageServiceProvider" --tag="views"
 ```
 
+## View Components
+
+Since Laravel 8, it is possible to generate Blade components using `php artisan make:component MyComponent` which generates a base `MyComponent` class and a Blade `my-component.blade.php` file, which receives all public properties as defined in the `MyComponent` class. These components can then be reused and included in any view using the component syntax: `<x-my-component>` and closing `</x-my-component>` (or the self-closing form). To learn more about Blade components, make sure to check out the Laravel documentation.
+
+In addition to generating Blade components using the artisan command, it is also possible to create a `my-component.blade.php` component without class. These are called anonymous components and are placed in the `views/components` directory by convention.
+
+This section will cover how to provide these type of Blade components in your package.
+
+### Class Based Components
+
+If you want to offer class based View Components in your package, first create a new `View/Components` directory in the `src` folder. Add a new class, for example `Alert.php`.
+
+```php
+// 'src/View/Components/Alert.php'
+<?php
+
+namespace JohnDoe\BlogPackage\View\Components;
+
+use Illuminate\View\Component;
+
+class Alert extends Component
+{
+    public $message;
+
+    public function __construct($message)
+    {
+        $this->message = $message;
+    }
+
+    public function render()
+    {
+        return view('blogpackage::components.alert');
+    }
+}
+```
+
+Next, create a new `views/components` directory in the `resources` folder. Add a new Blade component `alert.blade.php`:
+
+```html
+<div>
+  <p>This is an Alert</p>
+
+  <p>{{ $message }}</p>
+</div>
+```
+
+Next, register the component in the Service Provider by the class and provide a prefix for the components. In our example, using 'blogpackage', the alert component will become available as `<x-blogpackage-alert />`.
+
+```php
+// 'BlogPackageServiceProvider.php'
+<?php
+
+use JohnDoe\BlogPackage\View\Components\Alert;
+
+public function boot()
+{
+  // ... other things
+  $this->loadViewComponentsAs('blogpackage', [
+    Alert::class,
+  ]);
+}
+```
+
+### Anonymous View Components
+
+If your package provides anonymous components, it suffices to add the `my-component.blade.php` Blade component to `resources/views/components` directory, given that you have specified the `loadViewsFrom` directory in your Service Provider as "resources/views". If you don't already, add the `loadViewsFrom` method to your Service Provider:
+
+```php
+// 'BlogPackageServiceProvider.php'
+public function boot()
+{
+  // ... other things
+  $this->loadViewsFrom(__DIR__.'/../resources/views', 'blogpackage');
+}
+```
+
+Components (in the `resources/views/components` folder) can now be referenced prefixed by the defined namespace above ("blogpackage"):
+
+```
+  <x-blogpackage::alert />
+```
+
+### Customizable View Components
+
+In order to let the end user of our package modify the provided Blade component(s), we first need to register the publishables into our Service Provider:
+
+```php
+// 'BlogPackageServiceProvider.php'
+if ($this->app->runningInConsole()) {
+  // Publish view components
+  $this->publishes([
+      __DIR__.'/../src/View/Components/' => app_path('View/Components'),
+      __DIR__.'/../resources/views/components/' => resource_path('views/components'),
+  ], 'view-components');
+}
+```
+
+Now, it is possible to publish both files (class and Blade component) using:
+
+```
+php artisan vendor:publish --provider="JohnDoe\BlogPackage\BlogPackageServiceProvider" --tag="view-components"
+```
+
+Be aware that the end user needs to update the namespaces of the published component class and update the `render()` method to reference the Blade components of the Laravel application directly, instead of referencing the package namespace. Additionally, the Blade component no longer has to be namespaced since it was published to the Laravel application itself.
+
 ## Assets
 
 You'll likely want to include a CSS and javascript file when you're adding views to your package.
