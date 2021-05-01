@@ -1,8 +1,8 @@
 ---
-title: 'Service Providers'
-description: 'The Service Provider of a package is essential to register package-specific functionality. This section will cover the role and basics of a Service Provider and explains how to create and use a Service Provider for your package.'
-tags: ['Service Provider']
-image: 'https://www.laravelpackage.com/assets/pages/laravelpackage.jpeg'
+title: "Service Providers"
+description: "The Service Provider of a package is essential to register package-specific functionality. This section will cover the role and basics of a Service Provider and explains how to create and use a Service Provider for your package."
+tags: ["Service Provider"]
+image: "https://www.laravelpackage.com/assets/pages/laravelpackage.jpeg"
 date: 2019-09-17
 ---
 

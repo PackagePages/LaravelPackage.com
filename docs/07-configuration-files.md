@@ -1,8 +1,8 @@
 ---
-title: 'Package Configuration'
-description: 'Nearly all packages include a certain configuration to allow easy modification by the end-user. This section explains how to create a config file and publish this configuration within a Laravel project.'
-tags: ['Configuration', 'Publishing Configuration']
-image: 'https://www.laravelpackage.com/assets/pages/laravelpackage.jpeg'
+title: "Package Configuration"
+description: "Nearly all packages include a certain configuration to allow easy modification by the end-user. This section explains how to create a config file and publish this configuration within a Laravel project."
+tags: ["Configuration", "Publishing Configuration"]
+image: "https://www.laravelpackage.com/assets/pages/laravelpackage.jpeg"
 date: 2019-09-17
 ---
 

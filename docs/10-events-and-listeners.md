@@ -1,8 +1,8 @@
 ---
-title: 'Events and Listeners'
-description: 'Creating and testing custom Events and Listeners in your package.'
-tags: ['Events', 'Listeners', 'Testing Events', 'Testing Listeners']
-image: 'https://www.laravelpackage.com/assets/pages/laravelpackage.jpeg'
+title: "Events and Listeners"
+description: "Creating and testing custom Events and Listeners in your package."
+tags: ["Events", "Listeners", "Testing Events", "Testing Listeners"]
+image: "https://www.laravelpackage.com/assets/pages/laravelpackage.jpeg"
 date: 2019-09-17
 ---
 

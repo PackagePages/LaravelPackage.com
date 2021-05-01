@@ -1,8 +1,8 @@
 ---
-title: 'Basics of Package Development'
-description: 'Explore the basics of a PHP package, including the general directory structure, composer.json and autoloading.'
-tags: ['package basics', 'directory structure', 'autoloading', 'composer']
-image: 'https://www.laravelpackage.com/assets/pages/laravelpackage.jpeg'
+title: "Basics of Package Development"
+description: "Explore the basics of a PHP package, including the general directory structure, composer.json and autoloading."
+tags: ["package basics", "directory structure", "autoloading", "composer"]
+image: "https://www.laravelpackage.com/assets/pages/laravelpackage.jpeg"
 date: 2019-09-17
 ---
 

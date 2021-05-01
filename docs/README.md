@@ -1,8 +1,8 @@
 ---
-title: 'Introduction'
-description: 'Learn to create Laravel specific PHP packages from scratch, following this open documentation. Contributions are welcomed.'
-tags: ['Laravel', 'PHP Package', 'Package Development']
-image: 'https://www.laravelpackage.com/assets/pages/laravelpackage.jpeg'
+title: "Introduction"
+description: "Learn to create Laravel specific PHP packages from scratch, following this open documentation. Contributions are welcomed."
+tags: ["Laravel", "PHP Package", "Package Development"]
+image: "https://www.laravelpackage.com/assets/pages/laravelpackage.jpeg"
 date: 2019-09-17
 ---
 
@@ -16,7 +16,7 @@ You are highly encouraged to participate and [contribute to this project](https:
 
 First of all, I want to thank Marcel Pociot. His clear and structured [video course](https://phppackagedevelopment.com/) encouraged me to create PHP packages myself. I can highly recommend his video course if you want to learn how to make (framework agnostic) PHP packages.
 
---- 
+---
 
 💡 Would you rather watch than read? The famous and reputable package builders from **Spatie** launched a full video course on [Laravel Package Development](https://laravelpackage.training).
 
@@ -25,6 +25,7 @@ First of all, I want to thank Marcel Pociot. His clear and structured [video cou
 You might encounter a scenario where you want to reuse some feature(s) of your application in other applications, open-source a specific functionality or keep related code together but separate it from your main application. In those cases, it makes sense to extract parts to a package. Packages or "libraries" provide an easy way to add additional functionality to existing applications and focus on a single feature.
 
 ## Companion Package
+
 In this documentation, we'll build a demo package along the way (called "BlogPackage") by introducing the listed functionalities one-by-one. Make sure to check out the finished version of this [companion package](https://github.com/Jhnbrn90/BlogPackage) to have a handy reference, for example, when something doesn't work as expected. The demo package contains a test suite comprising unit and feature tests for the covered topics.
 
 ## Composer & Packagist
@@ -46,7 +47,7 @@ The first chapter will address the basic structure of a package. While it is goo
   This tool by Marcel Pociot allows you to generate a basic template for Laravel specific and generic PHP packages that can be downloaded as a `.zip` file.
 
 - [Laravel Packager](https://github.com/Jeroen-G/laravel-packager)
-  This package by Jeroen-G provides a CLI tool to quickly scaffold packages from within an existing Laravel application. The package was featured on [Laracasts](https://laracasts.com/series/building-laracasts/episodes/3) in the *Building Laracasts series*.
+  This package by Jeroen-G provides a CLI tool to quickly scaffold packages from within an existing Laravel application. The package was featured on [Laracasts](https://laracasts.com/series/building-laracasts/episodes/3) in the _Building Laracasts series_.
 
 - [Laravel Packager Hermes](https://github.com/DelveFore/laravel-packager-hermes)
   This package by DelveFore is an extension of the Laravel Packager package, enabling usage of Artisan commands within that package to quickly generate Laravel specific classes. Currently, it only supports the scaffolding of `Controllers`.

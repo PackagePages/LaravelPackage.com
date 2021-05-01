@@ -1,8 +1,8 @@
 ---
-title: 'Testing'
-description: 'Testing is an essential part of every package to ensure proper behavior and allow refactoring with confidence. This section explains how to set up a testing environment using PHPUnit to create robust packages.'
-tags: ['Testing', 'PHPUnit', 'Directory Structure']
-image: 'https://www.laravelpackage.com/assets/pages/laravelpackage.jpeg'
+title: "Testing"
+description: "Testing is an essential part of every package to ensure proper behavior and allow refactoring with confidence. This section explains how to set up a testing environment using PHPUnit to create robust packages."
+tags: ["Testing", "PHPUnit", "Directory Structure"]
+image: "https://www.laravelpackage.com/assets/pages/laravelpackage.jpeg"
 date: 2019-09-17
 ---
 
