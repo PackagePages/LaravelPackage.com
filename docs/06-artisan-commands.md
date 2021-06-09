@@ -45,7 +45,7 @@ class InstallBlogPackage extends Command
         } else {
             if ($this->shouldOverwriteConfig()) {
                 $this->info('Overwriting configuration file...');
-                $this->publishConfiguration($force = true);
+                $this->publishConfiguration(true);
             } else {
                 $this->info('Existing configuration was not overwritten');
             }
