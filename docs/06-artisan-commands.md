@@ -155,7 +155,7 @@ public function when_a_config_file_is_present_users_can_choose_to_not_overwrite_
     $command = $this->artisan('blogpackage:install');
 
     // We expect a warning that our configuration file exists
-    $command->expectsQuestion(
+    $command->expectsConfirmation(
         'Config file already exists. Do you want to overwrite it?',
         // When answered with "no"
         'no'
@@ -182,7 +182,7 @@ public function when_a_config_file_is_present_users_can_choose_to_do_overwrite_i
     $command = $this->artisan('blogpackage:install');
 
     // We expect a warning that our configuration file exists
-    $command->expectsQuestion(
+    $command->expectsConfirmation(
         'Config file already exists. Do you want to overwrite it?',
         // When answered with "yes"
         'yes'
