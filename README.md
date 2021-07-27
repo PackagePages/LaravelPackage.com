@@ -2,6 +2,8 @@
 
 This is the repo for the [Laravel Package](https://laravelpackage.com) project. A central place to learn how to create a package from scratch.
 
+All provided examples are available as an accompanying example package named "BlogPackage", which you can find and clone here: [https://github.com/Jhnbrn90/BlogPackage](https://github.com/Jhnbrn90/BlogPackage).
+
 ## Contributing
 
 Contributions are highly welcomed.
