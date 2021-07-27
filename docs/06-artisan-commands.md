@@ -75,7 +75,7 @@ class InstallBlogPackage extends Command
         ];
 
         if ($forcePublish === true) {
-            $params['--force'] = '';
+            $params['--force'] = true;
         }
 
        $this->call('vendor:publish', $params);
