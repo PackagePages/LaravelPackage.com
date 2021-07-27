@@ -165,7 +165,7 @@ public function when_a_config_file_is_present_users_can_choose_to_not_overwrite_
     $command->expectsOutput('Existing configuration was not overwritten');
 
     // Assert that the original contents of the config file remain
-    $this->assertEquals(file_get_contents(config_path('blogpackage.php')), 'test contents');
+    $this->assertEquals('test contents', file_get_contents(config_path('blogpackage.php')));
 
     // Clean up
     unlink(config_path('blogpackage.php'));
@@ -192,8 +192,8 @@ public function when_a_config_file_is_present_users_can_choose_to_do_overwrite_i
 
     // Assert that the original contents are overwritten
     $this->assertEquals(
-        file_get_contents(config_path('blogpackage.php')),
-        file_get_contents(__DIR__.'/../config/config.php')
+        file_get_contents(__DIR__.'/../config/config.php'),
+        file_get_contents(config_path('blogpackage.php'))
     );
 
     // Clean up
