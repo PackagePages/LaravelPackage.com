@@ -102,3 +102,16 @@ To automatically register it with a Laravel project using Laravel's package auto
 ```
 
 Now, whenever someone includes our package, the service provider will be loaded, and everything we've registered will be available in the application. Now let's see what we might want to register in this service provider.
+
+**Important**: this feature is available starting from Laravel 5.5. With version 5.4 or below, you must register your service providers manually in the providers section of the `config/app.php` configuration file.
+
+```php
+// 'config/app.php'
+<?php
+
+'providers' => [
+    // Other Service Providers
+
+    App\Providers\ComposerServiceProvider::class,
+],
+```
