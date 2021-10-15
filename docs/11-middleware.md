@@ -171,11 +171,10 @@ If we want our capitalization check example to be applied globally, we can appen
 use Illuminate\Contracts\Http\Kernel;
 use JohnDoe\BlogPackage\Http\Middleware\CapitalizeTitle;
 
-public function boot()
+public function boot(Kernel $kernel)
 {
   // other things ...
 
-  $kernel = $this->app->make(Kernel::class);
   $kernel->pushMiddleware(CapitalizeTitle::class);
 }
 ```
