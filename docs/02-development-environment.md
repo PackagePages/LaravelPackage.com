@@ -140,6 +140,22 @@ You can now require your local package in the Laravel application using your cho
 composer require johndoe/blogpackage
 ```
 
+By default, the package is added under `vendor` folder as a symlink if possible. If you would like to make a physical copy instead (i.e. _mirroring_), add the field `"symlink": false` to the repository definition:
+
+```json
+{
+  "scripts": { ... },
+
+  "repositories": [
+    {
+      "type": "path",
+      "url": "../../packages/blogpackage",
+      "symlink": "false"
+    }
+  ]
+}
+```
+
 If you have multiple packages in the same directory and want to instruct Composer to look for all of them, you can list the package location by using a wildcard `*` as follows:
 
 ```json
@@ -156,6 +172,8 @@ If you have multiple packages in the same directory and want to instruct Compose
 ```
 
 **Important:** you will need to perform a composer update in your Laravel application whenever you make changes to the `composer.json` file of your package or any providers it registers.
+
+
 
 ## Orchestra Testbench
 
