@@ -105,6 +105,27 @@ public function boot()
 }
 ```
 
+## Scheduling a Command in the Service Provider
+
+If you want to schedule a command from your package instead of `app/Console/Kernel.php`, inside your service provider, you need to wait until after the Application has booted and the Schedule instance has been defined:
+
+```php
+// 'BlogPackageServiceProvider.php'
+
+use Illuminate\Console\Scheduling\Schedule;
+
+public function boot()
+{
+    // Schedule the command if we are using the application via the CLI
+    if ($this->app->runningInConsole()) {
+        $this->app->booted(function () {
+            $schedule = $this->app->make(Schedule::class);
+            $schedule->command('some:command')->everyMinute();
+        });
+    }
+}
+```
+
 ## Testing a Command
 
 To test that our Command class works, let's create a new unit test called `InstallBlogPackageTest.php` in the Unit test folder.
