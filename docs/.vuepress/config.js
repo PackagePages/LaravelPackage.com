@@ -28,8 +28,10 @@ module.exports = {
     editLinks: true,
     editLinkText: 'Improve this page (submit a PR)',
     domain: 'https://www.laravelpackage.com',
-    algolia: {
-      apiKey: '4f61e9652014585bf63f5a1ff4dd5617',
+    docsearch: {
+      container: '#docsearch',
+      appId: process.env.DOCSEARCH_APP_ID,
+      apiKey: process.env.DOCSEARCH_KEY,
       indexName: 'laravelpackage'
     },
     nav: [
