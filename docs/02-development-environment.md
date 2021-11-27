@@ -53,7 +53,7 @@ An example `composer.json` is highlighted below.
 
 Alternatively, you can create your `composer.json` file by running `composer init` in your empty package directory.
 
-If you're planning to **publish** the package, it is important to choose an appropriate package type (in our case, a "library") and license (e.g., "MIT"). Learn more about open source licenses at [ChooseALicense.com](https://choosealicense.com/).
+If you're planning to **publish** the package, it is important to choose an appropriate package [type](https://getcomposer.org/doc/04-schema.md#type) (in our case, a "library") and license (e.g., "MIT"). Learn more about open source licenses at [ChooseALicense.com](https://choosealicense.com/).
 
 ## Namespacing
 
