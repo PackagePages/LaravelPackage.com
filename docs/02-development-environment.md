@@ -140,7 +140,7 @@ You can now require your local package in the Laravel application using your cho
 composer require johndoe/blogpackage
 ```
 
-By default, the package is added under `vendor` folder as a symlink if possible. If you would like to make a physical copy instead (i.e. _mirroring_), add the field `"symlink": false` to the repository definition:
+By default, the package is added under `vendor` folder as a symlink if possible. If you would like to make a physical copy instead (i.e. _mirroring_), add the field `"symlink": false` to the repository definition's `options` property:
 
 ```json
 {
@@ -150,7 +150,9 @@ By default, the package is added under `vendor` folder as a symlink if possible.
     {
       "type": "path",
       "url": "../../packages/blogpackage",
-      "symlink": "false"
+      "options": {
+        "symlink": false
+      }
     }
   ]
 }
