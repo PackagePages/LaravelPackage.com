@@ -175,8 +175,6 @@ If you have multiple packages in the same directory and want to instruct Compose
 
 **Important:** you will need to perform a composer update in your Laravel application whenever you make changes to the `composer.json` file of your package or any providers it registers.
 
-
-
 ## Orchestra Testbench
 
 We now have a `composer.json` file and an empty src/ directory. However, we don't have access to any Laravel specific functionality provided by the `Illuminate` components.

@@ -6,6 +6,8 @@ image: "https://www.laravelpackage.com/assets/pages/laravelpackage.jpeg"
 date: 2019-09-17
 ---
 
+<toggleDarkMode/>
+
 # Introduction to Package Development
 
 In my experience, learning to develop a package for Laravel can be quite challenging, which is why I previously wrote [a blog series about that](https://johnbraun.blog/posts/creating-a-laravel-package-1).

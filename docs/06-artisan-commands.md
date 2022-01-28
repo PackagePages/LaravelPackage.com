@@ -208,8 +208,8 @@ public function when_a_config_file_is_present_users_can_choose_to_do_overwrite_i
         // When answered with "yes"
         'yes'
     );
-    
-    // execute the command to force override 
+
+    // execute the command to force override
     $command->execute();
 
     $command->expectsOutput('Overwriting configuration file...');
