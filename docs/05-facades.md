@@ -6,6 +6,8 @@ image: "https://www.laravelpackage.com/assets/pages/laravelpackage.jpeg"
 date: 2019-09-17
 ---
 
+<toggleDarkMode/>
+
 # Facades
 
 The word 'facade' refers to a "superficial appearance or illusion of something," according to [Dictionary.com](https://www.dictionary.com/browse/facade). In architecture, the term refers to the front of a building.

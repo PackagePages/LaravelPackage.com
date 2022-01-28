@@ -6,6 +6,8 @@ image: "https://www.laravelpackage.com/assets/pages/laravelpackage.jpeg"
 date: 2019-09-17
 ---
 
+<toggleDarkMode/>
+
 # Models & Migrations
 
 There are scenarios where you'll need to ship one or more Eloquent models with your package. For example, when you're developing a Blog related package that includes a `Post` model.

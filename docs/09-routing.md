@@ -15,6 +15,8 @@ image: "https://www.laravelpackage.com/assets/pages/laravelpackage.jpeg"
 date: 2019-09-17
 ---
 
+<toggleDarkMode/>
+
 # Routing
 
 Sometimes you want to expose additional routes to the end-user of your package.

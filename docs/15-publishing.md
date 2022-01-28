@@ -6,6 +6,8 @@ image: "https://www.laravelpackage.com/assets/pages/laravelpackage.jpeg"
 date: 2019-09-17
 ---
 
+<toggleDarkMode/>
+
 # Publishing
 
 Once satisfied with its functionality, you might want to share your package with a broader audience. This section will explain how to publish your package to the [Packagist](https://packagist.org) repository.

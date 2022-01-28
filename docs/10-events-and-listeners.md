@@ -6,6 +6,8 @@ image: "https://www.laravelpackage.com/assets/pages/laravelpackage.jpeg"
 date: 2019-09-17
 ---
 
+<toggleDarkMode/>
+
 # Events & Listeners
 
 Your package may want to offer support for hooking into Laravel's Events and Listeners.

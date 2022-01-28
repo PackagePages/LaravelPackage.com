@@ -6,6 +6,8 @@ image: "https://www.laravelpackage.com/assets/pages/laravelpackage.jpeg"
 date: 2019-09-17
 ---
 
+<toggleDarkMode/>
+
 # Artisan Commands
 
 Laravel ships with an executable `artisan` file, which offers a number of helpful commands through a command-line interface (CLI).

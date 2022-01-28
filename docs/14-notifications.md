@@ -6,6 +6,8 @@ image: "https://www.laravelpackage.com/assets/pages/laravelpackage.jpeg"
 date: 2019-09-17
 ---
 
+<toggleDarkMode/>
+
 # Notifications
 
 Notifications are a powerful tool in Laravel's toolbox. They provide support for sending notifications to an array of different services, including mail, SMS, Slack, or storing them in your database to show on the user's profile page, for example.

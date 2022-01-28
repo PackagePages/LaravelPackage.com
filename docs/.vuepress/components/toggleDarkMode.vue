@@ -118,6 +118,9 @@ body.dark-mode h3 {
 body.dark-mode .header-anchor {
   color: #ff6978;
 }
+body.dark-mode table {
+  background: #ffffff;
+}
 body.dark-mode p > a {
   color: #f23548;
 }

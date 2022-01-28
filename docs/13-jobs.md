@@ -6,6 +6,8 @@ image: "https://www.laravelpackage.com/assets/pages/laravelpackage.jpeg"
 date: 2019-09-17
 ---
 
+<toggleDarkMode/>
+
 # Jobs
 
 Much like the Mail facade in the previous section, implementing Jobs in your package is very similar to the workflow you'd go through in a Laravel application.

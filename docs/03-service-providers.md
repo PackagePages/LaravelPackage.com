@@ -6,6 +6,8 @@ image: "https://www.laravelpackage.com/assets/pages/laravelpackage.jpeg"
 date: 2019-09-17
 ---
 
+<toggleDarkMode/>
+
 # Service Providers
 
 An essential part of a package is its **Service Provider**. Before creating our own, I'll explain what service providers are about in this section first. If you are familiar with the service providers, please continue to the next section.

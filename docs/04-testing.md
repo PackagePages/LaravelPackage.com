@@ -6,6 +6,8 @@ image: "https://www.laravelpackage.com/assets/pages/laravelpackage.jpeg"
 date: 2019-09-17
 ---
 
+<toggleDarkMode/>
+
 # Testing
 
 It is essential to have proper test coverage for the package's provided code. Adding tests to our package can confirm the existing code's behavior, verify everything still works whenever adding new functionality, and ensure we can safely refactor our package with confidence at a later stage.

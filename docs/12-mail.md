@@ -6,6 +6,8 @@ image: "https://www.laravelpackage.com/assets/pages/laravelpackage.jpeg"
 date: 2019-09-17
 ---
 
+<toggleDarkMode/>
+
 # Mail
 
 Using e-mails in your package works very much the same as in a normal Laravel application. However, in your package, you need to make sure you are loading a `views` directory from your package (or the end-user's exported version of it).

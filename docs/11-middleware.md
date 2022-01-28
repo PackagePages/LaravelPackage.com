@@ -15,6 +15,8 @@ image: "https://www.laravelpackage.com/assets/pages/laravelpackage.jpeg"
 date: 2019-09-17
 ---
 
+<toggleDarkMode/>
+
 # Middleware
 
 If we look at an incoming HTTP request, this request is processed by Laravel's `index.php` file and sent through a series of pipelines. These include a series of ('before') middleware, where each will act on the incoming request before it eventually reaches the core of the application. A response is prepared from the application core, which is post-modified by all registered 'after' middleware before returning the response.
