@@ -16,13 +16,15 @@ export default {
       const navbar = document.getElementsByClassName("navbar");
       const sidebar = document.body.getElementsByTagName("aside");
       const footer = document.getElementsByTagName("footer");
-      const pagenav = document.getElementsByClassName("next");
+      const next = document.getElementsByClassName("next");
+      const prev = document.getElementsByClassName("prev");
 
       body.classList.toggle("dark-mode");
       navbar[0].classList.toggle("dark-mode");
       sidebar[0].classList.toggle("dark-mode");
       footer[0].classList.toggle("dark-mode");
-      pagenav[0].classList.toggle("dark-mode");
+      next[0].classList.toggle("dark-mode");
+      prev[0].classList.toggle("dark-mode");
       //If dark mode is selected
       if (body.classList.contains("dark-mode")) {
         //Save user preference in storage
@@ -33,7 +35,8 @@ export default {
         navbar[0].classList.remove("dark-mode");
         sidebar[0].classList.remove("dark-mode");
         footer[0].classList.remove("dark-mode");
-        pagenav[0].classList.remove("dark-mode");
+        next[0].classList.remove("dark-mode");
+        prev[0].classList.remove("dark-mode");
         setTimeout(function () {
           localStorage.removeItem("dark-theme");
         }, 100);
@@ -43,14 +46,16 @@ export default {
       const navbar = document.getElementsByClassName("navbar");
       const sidebar = document.body.getElementsByTagName("aside");
       const footer = document.getElementsByTagName("footer");
-      const pagnav = document.getElementsByClassName("next");
+      const next = document.getElementsByClassName("next");
+      const prev = document.getElementsByClassName("prev");
       //Check Storage on Page load. Keep user preference through sessions
       if (localStorage.getItem("dark-theme")) {
         document.body.classList.add("dark-mode");
         navbar[0].classList.add("dark-mode");
         sidebar[0].classList.add("dark-mode");
         footer[0].classList.add("dark-mode");
-        pagnav[0].classList.add("dark-mode");
+        next[0].classList.add("dark-mode");
+        prev[0].classList.add("dark-mode");
         document.getElementById("theme-toggle").checked = true;
       }
     },
@@ -118,7 +123,7 @@ body.dark-mode h3 {
 body.dark-mode .header-anchor {
   color: #ff6978;
 }
-body.dark-mode table {
+body.dark-mode table > tbody, body.dark-mode table > thead {
   background: #ffffff;
 }
 body.dark-mode p > a {
