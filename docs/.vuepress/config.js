@@ -27,6 +27,8 @@ module.exports = {
     docsDir: 'docs',
     editLinks: true,
     editLinkText: 'Improve this page (submit a PR)',
+    contributors: false,
+    lastUpdated: false,
     domain: 'https://www.laravelpackage.com',
     docsearch: {
       container: '#docsearch',
@@ -34,11 +36,11 @@ module.exports = {
       apiKey: process.env.DOCSEARCH_KEY,
       indexName: 'laravelpackage'
     },
-    nav: [
+    navbar: [
       {
         text: 'Laravel 8.x',
         ariaLabel: 'Version Menu',
-        items: [
+        children: [
           { text: 'Laravel 6.x - 7.x', link: 'https://v6-v7.laravelpackage.com', target:'_self', rel: false}
         ]
       },
@@ -47,7 +49,7 @@ module.exports = {
         link: 'https://johnbraun.blog/'
       },
     ],
-    displayAllHeaders: true,
+    // displayAllHeaders: true,
     sidebar: [
       '/',
       '/01-the-basics',
@@ -81,10 +83,21 @@ module.exports = {
         publishedAt: $page => $page.frontmatter.date && new Date($page.frontmatter.date),
         modifiedAt: $page => $page.lastUpdated && new Date($page.lastUpdated),
     }],
-    '@vuepress/last-updated',
-    ['@vuepress/pwa', {
-      serviceWorker: true,
-      updatePopup: true
-    }]
+    [
+        '@vuepress/pwa',
+        {
+            serviceWorker: true,
+            updatePopup: true
+        }
+    ],
+    [
+        '@vuepress/docsearch',
+        {
+            container: '#docsearch',
+            appId: process.env.DOCSEARCH_APP_ID,
+            apiKey: process.env.DOCSEARCH_KEY,
+            indexName: 'laravelpackage'
+        }
+    ],
   ]
 }
