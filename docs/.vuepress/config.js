@@ -20,6 +20,7 @@ module.exports = {
   themeConfig: {
     logo: '/laravel-package-logo.png',
     repo: 'Jhnbrn90/LaravelPackage.com',
+    docsBranch: 'master',
     author: {
         'name': 'John Braun',
         'twitter': '@jhnbrn90'
