@@ -153,3 +153,23 @@ Before we can run the PHPUnit test suite, we first need to map our testing names
 ```
 
 Finally, re-render the autoload file by running `composer dump-autoload`.
+
+## Authentication
+
+In some cases maybe you need to use `User::class` to be able to use an authenticated user, for this purpose you should create your own `User` class in a general file or in a specific test class:
+
+```php
+use Illuminate\Foundation\Auth\User as BaseUser;
+
+class User extends BaseUser
+{
+    protected $table = 'users';
+}
+```
+After that you should execute migrate command from the `Orchestra` package to create the `users` table in your test database:
+
+```php
+$this->loadLaravelMigrations(['--database' => 'testbench']);
+$this->artisan('migrate', ['--database' => 'testbench'])->run();
+```
+Then you can use your `User::class` in `actingAs` and send a request by an authenticated user.
