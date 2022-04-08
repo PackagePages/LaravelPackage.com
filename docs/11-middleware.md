@@ -177,7 +177,7 @@ If we want our capitalization check example to be applied globally, we can appen
 
 ```php
 // 'BlogPackageServiceProvider.php'
-use Illuminate\Foundation\Http\Kernel;
+use Illuminate\Contracts\Http\Kernel;
 use JohnDoe\BlogPackage\Http\Middleware\CapitalizeTitle;
 
 public function boot(Kernel $kernel)
