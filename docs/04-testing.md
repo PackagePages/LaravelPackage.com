@@ -22,7 +22,7 @@ Install PHPUnit as a dev-dependency in our package:
 composer require --dev phpunit/phpunit
 ```
 
-**Note:** you might need to install a specific version if you're developing a package for an older version of Laravel.
+**Note:** you might need to install a specific version if you're developing a package for an older version of Laravel. Also to install `orchestra/testbench`, please refer to [Orchestra Testbench](https://laravelpackage.com/02-development-environment.html#orchestra-testbench) set up on the [Development Environment](https://laravelpackage.com/02-development-environment.html) page.
 
 To configure PHPUnit, create a `phpunit.xml` file in the root directory of the package.
 Then, copy the following template to use an in-memory sqlite database and enable colorful reporting.
