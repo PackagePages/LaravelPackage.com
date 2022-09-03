@@ -156,7 +156,8 @@ Finally, re-render the autoload file by running `composer dump-autoload`.
 
 ## Authentication
 
-In some cases maybe you need to use `User::class` to be able to use an authenticated user, for this purpose you should create your own `User` class in a general file or in a specific test class:
+In some cases you might want to use Laravel's `User::class` to be able to use an authenticated user in your tests.
+There are several approaches, as discussed in the [Models related to App\User](https://laravelpackage.com/08-models-and-migrations.html#models-related-to-app-user) section. However, if you don't have any relationships with the `User` model, and only want to test authentication logic, the easiest option is to create your own `User` class, extending the `Illuminate\Foundation\Auth\User` class:
 
 ```php
 use Illuminate\Foundation\Auth\User as BaseUser;
@@ -166,10 +167,10 @@ class User extends BaseUser
     protected $table = 'users';
 }
 ```
-After that you should execute migrate command from the `Orchestra` package to create the `users` table in your test database:
+After defining this custom `User` model within your package, you should execute the migrate command from the `Orchestra` package to create the `users` table in your test database:
 
 ```php
 $this->loadLaravelMigrations(['--database' => 'testbench']);
 $this->artisan('migrate', ['--database' => 'testbench'])->run();
 ```
-Then you can use your `User::class` in `actingAs` and send a request by an authenticated user.
+Finally, you can use the package's `User::class` in your tests within the `$this->actingAs()` helper and send a request by an authenticated user.
