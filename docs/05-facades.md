@@ -32,7 +32,7 @@ Practically, it boils down to calling static methods on a Facade, which are "pro
 
 Let’s assume that we provide a `Calculator` class as part of our package and want to make this class available as a facade.
 
-First create a `Calculator.php` file in the `src/` directory. To keep things simple, the calculator provides an `add()`, `subtract()` and `clear()` method. All methods return the object itself allowing for a fluent API (chaining the method calls, like: `->add()->subtract()->subtract()->result()`).
+First create a `Calculator.php` file in the `src/` directory. To keep things simple, the calculator provides an `add()`, `subtract()` and `clear()` method. All methods return the object itself allowing for a fluent API (chaining the method calls, like: `->add()->subtract()->subtract()->getResult()`).
 
 ```php
 // 'src/Calculator.php'
