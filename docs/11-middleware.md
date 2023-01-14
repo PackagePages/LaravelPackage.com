@@ -237,15 +237,15 @@ To do so, tell the router to _push_ the middleware to a specific group (in this 
 
 ```php
 // 'BlogPackageServiceProvider.php'
-use Illuminate\Routing\Router;
+use Illuminate\Contracts\Http\Kernel;
 use JohnDoe\BlogPackage\Http\Middleware\CapitalizeTitle;
 
-public function boot()
+public function boot(Kernel $kernel)
 {
   // other things ...
 
-  $router = $this->app->make(Router::class);
-  $router->pushMiddlewareToGroup('web', CapitalizeTitle::class);
+  $kernel->prependMiddlewareToGroup('web', CapitalizeTitle::class); // Add it before all other middlewares
+  $kernel->appendMiddlewareToGroup('web', CapitalizeTitle::class); // Add it after all other middlewares
 }
 ```
 
