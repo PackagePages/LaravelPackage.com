@@ -223,7 +223,7 @@ function the_title_of_a_post_is_updated_whenever_a_post_is_created()
 
     $post = Post::first();
 
-   $this->assertEquals('New: ' . 'A valid title', $post->title);
+    $this->assertEquals('New: ' . 'A valid title', $post->title);
 }
 ```
 
