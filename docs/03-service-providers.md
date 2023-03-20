@@ -8,7 +8,7 @@ date: 2019-09-17
 
 # Service Providers
 
-An essential part of a package is its **Service Provider**. Before creating our own, I'll explain what service providers are about in this section first. If you are familiar with the service providers, please continue to the next section.
+An essential part of a package is its **Service Provider**. Before creating our own, I'll explain what service providers are about in this section first. If you are familiar with service providers, please continue to the next section.
 
 As you might know, Laravel comes with a series of service providers, namely the `AppServiceProvider`, `AuthServiceProvider`, `BroadcastServiceProvider`, `EventServiceProvider` and `RouteServiceProvider`. These providers take care of "bootstrapping" (or "registering") application-specific services (as service container bindings), event listeners, middleware, and routes.
 
