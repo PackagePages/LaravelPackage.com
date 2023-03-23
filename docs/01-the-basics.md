@@ -41,4 +41,4 @@ LICENSE
 composer.json
 ```
 
-In a package, all code that would live in the `app/` directory of a Laravel application will live in the `src/` directory when working with a package.
+In a package, all code that would ordinarily live in the `app/` directory of a Laravel application will live in the `src/` directory of your package.
