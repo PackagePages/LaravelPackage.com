@@ -18,9 +18,8 @@ The e-mail template can be in either **markdown** or **blade** template format, 
 
 First, add a new `Mail` folder in the `src/` directory, which will contain your mailables. Let's call it `WelcomeMail.php` mailable. Since we've been working with a `Post` model in the previous sections, let's accept that model in the constructor and assign it to a **public** `$post` property on the mailable.
 
-```php
+```php title="src/Mail/WelcomeMail.php"
 <?php
-// 'src/Mail/WelcomeMail.php'
 
 namespace JohnDoe\BlogPackage\Mail;
 
@@ -53,8 +52,9 @@ In the call to the mailable's `view()` method we've specified the string `emails
 
 To specify a view directory, you need to add the `$this->loadViews()` call to your package's **service provider** in the `boot()` method. View files can be referenced by the specified namespace, in this example, 'blogpackage'. **Note: if you're following along since the section about **Routing**, you've already done this.**
 
-```php
-// 'BlogPackageServiceProvider.php'
+```php title="BlogPackageServiceProvider.php"
+<?php
+
 public function boot()
 {
   // ... other things
@@ -68,8 +68,7 @@ This will look for views in the `resources/views` directory in the root of your 
 
 Create the `welcome.blade.php` file in the `resources/views/emails` directory, where the `$post` variable will be freely available to use in the template.
 
-```
-// 'resources/views/emails/welcome.blade.php'
+```html title="resources/views/emails/welcome.blade.php"
 <p>
 Dear reader,
 

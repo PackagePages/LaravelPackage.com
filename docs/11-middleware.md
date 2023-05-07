@@ -53,8 +53,7 @@ As an illustration of a before middleware, let's add a middleware that capitaliz
 
 Add a file called `CapitalizeTitle.php` which provides a `handle()` method accepting both the current request and a `$next` action:
 
-```php
-// 'src/Http/Middleware/CapitalizeTitle.php'
+```php title="src/Http/Middleware/CapitalizeTitle.php"
 <?php
 
 namespace JohnDoe\BlogPackage\Http\Middleware;
@@ -82,8 +81,7 @@ Although we haven't _registered_ the middleware yet, and it will not be used in 
 
 Add a new `CapitalizeTitleMiddlewareTest.php` unit test in the `tests/Unit` directory. In this test, we'll assert that a title parameter on a `Request()` will contain the capitalized string after the middleware ran its `handle()` method:
 
-```php
-// 'tests/Unit/CapitalizeMiddlewareTest.php'
+```php title="tests/Unit/CapitalizeMiddlewareTest.php"
 <?php
 
 namespace JohnDoe\BlogPackage\Tests\Unit;
@@ -140,8 +138,7 @@ class AfterMiddleware
 
 Similar to _before middleware_, we can unit test _after middleware_ that operate on the `Response` for a given request and modify this request before it is passed down to the next layer of middleware. Given that we have an `InjectHelloWorld` middleware that injects the string 'Hello World' in each response, the following test would assert correct behavior:
 
-```php
-// 'tests/Unit/InjectHelloWorldMiddlewareTest.php'
+```php title="tests/Unit/InjectHelloWorldMiddlewareTest.php"
 <?php
 
 namespace JohnDoe\BlogPackage\Tests\Unit;
@@ -175,8 +172,9 @@ Global middleware is, as the name implies, globally applied. Each request will p
 
 If we want our capitalization check example to be applied globally, we can append this middleware to the `Http\Kernel` from our package's service provider. Make sure to import the _Http Kernel_ contract, not the _Console Kernel_ contract:
 
-```php
-// 'BlogPackageServiceProvider.php'
+```php title="BlogPackageServiceProvider.php"
+<?php
+
 use Illuminate\Contracts\Http\Kernel;
 use JohnDoe\BlogPackage\Http\Middleware\CapitalizeTitle;
 
@@ -200,8 +198,9 @@ Therefore, we can register an alias to this middleware in the resolved Router cl
 
 Here's how to register the `capitalize` alias for this middleware:
 
-```php
-// 'BlogPackageServiceProvider.php'
+```php title="BlogPackageServiceProvider.php"
+<?php
+
 use Illuminate\Routing\Router;
 use JohnDoe\BlogPackage\Http\Middleware\CapitalizeTitle;
 
@@ -216,8 +215,9 @@ public function boot()
 
 We can apply this middleware from within our controller by requiring it from the constructor:
 
-```php
-// 'src/Http/Controllers/PostController.php'
+```php title="src/Http/Controllers/PostController.php"
+<?php
+
 class PostController extends Controller
 {
     public function __construct()
@@ -235,8 +235,9 @@ Additionally, we can push our middleware to certain groups, like `web` or `api`,
 
 To do so, tell the router to _push_ the middleware to a specific group (in this example, `web`):
 
-```php
-// 'BlogPackageServiceProvider.php'
+```php title="BlogPackageServiceProvider.php"
+<?php
+
 use Illuminate\Contracts\Http\Kernel;
 use JohnDoe\BlogPackage\Http\Middleware\CapitalizeTitle;
 
@@ -257,8 +258,9 @@ Regardless of whether we registered the middleware globally or route specificall
 
 Add a new test to the `CreatePostTest` feature test, in which we'll assume our non-capitalized title will be capitalized after the request has been made.
 
-```php
-// 'tests/Feature/CreatePostTest.php'
+```php title="tests/Feature/CreatePostTest.php"
+<?php
+
 /** @test */
 function creating_a_post_will_capitalize_the_title()
 {

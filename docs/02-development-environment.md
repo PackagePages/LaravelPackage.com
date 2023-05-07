@@ -35,7 +35,7 @@ It is best to be consistent with naming your packages. The standard convention i
 
 An example `composer.json` is highlighted below.
 
-```json
+```json title="composer.json"
 {
   "name": "johndoe/blogpackage",
   "description": "A demo package",
@@ -61,7 +61,7 @@ Since we want to use the (conventional) `src/` directory to store our code, we n
 
 We can register our namespace under the "psr-4" autoload key in the `composer.json` file as follows (replace the namespace with your own):
 
-```json
+```json title="composer.json"
 {
   ...,
 
@@ -121,7 +121,7 @@ If you have a local Laravel project, you can require your package locally by def
 
 Add the following "repositories" key below the "scripts" section in `composer.json` file of your Laravel app (replace the "url" with the directory where your package lives):
 
-```json
+```json title="composer.json"
 {
   "scripts": { ... },
 
@@ -142,7 +142,7 @@ composer require johndoe/blogpackage
 
 By default, the package is added under `vendor` folder as a symlink if possible. If you would like to make a physical copy instead (i.e. _mirroring_), add the field `"symlink": false` to the repository definition's `options` property:
 
-```json
+```json title="composer.json"
 {
   "scripts": { ... },
 
@@ -160,7 +160,7 @@ By default, the package is added under `vendor` folder as a symlink if possible.
 
 If you have multiple packages in the same directory and want to instruct Composer to look for all of them, you can list the package location by using a wildcard `*` as follows:
 
-```json
+```json title="composer.json"
 {
   "scripts": { ... },
 
@@ -202,8 +202,9 @@ With Orchestra Testbench installed, you'll find a `vendor/orchestra/testbench-co
 
 Before each test, TestBench creates a testing environment including a fully booted (test) application. If we use the Orchestra TestBench's basic `TestCase` for our tests, the methods as provided by the `CreatesApplication` trait in the `Orchestra\Testbench\Concerns` namespace will be responsible for creating this test application. If we look at one of these methods, `getBasePath()`, we'll see it directly points to the `laravel` folder that comes with Orchestra Testbench.
 
-```php
-// 'vendor/orchestra/testbench-core/src/Concerns/CreatesApplication.php'
+```php title="vendor/orchestra/testbench-core/src/Concerns/CreatesApplication.php"
+<?php
+
 /**
  * Get base path.
  *
