@@ -14,7 +14,7 @@ If you haven't already pushed your local git repository to a repository host (Gi
 
 Given the example below, consumers would be able to require the package using `composer require johndoe/blogpackage` and find the corresponding repository at (if using GitHub) `github.com/johndoe/blogpackage`.
 
-```json
+```json title="composer.json"
 {
   "name": "johndoe/blogpackage",
   "description": "A demo package",

@@ -16,8 +16,7 @@ This chapter will cover how to provide Eloquent models within your package, incl
 
 Models in our package do not differ from models we would use in a standard Laravel application. Since we required the **Orchestra Testbench**, we can create a model extending the Laravel Eloquent model and save it within the `src/Models` directory:
 
-```php
-// 'src/Models/Post.php'
+```php title="src/Models/Post.php"
 <?php
 
 namespace JohnDoe\BlogPackage\Models;
@@ -48,8 +47,7 @@ Migrations live in the `database/migrations` folder in a Laravel application. In
 
 After you’ve generated a migration, copy it from your “dummy” Laravel application to the package’s `database/migrations` folder.
 
-```php
-// 'database/migrations/2018_08_08_100000_create_posts_table.php'
+```php title="database/migrations/2018_08_08_100000_create_posts_table.php"
 <?php
 
 use Illuminate\Database\Migrations\Migration;
@@ -98,6 +96,8 @@ In this approach, it is conventional to use a "stubbed" migration. This stub is 
 Next, we can implement exporting the migration(s) as follows:
 
 ```php
+<?php
+
 class BlogPackageServiceProvider extends ServiceProvider
 {
   public function boot()
@@ -128,6 +128,8 @@ php artisan vendor:publish --provider="JohnDoe\BlogPackage\BlogPackageServicePro
 While the method described above gives full control over which migrations are published, Laravel offers an alternative approach making use of the `loadMigrationsFrom` helper ([see docs](https://laravel.com/docs/packages#migrations)). By specifying a migrations directory in the package's service provider, all migrations will be executed when the end-user executes `php artisan migrate` from within their Laravel application.
 
 ```php
+<?php
+
 class BlogPackageServiceProvider extends ServiceProvider
 {
   public function boot()
@@ -147,8 +149,7 @@ As we create an example test, we will follow some of the basics of test-driven-d
 
 Now that we’ve set up **PHPunit**, let’s create a unit test for our Post model in the `tests/Unit` directory called `PostTest.php`. Let's write a test that verifies a `Post` has a title:
 
-```php
-// 'tests/Unit/PostTest.php'
+```php title="tests/Unit/PostTest.php"
 <?php
 
 namespace JohnDoe\BlogPackage\Tests\Unit;
@@ -176,7 +177,7 @@ Note: we're using the `RefreshDatabase` trait to be sure that we start with a cl
 
 We can run our test suite by calling the PHPUnit binary in our vendor directory using `./vendor/bin/phpunit`. However, let’s alias this to `test` in our `composer.json` file by adding a “script”:
 
-```json
+```json title="composer.json"
 {
   ...,
 
@@ -203,8 +204,7 @@ The abovementioned error tells us that we need to create a model factory for the
 
 Let’s create a `PostFactory` in the `database/factories` folder:
 
-```php
-// 'database/factories/PostFactory.php'
+```php title="database/factories/PostFactory.php"
 <?php
 
 namespace JohnDoe\BlogPackage\Database\Factories;
@@ -228,7 +228,7 @@ class PostFactory extends Factory
 
 As with the `src` folder, for our package users to be able to use our model factories, we'll need to register the `database/factories` folder within a namespace in our `composer.json` file:
 
-```json
+```json title="composer.json"
 {
   ...,
   "autoload": {
@@ -254,8 +254,8 @@ Error: Class 'Database\Factories\JohnDoe\BlogPackage\Models\PostFactory' not fou
 The abovementioned error is caused by Laravel, which tries to resolve the Model class for our `PostFactory` assuming the default namespaces of a usual project (as of version 8.x, `App` or `App\Models`).
 To be able to instantiate the right Model from our package with the `Post::factory()` method, we need to add the following method to our `Post` Model:
 
-```php
-// 'src/Models/Post.php'
+```php title="src/Models/Post.php"
+<?php
 
 protected static function newFactory()
 {
@@ -267,8 +267,8 @@ However, the tests will still fail since we haven’t created the `posts` table 
 
 Let’s load the migrations in the `getEnvironmentSetUp()` method of our `TestCase`:
 
-```php
-// 'tests/TestCase.php'
+```php title="tests/TestCase.php"
+<?php
 
 public function getEnvironmentSetUp($app)
 {
@@ -282,8 +282,9 @@ public function getEnvironmentSetUp($app)
 
 Now, running the tests again will lead to the expected error of no ‘title’ column being present on the ‘posts’ table. Let’s fix that in the `create_posts_table.php.stub` migration:
 
-```php
-// 'database/migrations/create_posts_table.php.stub'
+```php title="database/migrations/create_posts_table.php.stub"
+<?php
+
 Schema::create('posts', function (Blueprint $table) {
     $table->id();
     $table->string('title');
@@ -298,8 +299,9 @@ After running the test, you should see it passing.
 
 Let’s add tests for the “body” and “author_id”:
 
-```php
-// 'tests/Unit/PostTest.php'
+```php title="tests/Unit/PostTest.php"
+<?php
+
 class PostTest extends TestCase
 {
   use RefreshDatabase;
@@ -332,8 +334,7 @@ You can continue driving this out with TDD on your own, running the tests, expos
 
 Eventually you’ll end up with a model factory and migration as follows:
 
-```php
-// 'database/factories/PostFactory.php'
+```php title="database/factories/PostFactory.php"
 <?php
 
 namespace JohnDoe\BlogPackage\Database\Factories;
@@ -359,8 +360,8 @@ class PostFactory extends Factory
 
 For now, we hard-coded the ‘author_id’. In the next section, we'll see how we could whip up a relationship with a `User` model.
 
-```php
-// 'database/migrations/create_posts_table.php.stub'
+```php title="database/migrations/create_posts_table.php.stub"
+<?php
 
 Schema::create('posts', function (Blueprint $table) {
     $table->id();
@@ -386,6 +387,8 @@ If you simply want to create a relationship between **authenticated users** and 
 If you just want to target the Eloquent model that is responsible for the authentication, create a `belongsToMany` relationship on the `Post` model as follows:
 
 ```php
+<?php
+
 // Post model
 class Post extends Model
 {
@@ -407,6 +410,8 @@ Let’s compare the standard and polymorphic relationships.
 Definition of a standard one-to-many relationship:
 
 ```php
+<?php
+
 // Post model
 class Post extends Model
 {
@@ -429,6 +434,8 @@ class User extends Model
 Definition of a polymorphic one-to-many relationship:
 
 ```php
+<?php
+
 // Post model
 class Post extends Model
 {
@@ -453,6 +460,8 @@ class Admin extends Model
 After adding this `author()` method to our Post model, we need to update our `create_posts_table_migration.php.stub` file to reflect our polymorphic relationship. Since we named the method “author”, Laravel expects an “author_id” and an “author_type” field. The latter contains a string of the namespaced model we refer to (for example, “App\User”).
 
 ```php
+<?php
+
 Schema::create('posts', function (Blueprint $table) {
     $table->id();
     $table->string('title');
@@ -469,8 +478,7 @@ Now, we need a way to provide our end-user with the option to allow specific mod
 
 Create a `Traits` folder in the `src/` directory and add the following `HasPosts` trait:
 
-```php
-// 'src/Traits/HasPosts.php'
+```php title="src/Traits/HasPosts.php"
 <?php
 
 namespace JohnDoe\BlogPackage\Traits;
@@ -489,6 +497,8 @@ trait HasPosts
 Now the end-user can add a `use HasPosts` statement to any of their models (likely the `User` model), which would automatically register the one-to-many relationship with our `Post` model. This allows creating new posts as follows:
 
 ```php
+<?php
+
 // Given we have a User model, using the HasPosts trait
 $user = User::first();
 
@@ -507,8 +517,7 @@ Therefore, we’ll create a new `User` model, not within the `src/Models/` direc
 
 To create users within our tests we'll need to overwrite the `UserFactory` provided by the Orchestra Testbench package, as shown below.
 
-```php
-// 'tests/UserFactory.php'
+```php title="tests/UserFactory.php"
 <?php
 
 namespace JohnDoe\BlogPackage\Tests;
@@ -539,8 +548,7 @@ class UserFactory extends TestbenchUserFactory
 
 In the `User` model we’ll use the same traits available on the `User` model that ships with a standard Laravel project to stay close to a real-world scenario. Also, we use our own `HasPosts` trait and `UserFactory`:
 
-```php
-// 'tests/User.php'
+```php title="tests/User.php"
 <?php
 
 namespace JohnDoe\BlogPackage\Tests;
@@ -570,8 +578,7 @@ class User extends Model implements AuthorizableContract, AuthenticatableContrac
 
 Now that we have a `User` model, we also need to add a new migration (the standard users table migration that ships with Laravel) to our database`/migrations` as `create_users_table.php.stub`:
 
-```php
-// 'database/migrations/create_users_table.php.stub'
+```php title="database/migrations/create_users_table.php.stub"
 <?php
 
 use Illuminate\Database\Migrations\Migration;
@@ -612,8 +619,9 @@ class CreateUsersTable extends Migration
 
 Also load the migration at the beginning of our tests, by including the migration and performing its `up()` method in our `TestCase`:
 
-```php
-// 'tests/TestCase.php'
+```php title="tests/TestCase.php"
+<?php
+
 public function getEnvironmentSetUp($app)
 {
     include_once __DIR__ . '/../database/migrations/create_posts_table.php.stub';
@@ -629,8 +637,7 @@ public function getEnvironmentSetUp($app)
 
 Now that we can whip up `User` models with our new factory, let’s create a new `User` in our `PostFactory` and then assign it to “author_id” and “author_type”:
 
-```php
-// 'database/factories/PostFactory.php'
+```php title="database/factories/PostFactory.php"
 <?php
 
 namespace JohnDoe\BlogPackage\Database\Factories;
@@ -669,8 +676,9 @@ class PostFactory extends Factory
 
 Next, we update the `Post` unit test to verify an ‘author_type’ can be specified.
 
-```php
-// 'tests/Unit/PostTest.php'
+```php title="tests/Unit/PostTest.php"
+<?php
+
 class PostTest extends TestCase
 {
   // other tests...
@@ -690,8 +698,9 @@ Since we are not creating a new post using a call to a specific route in the app
 
 A Unit test that verifies the desired behavior between a `User` and a `Post` could look as follows:
 
-```php
-// 'tests/Unit/PostTest.php'
+```php title="tests/Unit/PostTest.php"
+<?php
+
 class PostTest extends TestCase
 {
   // other tests...

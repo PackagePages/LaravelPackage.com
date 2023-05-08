@@ -21,6 +21,8 @@ In the `register()` method, you might register a class binding in the service co
 Here is an example of how a service provider may look and which things you might implement in a `register()` and `boot()` method.
 
 ```php
+<?php
+
 use App\Calculator;
 use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\Gate;
@@ -59,8 +61,7 @@ We will create a service provider for our package, which contains specific infor
 
 Since we've pulled in Orchestra Testbench, we can extend the `Illuminate\Support\ServiceProvider` and create our service provider in the `src/` directory as shown (replace naming with your details):
 
-```php
-// 'src/BlogPackageServiceProvider.php'
+```php title="src/BlogPackageServiceProvider.php"
 <?php
 
 namespace JohnDoe\BlogPackage;
@@ -85,7 +86,7 @@ class BlogPackageServiceProvider extends ServiceProvider
 
 To automatically register it with a Laravel project using Laravel's package auto-discovery we add our service provider to the "extra"> "laravel"> "providers" key in our package's `composer.json`:
 
-```json
+```json title="composer.json"
 {
   ...,
 
@@ -105,8 +106,7 @@ Now, whenever someone includes our package, the service provider will be loaded,
 
 **Important**: this feature is available starting from Laravel 5.5. With version 5.4 or below, you must register your service providers manually in the providers section of the `config/app.php` configuration file in your laravel project.
 
-```php
-// 'config/app.php'
+```php title="config/app.php"
 <?php
 
 'providers' => [

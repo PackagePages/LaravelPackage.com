@@ -20,8 +20,7 @@ First, let's emit an event whenever a new `Post` is created via the route we set
 
 In a new `Events` folder in the `src/` directory, create a new `PostWasCreated.php` file. In the `PostWasCreated` event class, we'll accept the created `Post` in the constructor and save it to a _public_ instance variable `$post`.
 
-```php
-// 'src/Events/PostWasCreated.php'
+```php title="src/Events/PostWasCreated.php"
 <?php
 
 namespace JohnDoe\BlogPackage\Events;
@@ -45,8 +44,7 @@ class PostWasCreated
 
 When creating a new `Post` in the `PostController`, we can now emit this event (don't forget to import it):
 
-```php
-// 'src/Http/Controllers/PostController.php'
+```php title="src/Http/Controllers/PostController.php"
 <?php
 
 use JohnDoe\BlogPackage\Events\PostWasCreated;
@@ -70,8 +68,9 @@ class PostController extends Controller
 
 To be sure this event is successfully fired, add a test to our `CreatePostTest` _feature_ test. We can easily fake Laravel's `Event` facade and make assertions (see [Laravel documentation on Fakes](https://laravel.com/docs/mocking#event-fake)) that the event was emitted **and** about the passed `Post` model.
 
-```php
-// 'tests/Feature/CreatePostTest.php'
+```php title="tests/Feature/CreatePostTest.php"
+<?php
+
 use Illuminate\Support\Facades\Event;
 use JohnDoe\BlogPackage\Events\PostWasCreated;
 use JohnDoe\BlogPackage\Models\Post;
@@ -109,8 +108,7 @@ Now that we know that our event is fired correctly let's hook up our listener.
 
 After a `PostWasCreated` event was fired, let's modify our post's title for demonstrative purposes. In the `src/` directory, create a new folder `Listeners`. In this folder, create a new file that describes our action: `UpdatePostTitle.php`:
 
-```php
-// 'src/Listeners/UpdatePostTitle.php'
+```php title="src/Listeners/UpdatePostTitle.php"
 <?php
 
 namespace JohnDoe\BlogPackage\Listeners;
@@ -134,8 +132,9 @@ Although we've tested correct behavior when the `Event` is emitted, it is still 
 
 In this test, we'll assert that the listener's `handle()` method indeed changes the title of a blog post (in our silly example) by instantiating the `UpdatePostTitle` listener and passing a `PostWasCreated` event to its `handle()` method:
 
-```php
-// 'tests/Feature/CreatePostTest.php'
+```php title="tests/Feature/CreatePostTest.php"
+<?php
+
 /** @test */
 function a_newly_created_posts_title_will_be_changed()
 {
@@ -161,8 +160,7 @@ Like in Laravel, our package can have multiple service providers as long as we l
 
 First, create a new folder `Providers` in the `src/` directory. Add a file called `EventServiceProvider.php` and register our Event and Listener:
 
-```php
-// 'src/Providers/EventServiceProvider.php'
+```php title="src/Providers/EventServiceProvider.php"
 <?php
 
 namespace JohnDoe\BlogPackage\Providers;
@@ -195,8 +193,9 @@ class EventServiceProvider extends ServiceProvider
 
 In our main `BlogPackageServiceProvider` we need to register our Event Service Provider in the `register()` method, as follows (don't forget to import it):
 
-```php
-// 'BlogPackageServiceProvider.php'
+```php title="BlogPackageServiceProvider.php"
+<?php
+
 use JohnDoe\BlogPackage\Providers\EventServiceProvider;
 
 public function register()
@@ -209,8 +208,9 @@ public function register()
 
 Earlier, we faked the `Event` facade. But in this test, we would like to confirm that an event was fired that led to a handle method on a listener and that eventually changed the title of our `Post`, exactly like we'd expect. The test assertion is easy: assume that the title was changed after creating a new post. We'll add this method to the `CreatePostTest` feature test:
 
-```php
-// 'tests/Feature/CreatePostTest.php'
+```php title="tests/Feature/CreatePostTest.php"
+<?php
+
 /** @test */
 function the_title_of_a_post_is_updated_whenever_a_post_is_created()
 {
@@ -233,7 +233,7 @@ This test is green, but what if we run the full suite?
 
 If we run the full suite with `composer test`, we see we have one failing test:
 
-```php
+```
 There was 1 failure:
 
 1) JohnDoe\BlogPackage\Tests\Feature\CreatePostTest::authenticated_users_can_create_a_post
@@ -252,8 +252,9 @@ The failing test is a regression from the Event we've introduced. There are two 
 
 It is very situational what happens to be the best option but let's go with **option 2** for now.
 
-```php
-// 'tests/Feature/CreatePostTest.php'
+```php title="tests/Feature/CreatePostTest.php"
+<?php
+
 /** @test */
 function authenticated_users_can_create_a_post()
 {

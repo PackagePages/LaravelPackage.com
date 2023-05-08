@@ -15,6 +15,8 @@ A facade in Laravel is a class that redirects **static** method calls to the **d
 An example of a fluent API using a facade:
 
 ```php
+<?php
+
 MessageFactory::sentBy($user)
     ->withTopic('Example message')
     ->withMessage($body)
@@ -34,8 +36,7 @@ Let’s assume that we provide a `Calculator` class as part of our package and w
 
 First create a `Calculator.php` file in the `src/` directory. To keep things simple, the calculator provides an `add()`, `subtract()` and `clear()` method. All methods return the object itself allowing for a fluent API (chaining the method calls, like: `->add()->subtract()->subtract()->getResult()`).
 
-```php
-// 'src/Calculator.php'
+```php title="src/Calculator.php"
 <?php
 
 namespace JohnDoe\BlogPackage;
@@ -79,8 +80,7 @@ class Calculator
 
 In addition to this class, we’ll create the facade in a new `src/Facades` folder:
 
-```php
-// 'src/Facades/Calculator.php'
+```php title="src/Facades/Calculator.php"
 <?php
 
 namespace JohnDoe\BlogPackage\Facades;
@@ -98,9 +98,8 @@ class Calculator extends Facade
 
 Finally, we register the binding in the service container in our service provider:
 
-```php
-// BlogPackageServiceProvider.php
-namespace JohnDoe\BlogPackage;
+```php title="BlogPackageServiceProvider.php"
+<?php
 
 public function register()
 {
@@ -112,7 +111,7 @@ public function register()
 
 The end user can now use the `Calculator` facade after importing it from the appropriate namespace: `use JohnDoe\BlogPackage\Facades\Calculator;`. However, Laravel allows us to register an alias that can register a facade in the root namespace. We can define our alias under an “alias” key below the “providers” in the `composer.json` file:
 
-```json
+```json title="composer.json"
 "extra": {
     "laravel": {
         "providers": [
@@ -130,7 +129,9 @@ The end user can now use the `Calculator` facade after importing it from the app
 
 You can also load an alias from a Service Provider (or anywhere else) by using the `AliasLoader` singleton class:
 
-```
+```php
+<?php
+
 $loader = \Illuminate\Foundation\AliasLoader::getInstance();
 $loader->alias('Calculator', "JohnDoe\\BlogPackage\\Facades\\Calculator");
 ```
@@ -138,6 +139,8 @@ $loader->alias('Calculator', "JohnDoe\\BlogPackage\\Facades\\Calculator");
 Our facade now no longer requires an import and can be used in projects from the root namespace:
 
 ```php
+<?php
+
 // Usage of the example Calculator facade
 Calculator::add(5)->subtract(3)->getResult(); // 2
 ```

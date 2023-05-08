@@ -8,13 +8,17 @@ All provided examples are available as an accompanying example package named "Bl
 
 Contributions are highly welcomed.
 
+The static site is generated with the MKDocs Python package. 
+Therefore having Python 3.7+ installed locally is required to contribue.
+
 To start contributing, follow these steps:
 
-1. Fork this repository and `git clone` your version
-1. Install the dependencies (including **VuePress**) with `npm install` (or use yarn)
-1. Edit the documentation and view the output with VuePress using `npm run dev`
-1. When satisfied, format your code using `npx prettier --write .`
-1. Commit your changes and submit the PR to the master branch
+1. Fork this repository and `git clone` the repository
+1. Create a new virtual environment using `python3 -m venv venv`
+1. Activate the virtual environment: `source venv/bin/activate`
+1. Install the requirements: `pip install -r requirements.txt`
+1. Edit the documentation and view the output using `mkdocs serve`
+1. When satisfied, commit your changes and submit the PR to the master branch
 
 ## Credits
 

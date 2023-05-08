@@ -128,6 +128,8 @@ With the test passing, you can safely use this notification in your package.
 Additionally, you may configure the channels for the notification to be dependent on your package's configuration file to allow your users to specify which notification channels they want to use.
 
 ```php
+<?php
+
 public function via($notifiable)
 {
     return config('blogpackage.notifications.channels');

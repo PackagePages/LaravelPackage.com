@@ -33,8 +33,7 @@ We want to create a `PostController`.
 
 To make use of some traits the Laravel controllers offer, we'll first create our own base controller containing these traits in a `src/Http/Controllers` directory (resembling Laravel's folder structure) named `Controller.php`:
 
-```php
-// 'src/Http/Controllers/Controller.php'
+```php title="src/Http/Controllers/Controller.php"
 <?php
 
 namespace JohnDoe\BlogPackage\Http\Controllers;
@@ -54,8 +53,7 @@ class Controller extends BaseController
 
 Now, let's create a PostController in the `src/Http/Controllers` directory, starting first with the 'store' method:
 
-```php
-// 'src/Http/Controllers/PostController'
+```php title="src/Http/Controllers/PostController"
 <?php
 
 namespace JohnDoe\BlogPackage\Http\Controllers;
@@ -104,8 +102,7 @@ class PostController extends Controller
 
 Now that we have a controller, create a new `routes/` directory in our package's root and add a `web.php` file containing the three RESTful routes we've mentioned above.
 
-```php
-// 'routes/web.php'
+```php title="routes/web.php"
 <?php
 
 use Illuminate\Support\Facades\Route;
@@ -120,8 +117,9 @@ Route::post('/posts', [PostController::class, 'store'])->name('posts.store');
 
 Before we can use these routes, we need to register them in the `boot()` method of our Service Provider:
 
-```php
-// 'BlogPackageServiceProvider.php'
+```php title="BlogPackageServiceProvider.php"
+<?php
+
 public function boot()
 {
   // ... other things
@@ -135,8 +133,9 @@ You may want to allow users to define a route prefix and middleware for the rout
 
 The following examples use a namespace of `blogpackage`. Don't forget to replace this with your package's namespace.
 
-```php
-// 'BlogPackageServiceProvider.php'
+```php title="BlogPackageServiceProvider.php"
+<?php
+
 use Illuminate\Support\Facades\Route;
 
 public function boot()
@@ -164,8 +163,11 @@ protected function routeConfiguration()
 Specify a default route prefix and middleware in the package's `config.php` file:
 
 ```php
-'prefix' => 'blogger',
-'middleware' => ['web'], // you probably want to include 'web' here
+<?php
+[
+  'prefix' => 'blogger',
+  'middleware' => ['web'], // you probably want to include 'web' here
+]
 ```
 
 In the above default configuration, all routes defined in `routes.web` need to be prefixed with `/blogger`. In this way, collision with potentially existing routes is avoided.
@@ -180,7 +182,7 @@ Create a new `resources/` folder at the root of our package. In that folder, cre
 
 1. `resources/views/posts/index.blade.php`:
 
-   ```
+   ```html
    <h1>Showing all Posts</h1>
 
    @forelse ($posts as $post)
@@ -192,7 +194,7 @@ Create a new `resources/` folder at the root of our package. In that folder, cre
 
 2. `resources/views/posts/show.blade.php`:
 
-   ```
+   ```html
    <h1>{{ $post->title }}</h1>
 
    <p> {{ $post->body }}</p>
@@ -204,8 +206,9 @@ Note: these templates would extend a base/master layout file in a real-world sce
 
 Now that we have some views, we need to register that we want to load any views from our `resources/views` directory in the `boot()` method of our Service Provider. **Important**: provide a "key" as the second argument to `loadViewsFrom()` as you'll need to specify this key when returning a view from a controller (see next section).
 
-```php
-// 'BlogPackageServiceProvider.php'
+```php title="BlogPackageServiceProvider.php"
+<?php
+
 public function boot()
 {
   // ... other things
@@ -219,8 +222,9 @@ We can now return the views we've created from the `PostController` (don't forge
 
 Note the `blogpackage::` prefix, which matches the prefix we registered in our Service Provider.
 
-```php
-// 'src/Http/Controllers/PostController.php'
+```php title="src/Http/Controllers/PostController.php"
+<?php
+
 use JohnDoe\BlogPackage\Models\Post;
 
 public function index()
@@ -242,8 +246,9 @@ public function show()
 
 Chances are that you want to be able to let the users of your package _customize_ the views. Similar to the database migrations, the views can be **published** if we register them to be exported in the `boot()` method of our service provider using the 'views' key of the publishes() method:
 
-```php
-// 'BlogPackageServiceProvider.php'
+```php title="BlogPackageServiceProvider.php"
+<?php
+
 if ($this->app->runningInConsole()) {
   // Publish views
   $this->publishes([
@@ -271,8 +276,7 @@ This section will cover how to provide these type of Blade components in your pa
 
 If you want to offer class based View Components in your package, first create a new `View/Components` directory in the `src` folder. Add a new class, for example `Alert.php`.
 
-```php
-// 'src/View/Components/Alert.php'
+```php title="src/View/Components/Alert.php"
 <?php
 
 namespace JohnDoe\BlogPackage\View\Components;
@@ -307,8 +311,7 @@ Next, create a new `views/components` directory in the `resources` folder. Add a
 
 Next, register the component in the Service Provider by the class and provide a prefix for the components. In our example, using 'blogpackage', the alert component will become available as `<x-blogpackage-alert />`.
 
-```php
-// 'BlogPackageServiceProvider.php'
+```php title="BlogPackageServiceProvider.php"
 <?php
 
 use JohnDoe\BlogPackage\View\Components\Alert;
@@ -326,8 +329,9 @@ public function boot()
 
 If your package provides anonymous components, it suffices to add the `my-component.blade.php` Blade component to `resources/views/components` directory, given that you have specified the `loadViewsFrom` directory in your Service Provider as "resources/views". If you don't already, add the `loadViewsFrom` method to your Service Provider:
 
-```php
-// 'BlogPackageServiceProvider.php'
+```php title="BlogPackageServiceProvider.php"
+<?php
+
 public function boot()
 {
   // ... other things
@@ -345,8 +349,9 @@ Components (in the `resources/views/components` folder) can now be referenced pr
 
 In order to let the end user of our package modify the provided Blade component(s), we first need to register the publishables into our Service Provider:
 
-```php
-// 'BlogPackageServiceProvider.php'
+```php title="BlogPackageServiceProvider.php"
+<?php
+
 if ($this->app->runningInConsole()) {
   // Publish view components
   $this->publishes([
@@ -376,8 +381,9 @@ If you want to use a CSS stylesheet or include a javascript file in your views, 
 
 Just like the views, we can let our users customize the assets if they want. First, we'll determine where we'll export the assets in the `boot()` method of our service provider under the 'assets' key in a 'blogpackage' directory in the public path of the end user's Laravel app:
 
-```php
-// 'BlogPackageServiceProvider.php'
+```php title="BlogPackageServiceProvider.php"
+<?php
+
 if ($this->app->runningInConsole()) {
   // Publish assets
   $this->publishes([
@@ -410,8 +416,7 @@ Let’s verify that we can indeed create a post, show a post and show all posts 
 
 Create a new Feature test called `CreatePostTest.php` in the `tests/Feature` directory and add the following assertions to verify that authenticated users can indeed create new posts:
 
-```php
-// 'tests/Feature/CreatePostTest.php'
+```php title="tests/Feature/CreatePostTest.php"
 <?php
 
 namespace JohnDoe\BlogPackage\Tests\Feature;
@@ -452,8 +457,9 @@ class CreatePostTest extends TestCase
 
 Additionally, we could verify that we require both a "title" and a "body" attribute when creating a new post:
 
-```php
-// 'tests/Feature/CreatePostTest.php'
+```php title="tests/Feature/CreatePostTest.php"
+<?php
+
 /** @test */
 function a_post_requires_a_title_and_a_body()
 {
@@ -473,8 +479,9 @@ function a_post_requires_a_title_and_a_body()
 
 Next, let's verify that unauthenticated users (or "guests") can not create new posts:
 
-```php
-// 'tests/Feature/CreatePostTest.php'
+```php title="tests/Feature/CreatePostTest.php"
+<?php
+
 /** @test */
 function guests_can_not_create_posts()
 {
@@ -490,8 +497,9 @@ function guests_can_not_create_posts()
 
 Finally, let's verify the index route shows all posts, and the show route shows a specific post:
 
-```php
-// 'tests/Feature/CreatePostTest.php'
+```php title="tests/Feature/CreatePostTest.php"
+<?php
+
 /** @test */
 function all_posts_are_shown_via_the_index_route()
 {

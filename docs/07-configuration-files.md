@@ -12,8 +12,7 @@ It is quite likely that your package allows configuration by the end-user.
 
 If you want to offer custom configuration options, create a new `config` directory in the package's root and add a file called `config.php`, which returns an array of options.
 
-```php
-// 'config/config.php'
+```php title="config/config.php"
 <?php
 
 return [
@@ -26,8 +25,9 @@ return [
 
 After registering the config file in the `register()` method of our service provider under a specific "key" ('blogpackage' in our demo), we can access the config values from the config helper by prefixing our "key" as follows: `config('blogpackage.posts_table')`.
 
-```php
-// 'BlogPackageServiceProvider.php'
+```php title="BlogPackageServiceProvider.php"
+<?php
+
 public function register()
 {
   $this->mergeConfigFrom(__DIR__.'/../config/config.php', 'blogpackage');
@@ -38,8 +38,9 @@ public function register()
 
 To allow users to modify the default config values, we need to provide them with the option to export the config file. We can register all "publishables" within the `boot()` method of the package's service provider. Since we only want to offer this functionality whenever the package is booted from the console, we'll first check if the current app runs in the console. We'll register the publishable config file under the 'config' tag (the second parameter of the `$this->publishes()` function call).
 
-```php
-// 'BlogPackageServiceProvider.php'
+```php title="BlogPackageServiceProvider.php"
+<?php
+
 public function boot()
 {
   if ($this->app->runningInConsole()) {

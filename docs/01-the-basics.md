@@ -16,7 +16,7 @@ Looking at a Laravel project, you’ll see that the `public/index.php` file in t
 
 Laravel's `public/index.php` file:
 
-```php
+```php title="public/index.php"
 <?php
 
 define('LARAVEL_START', microtime(true));

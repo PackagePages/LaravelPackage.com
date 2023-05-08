@@ -14,12 +14,11 @@ Via this CLI, you can access commands as `php artisan migrate` and `php artisan 
 
 Let's say that we want to provide an easy artisan command for our end user to publish the config file, via: `php artisan blogpackage:install`.
 
-## Creating a New Command
+## Creating a new Command
 
 Create a new `Console` folder in the `src/` directory and create a new file named `InstallBlogPackage.php`. This class will extend Laravel's `Command` class and provide a `$signature` (the command) and a `$description` property. In the `handle()` method, we specify what our command will do. In this case we provide some feedback that we're "installing" the package, and we'll call another artisan command to publish the config file. Using the `File` facade we can check if the configuration file already exists. If so, we'll ask if we should overwrite it or cancel publishing of the config file. Finally, we let the user know that we're done.
 
-```php
-// 'src/Console/InstallBlogPackage.php'
+```php title="src/Console/InstallBlogPackage.php"
 <?php
 
 namespace JohnDoe\BlogPackage\Console;
@@ -89,8 +88,8 @@ We need to present this package functionality to the end-user, thus registering 
 
 Since we only want to provide this functionality when used from the command-line we'll add it within a conditional which checks if the application instance is running in the console:
 
-```php
-// 'BlogPackageServiceProvider.php'
+```php title="BlogPackageServiceProvider.php"
+<?php
 
 use JohnDoe\BlogPackage\Console\InstallBlogPackage;
 
@@ -109,8 +108,8 @@ public function boot()
 
 If you want to schedule a command from your package instead of `app/Console/Kernel.php`, inside your service provider, you need to wait until after the Application has booted and the Schedule instance has been defined:
 
-```php
-// 'BlogPackageServiceProvider.php'
+```php title="BlogPackageServiceProvider.php"
+<?php
 
 use Illuminate\Console\Scheduling\Schedule;
 
@@ -132,8 +131,7 @@ To test that our Command class works, let's create a new unit test called `Insta
 
 Since we're using **Orchestra Testbench**, we have a config folder at `config_path()` containing every file a typical Laravel installation would have. (You can check where this directory lives yourself if you `dd(config_path()))`. Therefore, we can easily assert that this directory should have our `blogpackage.php` config file after running our artisan command. To ensure we're starting clean, let's delete any remainder configuration file from the previous test first.
 
-```php
-// 'tests/Unit/InstallBlogPackageTest.php'
+```php title="tests/Unit/InstallBlogPackageTest.php"
 <?php
 
 namespace JohnDoe\BlogPackage\Tests\Unit;
@@ -163,8 +161,9 @@ class InstallBlogPackageTest extends TestCase
 
 In addition to the basic test which asserts that a configuration file is present after installation, we can add several tests which assert the appropriate installation process of our package. Let's add tests for the other scenarios where the user already has a configuration with the name `blogpackage.php` published. We will utilize the assertions `expectsQuestion`, `expectsOutput`, `doesntExpectOutput`, and `assertExitCode`.
 
-```php
-// 'tests/Unit/InstallBlogPackageTest.php'
+```php title="tests/Unit/InstallBlogPackageTest.php"
+<?php
+
 /** @test */
 public function when_a_config_file_is_present_users_can_choose_to_not_overwrite_it()
 {
@@ -230,6 +229,8 @@ public function when_a_config_file_is_present_users_can_choose_to_do_overwrite_i
 There might be cases where you'd like to exclude the command from the list of Artisan commands. You can define a `$hidden` property on the command class, which will not show the specific command in the list of Artisan commands. NB: you can still use the command while hidden.
 
 ```php
+<?php
+
 class InstallBlogPackage extends Command
 {
     protected $hidden = true;
@@ -319,8 +320,9 @@ Note that the Generator Command will export the class to a directory **based on 
 
 As with the `InstallBlogPackage` command, we have to register this new command in the `BlogPackageServiceProvider`:
 
-```php
-// 'BlogPackageServiceProvider.php'
+```php title="BlogPackageServiceProvider.php"
+<?php
+
 use JohnDoe\BlogPackage\Console\{InstallBlogPackage, MakeFooCommand};
 
 public function boot()
@@ -340,8 +342,7 @@ public function boot()
 
 You are free to store stubs in a different directory, but we'll store the stubs in the `Console/stubs` directory in this example. For our `Foo` class generator, the stub could look as follows:
 
-```php
-// 'stubs/foo.php.stub'
+```php title="stubs/foo.php.stub"
 <?php
 
 namespace DummyNamespace;

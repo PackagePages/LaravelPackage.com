@@ -29,7 +29,7 @@ Then, copy the following template to use an in-memory sqlite database and enable
 
 `phpunit.xml`:
 
-```xml
+```xml title="phpunit.xml"
 <?xml version="1.0" encoding="UTF-8"?>
 <phpunit
   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
@@ -71,36 +71,22 @@ Note the dummy `APP_KEY` in the example above. This environment variable is cons
 
 To accommodate Feature and Unit tests, create a `tests/` directory with a `Unit` and `Feature` subdirectory and a base `TestCase.php` file. The structure looks as follows:
 
-```json
+```
 - tests
     - Feature
     - Unit
       TestCase.php
 ```
 
-The `TestCase.php` extends `\Orchestra\Testbench\TestCase` (see example below) and contains tasks related to setting up our “world” before each test is executed. In the `TestCase` class we will implement three important set-up methods:
+The `TestCase.php` extends `\Orchestra\Testbench\TestCase` (see example below) and contains tasks related to setting up our “world” before each test is executed. In the `TestCase` class we will implement three important set-up methods: `setUp()`, `getEnvironmentSetUp()` and `getPackageProviders()`.
 
-- `getPackageProviders()`
-- `getEnvironmentSetUp()`
-- `setUp()`
+Let's look at these methods one by one:
 
-Let's look at these methods one by one.
+- **`setUp()`**: You might have already used this method in your tests. Often it is used when you need a certain model in all following tests. The instantiation of that model can therefore be extracted to a `setUp()` method which is called before each test. Within the tests, the desired model can be retrieved from the Test class instance variable. When using this method, don't forget to call the parent `setUp()` method (and make sure to return void).
 
-`setUp()`
+- **`getEnvironmentSetUp()`**: As suggested by Orchestra Testbench: "If you need to add something early in the application bootstrapping process, you could use the `getEnvironmentSetUp()` method". Therefore, I suggest it is called before the `setUp()` method(s).
 
-You might have already used this method in your tests. Often it is used when you need a certain model in all following tests. The instantiation of that model can therefore be extracted to a setUp() method which is called before each test. Within the tests, the desired model can be retrieved from the Test class instance variable. When using this method, don't forget to call the parent setUp() method (and make sure to return void).
-
----
-
-`getEnvironmentSetUp()`
-
-As suggested by Orchestra Testbench: "If you need to add something early in the application bootstrapping process, you could use the getEnvironmentSetUp() method". Therefore, I suggest it is called before the setUp() method(s).
-
----
-
-`getPackageProviders()`
-
-As the name suggests, we can load our service provider(s) within the getPackageProviders() method. We'll do that by returning an array containing all providers. For now, we'll just include the package specific package provider, but imagine that if the package uses an EventServiceProvider, we would also register it here.
+- **`getPackageProviders()`**: As the name suggests, we can load our service provider(s) within the `getPackageProviders()` method. We'll do that by returning an array containing all providers. For now, we'll just include the package specific package provider, but imagine that if the package uses an `EventServiceProvider`, we would also register it here.
 
 ---
 
@@ -159,7 +145,9 @@ Finally, re-render the autoload file by running `composer dump-autoload`.
 In some cases you might want to use Laravel's `User::class` to be able to use an authenticated user in your tests.
 There are several approaches, as discussed in the [Models related to App\User](https://laravelpackage.com/08-models-and-migrations.html#models-related-to-app-user) section. However, if you don't have any relationships with the `User` model, and only want to test authentication logic, the easiest option is to create your own `User` class, extending the `Illuminate\Foundation\Auth\User` class:
 
-```php
+```php title="App/Models/User.php"
+<?php
+
 use Illuminate\Foundation\Auth\User as BaseUser;
 
 class User extends BaseUser
@@ -170,6 +158,8 @@ class User extends BaseUser
 After defining this custom `User` model within your package, you should execute the migrate command from the `Orchestra` package to create the `users` table in your test database:
 
 ```php
+<?php
+
 $this->loadLaravelMigrations(['--database' => 'testbench']);
 $this->artisan('migrate', ['--database' => 'testbench'])->run();
 ```
