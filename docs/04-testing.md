@@ -31,25 +31,17 @@ Then, copy the following template to use an in-memory sqlite database and enable
 
 ```xml title="phpunit.xml"
 <?xml version="1.0" encoding="UTF-8"?>
-<phpunit
-  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-  bootstrap="vendor/autoload.php"
-  backupGlobals="false"
-  backupStaticAttributes="false"
-  colors="true"
-  verbose="true"
-  convertErrorsToExceptions="true"
-  convertNoticesToExceptions="true"
-  convertWarningsToExceptions="true"
-  processIsolation="false"
-  stopOnFailure="false"
-  xsi:noNamespaceSchemaLocation="https://schema.phpunit.de/9.3/phpunit.xsd"
+<phpunit 
+     xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+     bootstrap="vendor/autoload.php" 
+     backupGlobals="false" colors="true" 
+     processIsolation="false" 
+     stopOnFailure="false" 
+     xsi:noNamespaceSchemaLocation="https://schema.phpunit.de/10.1/phpunit.xsd" 
+     cacheDirectory=".phpunit.cache" 
+     backupStaticProperties="false"
 >
-  <coverage>
-    <include>
-      <directory suffix=".php">src/</directory>
-    </include>
-  </coverage>
+  <coverage/>
   <testsuites>
     <testsuite name="Unit">
       <directory suffix="Test.php">./tests/Unit</directory>
@@ -62,7 +54,13 @@ Then, copy the following template to use an in-memory sqlite database and enable
     <env name="DB_CONNECTION" value="testing"/>
     <env name="APP_KEY" value="base64:2fl+Ktvkfl+Fuz4Qp/A75G2RTiWVA/ZoKZvp6fiiM10="/>
   </php>
+  <source>
+    <include>
+      <directory suffix=".php">src/</directory>
+    </include>
+  </source>
 </phpunit>
+
 ```
 
 Note the dummy `APP_KEY` in the example above. This environment variable is consumed by [Laravel's encrypter](https://laravel.com/docs/8.x/encryption#using-the-encrypter), which your tests might be making use of. For most cases, the dummy value will be sufficient. However, you are free to either change this value to reflect an actual app key (of your Laravel application) or leave it off entirely if your test suite does not interact with the encrypter.
