@@ -12,9 +12,12 @@ In my experience, learning to develop a package for Laravel can be quite challen
 
 Over time, I began thinking this topic deserves proper documentation, rather than a couple of posts that only cover _my_ insights. That's where I feel this open-source documentation on Laravel Package Development will come in. I've bundled up my blog posts and expanded on a couple of more topics in separate chapters. Contributions (in the form of pull requests) are highly welcomed and appreciated. I hope this website can become a place to share knowledge on Laravel package development to help developers get a head start.
 
-You are highly encouraged to participate and [contribute to this project](https://github.com/Jhnbrn90/LaravelPackage.com). Please feel free to submit a PR, even only for a typo.
+You are highly encouraged to participate and [contribute to this project](https://github.com/PackagePages/LaravelPackage.com). Please feel free to submit a PR, even only for a typo.
 
 First of all, I want to thank Marcel Pociot. His clear and structured [video course](https://phppackagedevelopment.com/) encouraged me to create PHP packages myself. I can highly recommend his video course if you want to learn how to make (framework agnostic) PHP packages.
+
+This project was originally created by **John Braun**, read more about him and his work here: [History of LaravelPackage.com](/history/#original-creator). 
+Without him this website would not exist!
 
 ---
 
