@@ -136,4 +136,4 @@ public function via($notifiable)
 }
 ```
 
-Finally, add the `notifications.channels` sub-array entries to your configuration stub file (see the [Package Configuration](https://laravelpackage.com/07-configuration-files.html) section).
+Finally, add the `notifications.channels` sub-array entries to your configuration stub file (see the [Package Configuration](https://laravelpackage.com/07-configuration-files/) section).
