@@ -22,7 +22,7 @@ Install PHPUnit as a dev-dependency in our package:
 composer require --dev phpunit/phpunit
 ```
 
-**Note:** you might need to install a specific version if you're developing a package for an older version of Laravel. Also to install `orchestra/testbench`, please refer to [Orchestra Testbench](https://laravelpackage.com/02-development-environment.html#orchestra-testbench) set up on the [Development Environment](https://laravelpackage.com/02-development-environment.html) page.
+**Note:** you might need to install a specific version if you're developing a package for an older version of Laravel. Also to install `orchestra/testbench`, please refer to [Orchestra Testbench](https://laravelpackage.com/02-development-environment/#orchestra-testbench) set up on the [Development Environment](https://laravelpackage.com/02-development-environment) page.
 
 To configure PHPUnit, create a `phpunit.xml` file in the root directory of the package.
 Then, copy the following template to use an in-memory sqlite database and enable colorful reporting.
@@ -143,7 +143,7 @@ Finally, re-render the autoload file by running `composer dump-autoload`.
 ## Authentication
 
 In some cases you might want to use Laravel's `User::class` to be able to use an authenticated user in your tests.
-There are several approaches, as discussed in the [Models related to App\User](https://laravelpackage.com/08-models-and-migrations.html#models-related-to-app-user) section. However, if you don't have any relationships with the `User` model, and only want to test authentication logic, the easiest option is to create your own `User` class, extending the `Illuminate\Foundation\Auth\User` class:
+There are several approaches, as discussed in the [Models related to App\User](https://laravelpackage.com/08-models-and-migrations#models-related-to-appuser) section. However, if you don't have any relationships with the `User` model, and only want to test authentication logic, the easiest option is to create your own `User` class, extending the `Illuminate\Foundation\Auth\User` class:
 
 ```php title="App/Models/User.php"
 <?php
