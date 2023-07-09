@@ -408,6 +408,63 @@ We can reference the stylesheet and javascript file in our views as follows:
 <link href="{{ asset('blogpackage/css/app.css') }}" rel="stylesheet" />
 ```
 
+### Vite config to build the package assets
+
+Sometimes we want to build the assets using a bundler like Webpack or Vite.
+
+The latest versions of Laravel switched from Webpack to Vite, and it would be nice to use the same bundler for the package
+to support all the hot reload and dev features of Vite.
+
+To do that we need to add Javascript packages using NPM.
+
+1. If you don't have a package.json file already, run the `npm init -y` command to create one.
+2. Install Vite and the laravel plugin `npm install -D vite laravel-vite-plugin`.
+3. Create the same structure for the resources as a Laravel website.
+4. Then create a vite.config.js
+
+vite.config.js file content
+
+```js
+import { defineConfig } from 'vite';
+import laravel from 'laravel-vite-plugin';
+
+export default defineConfig({
+  plugins: [
+    laravel({
+      hotFile: 'public/vendor/blogpackage/blogpackage.hot', // Most important lines
+      buildDirectory: 'vendor/blogpackage', // Most important lines
+      input: ['resources/css/app.css', 'resources/js/app.js'],
+      refresh: true,
+    }),
+  ],
+});
+```
+
+Then you can use it like this in a blade template.
+
+```php
+{{ Vite::useHotFile('vendor/blogpackage/blogpackage.hot')
+        ->useBuildDirectory("vendor/blogpackage")
+        ->withEntryPoints(['resources/css/app.css', 'resources/js/app.js']) }}
+```
+
+This will then let us use the Vite dev server in a local project when developing the package.
+We can also build the assets using Vite for production.
+
+**For development, we will need to create a symlink of the public/vendor/blogpackage folder**
+
+Example of a symlink command `mklink /J .\public\vendor\blogpackage .\vendor\johndoe\blogpackage\public\vendor\blogpackage`
+
+**For production, we will need to publish the assets**
+
+Add this to your ServiceProvider
+
+```php
+$this->publishes([
+    __DIR__.'/../public/vendor/blogpackage' => public_path('vendor/blogpackage'),
+], 'assets');
+```
+
 ## Testing Routes
 
 Let’s verify that we can indeed create a post, show a post and show all posts with our provided routes, views, and controllers.
