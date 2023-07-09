@@ -440,6 +440,23 @@ export default defineConfig({
 });
 ```
 
+package.json
+
+```json
+{
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "dev": "vite",
+    "build": "vite build"
+  },
+  "devDependencies": {
+    "laravel-vite-plugin": "^0.7.8",
+    "vite": "^4.3.9"
+  }
+}
+```
+
 Then you can use it like this in a blade template.
 
 ```php
@@ -454,6 +471,8 @@ We can also build the assets using Vite for production.
 **For development, we will need to create a symlink of the public/vendor/blogpackage folder**
 
 Example of a symlink command `mklink /J .\public\vendor\blogpackage .\vendor\johndoe\blogpackage\public\vendor\blogpackage`
+
+And start the dev server of both projects, the laravel app and the package.
 
 **For production, we will need to publish the assets**
 
