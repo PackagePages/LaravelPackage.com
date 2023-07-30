@@ -1,12 +1,12 @@
 ---
-title: "Add and develop assets for the package"
+title: "Adding assets"
 description: "Configuration needed to publish assets with your package and how to configure Vite in your package for dev and production."
 tags: ["Assets", "Vite"]
 image: "https://www.laravelpackage.com/assets/pages/laravelpackage.jpeg"
 date: 2023-07-29
 ---
 
-## Assets
+# Assets
 
 You'll likely want to include a CSS and javascript file when you're adding views to your package.
 
