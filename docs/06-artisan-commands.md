@@ -10,7 +10,7 @@ date: 2019-09-17
 
 Laravel ships with an executable `artisan` file, which offers a number of helpful commands through a command-line interface (CLI).
 
-Via this CLI, you can access commands as `php artisan migrate` and `php artisan make:model Post`. There are a lot of things you could do with commands. Make sure to read up on the artisan console in the [Laravel documentation](https://laravel.com/docs/artisan).
+Via this CLI, you can access commands as `php artisan migrate` and `php artisan make:model Post`. There are a lot of things you could do with commands. Make sure to read up on the artisan console in the [Laravel documentation](https://laravel.com/docs/artisan/).
 
 Let's say that we want to provide an easy artisan command for our end user to publish the config file, via: `php artisan blogpackage:install`.
 

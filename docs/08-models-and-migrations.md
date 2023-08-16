@@ -37,9 +37,9 @@ There are multiple ways to generate models together with a migration automatical
 
 If you are looking for ways to automate the scaffolding within your package, you might install one of the following tools as a `dev` dependency within your package and use a CLI command to generate the scaffolds.
 
-- [Laravel Package Tools](https://github.com/beyondcode/laravel-package-tools)
-- [Laravel Packer](https://github.com/bitfumes/laravel-packer)
-- [Laravel Package Maker](https://github.com/naoray/laravel-package-maker)
+- [Laravel Package Tools](https://github.com/beyondcode/laravel-package-tools/)
+- [Laravel Packer](https://github.com/bitfumes/laravel-packer/)
+- [Laravel Package Maker](https://github.com/naoray/laravel-package-maker/)
 
 ## Migrations
 
