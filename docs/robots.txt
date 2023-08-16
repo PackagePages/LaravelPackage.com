@@ -1,2 +1,6 @@
 User-agent: *
 Sitemap: https://laravelpackage.com/sitemap.xml
+
+User-agent: Googlebot
+Disallow: https://laravelpackage.com/*.html$
+Disallow: https://v6-v7.laravelpackage.com/*.html$

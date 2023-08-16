@@ -1,8 +1,8 @@
 site_name: LaravelPackage.com
-repo_url: https://github.com/PackagePages/LaravelPackage.com
+repo_url: https://github.com/PackagePages/LaravelPackage.com/
 repo_name: LaravelPackage.com
 edit_uri: edit/master/docs/
-site_url: https://laravelpackage.com
+site_url: https://laravelpackage.com/
 theme:
   logo: assets/logo.png
   icon:

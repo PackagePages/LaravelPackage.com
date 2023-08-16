@@ -12,7 +12,7 @@ In my experience, learning to develop a package for Laravel can be quite challen
 
 Over time, I began thinking this topic deserves proper documentation, rather than a couple of posts that only cover _my_ insights. That's where I feel this open-source documentation on Laravel Package Development will come in. I've bundled up my blog posts and expanded on a couple of more topics in separate chapters. Contributions (in the form of pull requests) are highly welcomed and appreciated. I hope this website can become a place to share knowledge on Laravel package development to help developers get a head start.
 
-You are highly encouraged to participate and [contribute to this project](https://github.com/PackagePages/LaravelPackage.com). Please feel free to submit a PR, even only for a typo.
+You are highly encouraged to participate and [contribute to this project](https://github.com/PackagePages/LaravelPackage.com/). Please feel free to submit a PR, even only for a typo.
 
 First of all, I want to thank Marcel Pociot. His clear and structured [video course](https://phppackagedevelopment.com/) encouraged me to create PHP packages myself. I can highly recommend his video course if you want to learn how to make (framework agnostic) PHP packages.
 
@@ -21,7 +21,7 @@ Without him this website would not exist!
 
 ---
 
-💡 Would you rather watch than read? The famous and reputable package builders from **Spatie** launched a full video course on [Laravel Package Development](https://laravelpackage.training).
+💡 Would you rather watch than read? The famous and reputable package builders from **Spatie** launched a full video course on [Laravel Package Development](https://laravelpackage.training/).
 
 ## Reasons to Develop a Package
 
@@ -29,7 +29,7 @@ You might encounter a scenario where you want to reuse some feature(s) of your a
 
 ## Companion Package
 
-In this documentation, we'll build a demo package along the way (called "BlogPackage") by introducing the listed functionalities one-by-one. Make sure to check out the finished version of this [companion package](https://github.com/Jhnbrn90/BlogPackage) to have a handy reference, for example, when something doesn't work as expected. The demo package contains a test suite comprising unit and feature tests for the covered topics.
+In this documentation, we'll build a demo package along the way (called "BlogPackage") by introducing the listed functionalities one-by-one. Make sure to check out the finished version of this [companion package](https://github.com/Jhnbrn90/BlogPackage/) to have a handy reference, for example, when something doesn't work as expected. The demo package contains a test suite comprising unit and feature tests for the covered topics.
 
 ## Composer & Packagist
 
@@ -43,26 +43,26 @@ To install a package in your existing Laravel project, the `composer require <ve
 
 The first chapter will address the basic structure of a package. While it is good to understand the general structure of a package, check out one of the following helpful tools to instantly set-up the basic skeleton.
 
-- [Package Skeleton by Spatie](https://github.com/spatie/package-skeleton-laravel)
-  This package skeleton by Spatie offers a great starting point for setting up a Laravel package from scratch. Besides the essential components of a Laravel Package, the skeleton comes with a GitHub specific configuration including a set of (CI) workflows for GitHub actions. They also offer a skeleton for [generic PHP packages](https://github.com/spatie/package-skeleton-php).
+- [Package Skeleton by Spatie](https://github.com/spatie/package-skeleton-laravel/)
+  This package skeleton by Spatie offers a great starting point for setting up a Laravel package from scratch. Besides the essential components of a Laravel Package, the skeleton comes with a GitHub specific configuration including a set of (CI) workflows for GitHub actions. They also offer a skeleton for [generic PHP packages](https://github.com/spatie/package-skeleton-php/).
 
 - [Laravel Package Boilerplate](https://laravelpackageboilerplate.com/)
   This tool by Marcel Pociot allows you to generate a basic template for Laravel specific and generic PHP packages that can be downloaded as a `.zip` file.
 
-- [Laravel Packager](https://github.com/Jeroen-G/laravel-packager)
-  This package by Jeroen-G provides a CLI tool to quickly scaffold packages from within an existing Laravel application. The package was featured on [Laracasts](https://laracasts.com/series/building-laracasts/episodes/3) in the _Building Laracasts series_.
+- [Laravel Packager](https://github.com/Jeroen-G/laravel-packager/)
+  This package by Jeroen-G provides a CLI tool to quickly scaffold packages from within an existing Laravel application. The package was featured on [Laracasts](https://laracasts.com/series/building-laracasts/episodes/3/) in the _Building Laracasts series_.
 
-- [Laravel Packager Hermes](https://github.com/DelveFore/laravel-packager-hermes)
+- [Laravel Packager Hermes](https://github.com/DelveFore/laravel-packager-hermes/)
   This package by DelveFore is an extension of the Laravel Packager package, enabling usage of Artisan commands within that package to quickly generate Laravel specific classes. Currently, it only supports the scaffolding of `Controllers`.
 
-- [Orchestral Canvas](https://github.com/orchestral/canvas)
+- [Orchestral Canvas](https://github.com/orchestral/canvas/)
   The Orchestral Canvas package offers code generators and replicates all of the `make` artisan commands available in your basic Laravel application.
 
-- [Yeoman Laravel Package Scaffolder](https://github.com/verschuur/generator-laravel-package-scaffolder)
+- [Yeoman Laravel Package Scaffolder](https://github.com/verschuur/generator-laravel-package-scaffolder/)
   This package provides a standalone generator to quickly scaffold a Laravel package. It will generate a skeleton structure, a ready-to-go composer.json file, and a fully configured service provider. Just uncomment what you need and start developing.
 
-- [Laravel Packer](https://github.com/bitfumes/laravel-packer)
+- [Laravel Packer](https://github.com/bitfumes/laravel-packer/)
   A PHP package offering a command-line tool to scaffold a basic package directory structure and `composer.json` file and provides the `make` artisan commands within your package.
 
-- [Laravel Package Maker](https://github.com/naoray/laravel-package-maker)
+- [Laravel Package Maker](https://github.com/naoray/laravel-package-maker/)
   A PHP package that provides all the Laravel `make` commands for package development. It uses Composer's repositories feature to symlink your test app with your package to make testing as easy as possible.

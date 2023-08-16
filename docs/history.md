@@ -13,7 +13,7 @@ There has been a vivid community of contributors within the open source / Larave
 
 ## Original creator
 This project is originally created by John Braun. John is an avid developer with a strong sense of giving back to the community.
-His website is located at [https://johnbraun.nl](https://johnbraun.nl), and he can be found on Twitter: [@jhnbrn90](https://twitter.com/jhnbrn90).
+His website is located at [https://johnbraun.nl](https://johnbraun.nl), and he can be found on Twitter: [@jhnbrn90](https://twitter.com/jhnbrn90/).
 Definitely go check them out if you want to learn something new!
 
 We want to thank John Braun for his contributions to the open source / Laravel package community.
