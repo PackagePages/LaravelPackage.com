@@ -369,45 +369,6 @@ php artisan vendor:publish --provider="JohnDoe\BlogPackage\BlogPackageServicePro
 
 Be aware that the end user needs to update the namespaces of the published component class and update the `render()` method to reference the Blade components of the Laravel application directly, instead of referencing the package namespace. Additionally, the Blade component no longer has to be namespaced since it was published to the Laravel application itself.
 
-## Assets
-
-You'll likely want to include a CSS and javascript file when you're adding views to your package.
-
-### Creating an 'assets' Directory
-
-If you want to use a CSS stylesheet or include a javascript file in your views, create an `assets` directory in the `resources/` folder. Since we might include several stylesheets or javascript files, let's create **two subfolders**: `css` and `js` to store these files, respectively. A convention is to name the main javascript file `app.js` and the main stylesheet `app.css`.
-
-### Customizable Assets
-
-Just like the views, we can let our users customize the assets if they want. First, we'll determine where we'll export the assets in the `boot()` method of our service provider under the 'assets' key in a 'blogpackage' directory in the public path of the end user's Laravel app:
-
-```php title="BlogPackageServiceProvider.php"
-<?php
-
-if ($this->app->runningInConsole()) {
-  // Publish assets
-  $this->publishes([
-    __DIR__.'/../resources/assets' => public_path('blogpackage'),
-  ], 'assets');
-
-}
-```
-
-The assets can then be exported by users of our package using:
-
-```
-php artisan vendor:publish --provider="JohnDoe\BlogPackage\BlogPackageServiceProvider" --tag="assets"
-```
-
-### Referencing Assets
-
-We can reference the stylesheet and javascript file in our views as follows:
-
-```html
-<script src="{{ asset('blogpackage/js/app.js') }}"></script>
-<link href="{{ asset('blogpackage/css/app.css') }}" rel="stylesheet" />
-```
-
 ## Testing Routes
 
 Let’s verify that we can indeed create a post, show a post and show all posts with our provided routes, views, and controllers.
