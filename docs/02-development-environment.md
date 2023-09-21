@@ -140,6 +140,14 @@ You can now require your local package in the Laravel application using your cho
 composer require johndoe/blogpackage
 ```
 
+Note: This documentation assumes you are using Laravel 8.0. If you are using Laravel 10, the above command will throw a ```minimum stability constraint``` error. You can fix the issue by adding the ```version``` key below the ```name``` key  in the ```composer.json``` file of the package.
+
+```json title="composer.json"
+{
+  "version": "1.0.0",
+}
+```
+
 By default, the package is added under `vendor` folder as a symlink if possible. If you would like to make a physical copy instead (i.e. _mirroring_), add the field `"symlink": false` to the repository definition's `options` property:
 
 ```json title="composer.json"
