@@ -199,6 +199,7 @@ The full compatibility table of the Orchestra Testbench is shown below, taken fr
 
 | Laravel | Testbench |
 | :------ | :-------- |
+| 11.x    | 9.x       |
 | 10.x    | 8.x       |
 | 9.x     | 7.x       |
 | 8.x     | 6.x       |
