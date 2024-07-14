@@ -251,7 +251,7 @@ Rerunning our tests lead to the following error:
 Error: Class 'Database\Factories\JohnDoe\BlogPackage\Models\PostFactory' not found
 ```
 
-The abovementioned error is caused by Laravel, which tries to resolve the Model class for our `PostFactory` assuming the default namespaces of a usual project (as of version 8.x, `App` or `App\Models`).
+The above mentioned error is caused by Laravel, which tries to resolve the Model class for our `PostFactory` assuming the default namespaces of a usual project (as of version 8.x, `App` or `App\Models`).
 To be able to instantiate the right Model from our package with the `Post::factory()` method, we need to add the following method to our `Post` Model:
 
 ```php title="src/Models/Post.php"

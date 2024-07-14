@@ -6,7 +6,7 @@ image: "https://www.laravelpackage.com/assets/pages/laravelpackage.jpeg"
 date: 2019-09-17
 ---
 
-## Get ready for laravel 11 🚀
+## Laravel 11 is here 🚀
 [Learn how to support laravel 11](/supporting-new-laravel-versions/laravel-11/){ .md-button }
 
 # Introduction to Package Development

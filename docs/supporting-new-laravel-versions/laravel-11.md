@@ -3,11 +3,16 @@ title: "Upgrading to laravel 11"
 description: "Learn how to upgrade your package to laravel 11. Easy guide to laravel 11 upgrade for laravel packages."
 tags: ["laravel", "laravel 11", ""]
 image: "https://www.laravelpackage.com/assets/pages/laravelpackage.jpeg"
-date: 2024-02-24
+date: 2024-04-05
 ---
 # Laravel 11
 
-Laravel 11 is around the corner as of writing this guide (23 feb 2024)! We hope you are as excited as we are.
+## Update
+Laravel 11 is here and in full effect, check if your project / package gives the green light using this tool by Shift: 
+[https://laravelshift.com/can-i-upgrade-laravel](https://laravelshift.com/can-i-upgrade-laravel).
+
+## Before release
+Laravel 11 is here the corner as of writing this guide (23 feb 2024)! We hope you are as excited as we are.
 Supporting laravel 11 is probably going to be very easy for you as a package maintainer and should only take 30 minutes max!
 We wrote down some of the important to know things and show you how you support this new release.
 
