@@ -14,12 +14,39 @@ Additionally, having good code coverage can motivate potential contributors by g
 
 ## Installing PHPUnit
 
-There are many options to test behavior in PHP. However, we'll stay close to Laravel's defaults, which uses the excellent tool PHPUnit.
+There are many options to test behavior in PHP, Laravel is built with testing in mind and provides support for testing with [Pest](https://pestphp.com/) and [PHPUnit](https://phpunit.de/). We can install PHPUnit, which is the default testing framework for Laravel.
 
 Install PHPUnit as a dev-dependency in our package:
 
 ```bash
 composer require --dev phpunit/phpunit
+```
+
+## Installing Pest
+
+Alternatively, we can use Pest as our testing framework. It's important to note that Pest is built on top of PHPUnit, which means that all the options offered by PHPUnit can also be used in Pest. Therefore, our configurations for PHPUnit will also apply to Pest tests.
+
+Install Pest as a dev-dependency in our package and initialize it:
+
+```bash
+composer require --dev pestphp/pest
+
+./vendor/bin/pest --init
+```
+
+The `--init` flag will create a `tests` directory with example tests, a `TestCase.php` file and a `Pest.php` file. It will also create a `phpunit.xml` file with the necessary configurations for Pest, this saves us from having to create these files manually.
+
+In the `Pest.php` file, we can uncomment the `uses` method and add the `TestCase` class to the `uses` method. This will allow us to use the `TestCase` class in our tests.
+
+```php title="tests/Pest.php"
+<?php
+
+...
+
+uses(JohnDoe\BlogPackage\Tests\TestCase::class)->in('Feature');
+uses(JohnDoe\BlogPackage\Tests\TestCase::class)->in('Unit');
+
+...
 ```
 
 **Note:** you might need to install a specific version if you're developing a package for an older version of Laravel. Also to install `orchestra/testbench`, please refer to [Orchestra Testbench](https://laravelpackage.com/02-development-environment/#orchestra-testbench) set up on the [Development Environment](https://laravelpackage.com/02-development-environment) page.
@@ -154,6 +181,7 @@ class User extends BaseUser
     protected $table = 'users';
 }
 ```
+
 After defining this custom `User` model within your package, you should execute the migrate command from the `Orchestra` package to create the `users` table in your test database:
 
 ```php
@@ -162,4 +190,5 @@ After defining this custom `User` model within your package, you should execute 
 $this->loadLaravelMigrations(['--database' => 'testbench']);
 $this->artisan('migrate', ['--database' => 'testbench'])->run();
 ```
+
 Finally, you can use the package's `User::class` in your tests within the `$this->actingAs()` helper and send a request by an authenticated user.
