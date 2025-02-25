@@ -38,7 +38,3 @@ extra:
   analytics:
     provider: google
     property: G-3CBTTWSFJ0
-plugins:
-  - social:
-      cards_layout_options:
-        logo: assets/logo.png
