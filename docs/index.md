@@ -6,9 +6,6 @@ image: "https://www.laravelpackage.com/assets/pages/laravelpackage.jpeg"
 date: 2019-09-17
 ---
 
-## Laravel 11 is here 🚀
-[Learn how to support laravel 11](/supporting-new-laravel-versions/laravel-11/){ .md-button }
-
 # Introduction to Package Development
 
 In my experience, learning to develop a package for Laravel can be quite challenging, which is why I previously wrote [a blog series about that](https://johnbraun.blog/posts/creating-a-laravel-package-1).
