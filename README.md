@@ -8,17 +8,43 @@ All provided examples are available as an accompanying example package named "Bl
 
 Contributions are highly welcomed.
 
-The static site is generated with the MKDocs Python package. 
-Therefore having Python 3.7+ installed locally is required to contribue.
+The documentation site is generated using **MkDocs**, so you’ll need either a local Python setup or Docker to get started.
 
-To start contributing, follow these steps:
+### Option 1 - Local Python setup
+To start contributing with a local Python setup, follow these steps:
 
-1. Fork this repository and `git clone` the repository
-1. Create a new virtual environment using `python3 -m venv venv`
-1. Activate the virtual environment: `source venv/bin/activate`
-1. Install the requirements: `pip install -r requirements.txt`
-1. Edit the documentation and view the output using `mkdocs serve`
-1. When satisfied, commit your changes and submit the PR to the master branch
+1. Fork this repository and clone it locally
+1. Create a new virtual environment:
+    ```bash
+    python3 -m venv venv
+    ```
+1. Activate the virtual environment:
+    ```bash
+    source venv/bin/activate
+    ```
+1. Install the requirements:
+    ```bash
+    pip install -r requirements.txt
+    ```
+1. Start the local development server:
+    ```bash
+    mkdocs serve
+    ```
+1. Open http://localhost:8000 in your browser to view the documentation site.
+
+### Option 2 - Docker
+If you prefer not to install Python and MkDocs locally, you can contribute using Docker:
+
+1. Fork this repository and clone it locally
+1. Ensure Docker is installed and running.
+1. From the project root, run:
+    ```bash
+    docker run --rm -it -p 8000:8000 -v ${PWD}:/docs squidfunk/mkdocs-material
+    ```
+1. Open http://localhost:8000 in your browser to view the documentation site.
+
+
+When satisfied, commit your changes and submit the PR to the master branch
 
 ## Credits
 
