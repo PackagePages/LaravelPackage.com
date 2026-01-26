@@ -152,55 +152,23 @@ function a_newly_created_posts_title_will_be_changed()
 }
 ```
 
-Now that we have a passing test for emitting the event, and we know that our listener shows the right behavior handling the event, let's couple the two together and create a custom Event Service Provider.
+Now that we have a passing test for emitting the event, and we know that our listener shows the right behavior handling the event, let's couple the two together and register our listener.
 
-## Creating an Event Service Provider
+## Registering the Listener in the Service Provider
 
-Like in Laravel, our package can have multiple service providers as long as we load them in our application service provider (in the next section).
-
-First, create a new folder `Providers` in the `src/` directory. Add a file called `EventServiceProvider.php` and register our Event and Listener:
-
-```php title="src/Providers/EventServiceProvider.php"
-<?php
-
-namespace JohnDoe\BlogPackage\Providers;
-
-use Illuminate\Foundation\Support\Providers\EventServiceProvider as ServiceProvider;
-use JohnDoe\BlogPackage\Events\PostWasCreated;
-use JohnDoe\BlogPackage\Listeners\UpdatePostTitle;
-
-class EventServiceProvider extends ServiceProvider
-{
-    protected $listen = [
-        PostWasCreated::class => [
-            UpdatePostTitle::class,
-        ]
-    ];
-
-    /**
-     * Register any events for your application.
-     *
-     * @return void
-     */
-    public function boot()
-    {
-        parent::boot();
-    }
-}
-```
-
-## Registering the Event Service Provider
-
-In our main `BlogPackageServiceProvider` we need to register our Event Service Provider in the `register()` method, as follows (don't forget to import it):
+To let Laravel know which listeners should handle a certain event, we need to register the listener in the `boot()` method of your package's service provider:
 
 ```php title="BlogPackageServiceProvider.php"
 <?php
+use Illuminate\Support\Facades\Event;
+use JohnDoe\BlogPackage\Events\PostWasCreated;
+use JohnDoe\BlogPackage\Listeners\UpdatePostTitle;
 
-use JohnDoe\BlogPackage\Providers\EventServiceProvider;
-
-public function register()
+public function boot()
 {
-  $this->app->register(EventServiceProvider::class);
+  // other things ...
+
+    Event::listen(PostWasCreated::class, UpdatePostTitle::class);
 }
 ```
 
